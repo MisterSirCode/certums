@@ -56,8 +56,8 @@ For data ranges, paste any value into wolframalpha to see its whole format.
 Certums Data Ranges:
 | Bit Depth | Min Signed             | Max Signed            | Min Unsigned | Max Unsigned           |
 | ---       | ---                    | ---                   | ---          | ---                    |
-| 8 Bits    | -3 - 2<sup>-5</sup>    | 3 + 2<sup>-5</sup>    | 0            | 7 + 2<sup>-5</sup>     |
-| 16 Bits   | -7 - 2<sup>-12</sup>   | 7 + 2<sup>-12</sup>   | 0            | 15 + 2<sup>-12</sup>   |
-| 32 Bits   | -15 - 2<sup>-27</sup>  | 15 + 2<sup>-27</sup>  | 0            | 31 + 2<sup>-27</sup>   |
-| 64 Bits   | -31 - 2<sup>-58</sup>  | 31 + 2<sup>-58</sup>  | 0            | 63 + 2<sup>-58</sup>   |
-| 128 Bits  | -63 - 2<sup>-121</sup> | 63 + 2<sup>-121</sup> | 0            | 127 + 2<sup>-121</sup> |
+| 8 Bits    | -4 + 2<sup>-5</sup>    | 4 - 2<sup>-5</sup>    | 0            | 8 - 2<sup>-5</sup>     |
+| 16 Bits   | -8 + 2<sup>-12</sup>   | 8 - 2<sup>-12</sup>   | 0            | 16 - 2<sup>-12</sup>   |
+| 32 Bits   | -16 + 2<sup>-27</sup>  | 16 - 2<sup>-27</sup>  | 0            | 32 - 2<sup>-27</sup>   |
+| 64 Bits   | -32 + 2<sup>-58</sup>  | 32 - 2<sup>-58</sup>  | 0            | 64 - 2<sup>-58</sup>   |
+| 128 Bits  | -64 + 2<sup>-121</sup> | 64 - 2<sup>-121</sup> | 0            | 128 - 2<sup>-121</sup> |
