@@ -52,10 +52,10 @@ Ex:
 * Unsigned Acute: `10101011` = 0.66796875
 
 Certums Data Ranges:
-| Bit Depth | Min Signed      | Max Signed     | Min Unsigned | Max Unsigned    |
-| ---       | ---             | ---            | ---          | ---             |
-| 8 Bits    | -3.96875        | 3.96875        | 0            | 7.984375        |
-| 16 Bits   | -7.999755859375 | 7+2<sup>-12</sup> | 0            | 15+2<sup>-12</sup> |
-| 32 Bits   | -15 |  | 0            |  |
-| 64 Bits   | -31 |  | 0            |  |
-| 128 Bits  | -63 |  | 0            |  |
+| Bit Depth | Min Signed           | Max Signed          | Min Unsigned | Max Unsigned         |
+| ---       | ---                  | ---                 | ---          | ---                  |
+| 8 Bits    | -3 - 2<sup>-5</sup>  | 3 + 2<sup>-5</sup>  | 0            | 7 + 2<sup>-5</sup>   |
+| 16 Bits   | -7 - 2<sup>-12</sup> | 7 + 2<sup>-12</sup> | 0            | 15 + 2<sup>-12</sup> |
+| 32 Bits   | -15 |  | 0           |  |
+| 64 Bits   | -31 |  | 0           |  |
+| 128 Bits  | -63 |  | 0           |  |
