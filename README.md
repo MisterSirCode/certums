@@ -68,7 +68,7 @@ Quarta Data Ranges:
 | 8 Bits    | -2 + 2<sup>-6</sup>      | 2 - 2<sup>-6</sup>      | 0            | 4 - 2<sup>-6</sup>      |
 | 16 Bits   | -8 + 2<sup>-12</sup>     | 8 - 2<sup>-12</sup>     | 0            | 16 - 2<sup>-12</sup>    |
 | 32 Bits   | -128 + 2<sup>-24</sup>   | 128 - 2<sup>-24</sup>   | 0            | 256 - 2<sup>-24</sup>   |
-| 64 Bits   | -32768 + 2<sup>-48</sup> | 32768 - 2<sup>-48</sup> | 0            | 65536 - 2<sup>-48</sup> |
+| 64 Bits   | -2<sup>15</sup> + 2<sup>-48</sup> | 2<sup>15</sup> - 2<sup>-48</sup> | 0 | 2<sup>16</sup> - 2<sup>-48</sup> |
 | 128 Bits  | -2<sup>31</sup> + 2<sup>-96</sup> | 2<sup>31</sup> - 2<sup>-96</sup> | 0 | 2<sup>32</sup> - 2<sup>-96</sup> |
 
 Dimid Data Ranges:
@@ -76,7 +76,7 @@ Dimid Data Ranges:
 | ---       | ---                      | ---                     | ---          | ---                     |
 | 8 Bits    | -8 + 2<sup>-4</sup>      | 8 - 2<sup>-4</sup>      | 0            | 16 - 2<sup>-4</sup>     |
 | 16 Bits   | -128 + 2<sup>-8</sup>    | 128 - 2<sup>-8</sup>    | 0            | 256 - 2<sup>-8</sup>    |
-| 32 Bits   | -32768 + 2<sup>-16</sup> | 32768 - 2<sup>-16</sup> | 0            | 65536 - 2<sup>-16</sup> |
+| 32 Bits   | -2<sup>15</sup> + 2<sup>-16</sup> | 2<sup>15</sup> - 2<sup>-16</sup> | 0 | 2<sup>16</sup> - 2<sup>-16</sup> |
 | 64 Bits   | -2<sup>31</sup> + 2<sup>-32</sup> | 2<sup>31</sup> - 2<sup>-32</sup> | 0 | 2<sup>32</sup> - 2<sup>-32</sup> |
 | 128 Bits  | -2<sup>63</sup> + 2<sup>-64</sup> | 2<sup>63</sup> - 2<sup>-64</sup> | 0 | 2<sup>64</sup> - 2<sup>-64</sup> |
 
