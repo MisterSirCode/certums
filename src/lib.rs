@@ -3,8 +3,8 @@
 pub mod utils;
 pub mod extra;
 pub mod certum;
-pub mod dimid;
-pub mod quarta;
-pub mod acute;
+// pub mod dimid;
+// pub mod quarta;
+// pub mod acute;
 // Expose c8-c128 to top-level crate
 pub use certum::certum8::c8;

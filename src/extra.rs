@@ -9,6 +9,11 @@
 // #[cfg(test)]
 // use super::posit64::p64;
 
+use core::f32;
+
+#[cfg(test)]
+use super::c8;
+
 // #[test]
 // /// Run test cases of every major variation of every posit conversion type
 // /// Default ES values are acquired from `log(bits)/log(2) - 2`, which is
@@ -53,3 +58,7 @@
 // pub fn algebra_tests() {
 //     println!()
 // }
+
+#[test]
+pub fn test() {
+}

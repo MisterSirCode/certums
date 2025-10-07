@@ -1,4 +1,4 @@
-
+use super::super::utils;
 
 /// Define a generic 8-bit Signed Certum
 #[derive(Copy, Clone, Debug)]
@@ -10,33 +10,42 @@ pub struct c8 {
     pub bits: u8
 }
 
-impl From<c8> for f32 {
-    fn from(value: c8) -> Self {
-        c8::as_float(&value) as f32
-    }
-}
+// impl From<c8> for f32 {
+//     fn from(value: c8) -> Self {
+//         c8::as_float(&value) as f32
+//     }
+// }
 
-impl From<&c8> for f32 {
-    fn from(value: &c8) -> Self {
-        f32::from(*value)
-    }
-}
+// impl From<&c8> for f32 {
+//     fn from(value: &c8) -> Self {
+//         f32::from(*value)
+//     }
+// }
 
-impl From<c8> for f64 {
-    fn from(value: c8) -> Self {
-        c8::as_float(&value)
-    }
-}
+// impl From<c8> for f64 {
+//     fn from(value: c8) -> Self {
+//         c8::as_float(&value)
+//     }
+// }
 
-impl From<&c8> for f64 {
-    fn from(value: &c8) -> Self {
-        f64::from(*value)
-    }
-}
+// impl From<&c8> for f64 {
+//     fn from(value: &c8) -> Self {
+//         f64::from(*value)
+//     }
+// }
 
 impl From<u8> for c8 {
     fn from(bits: u8) -> Self {
         c8 { bits }
+    }
+}
+
+impl From<f32> for c8 {
+    fn from(val: f32) -> Self {
+        let (int, frc) = utils::f32_split(val);
+        println!("{:032b} {:032b}", int, frc);
+        println!("{:08b}", ((int as u8) << 6) | (((frc >> 26) as u8))); // int LSB is moved to bit 7, frc MSB is moved to bit 6
+        c8 { bits: (((int as u8) << 6) | ((frc as u8))) & 0b01111111 } // clamp off for sign
     }
 }
 
@@ -96,16 +105,6 @@ impl c8 {
         [reg, es, exp, frc]
     }
 
-    /// Get the Components of the current Posit with a supplied es
-    pub fn components(&self) -> [u8;4] {
-        c8::int_components(self.bits, c8::DES)
-    }
-
-    /// Get the Components of the current Posit with a supplied es
-    pub fn components_es(&self, es: u8) -> [u8;4] {
-        c8::int_components(self.bits, es)
-    }
-
     /// Internal To-Float Function
     fn int_as_float(bits: u8, es: u8) -> f64 {
         let comp = c8::int_components(bits, es);
@@ -120,23 +119,5 @@ impl c8 {
         }
         let frc = 1f64 + (comp[3] as f64) / (f64::powf(2f64, (8 - comp[0] - 2 - comp[1]) as f64));
         reg * exp * frc
-    }
-
-    /// Get the Components of the current Posit with a supplied es
-    pub fn as_float(&self) -> f64 {
-        if self.sign() == -1 {
-            -c8::int_as_float(c8::twos_comp(self.bits), c8::DES)
-        } else {
-            c8::int_as_float(self.bits, c8::DES)
-        }
-    }
-
-    /// Get the Components of the current Posit with a supplied es
-    pub fn as_float_es(&self, es: u8) -> f64 {
-        if self.sign() == -1 {
-            -c8::int_as_float(c8::twos_comp(self.bits), es)
-        } else {
-            c8::int_as_float(self.bits, es)
-        }
     }
 }

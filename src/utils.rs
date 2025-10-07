@@ -30,14 +30,16 @@ pub fn integer_decode_f64(f: f64) -> (u64, i16, i8) {
 
 // Thanks to @kpreid on Rust Discord for these tidbits:
 
-fn f32_split(float: f64) -> (u64, u64) {
+/// Split a Float32 into its Integer and Fractional components as binary values
+pub fn f32_split(float: f32) -> (u32, u32) {
     assert!(float >= 0.0);
-    let integer_part = float.trunc() as u64;
-    let fractional_part = ((float - (integer_part as f64)) * 2f64.powi(64)) as u64;
+    let integer_part = float.trunc() as u32;
+    let fractional_part = ((float - (integer_part as f32)) * 2f32.powi(32)) as u32;
     (integer_part, fractional_part)
 }
 
-fn f64_split(float: f64) -> (u64, u64) {
+/// Split a Float64 into its Integer and Fractional Components as binary values
+pub fn f64_split(float: f64) -> (u64, u64) {
     assert!(float >= 0.0);
     let integer_part = float.trunc() as u64;
     let fractional_part = ((float - (integer_part as f64)) * 2f64.powi(64)) as u64;
