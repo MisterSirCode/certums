@@ -23,22 +23,26 @@ Quartas are fixed-points where a fourth of the bits are whole numbers, the rest 
 Dimids are fixed-points with half whole number bits, half fractional bits.
 Acutes are fixed-points that lack whole number bits, instead representing a 0-1 fraction with the highest precision possible.
 
-Certums and Acutes are quite simple and defined by simple structures:
+Certums and Acutes are quite simple and defined by simple structures, `n` representing bit count:
 
 Unsigned Certum:
-* Given `n` bits of data:
 * `log_2(n)` whole bits, `n - log_2(n) + 1` fractional bits.
-
 Signed Certums:
-* Given `n` bits of data:
-* `1` sign bit, `log_2(n) - 1` whole bits, `n - log_2(n)` fractional bits.
+* `1` sign bit, `log_2(n) - 1` whole bits, `n - log_2(n) + 1` fractional bits.
+
+Unsigned Quarta:
+* `n / 4` whole bits, `n - n / 4` fractional bits.
+Signed Quarta:
+* `1` sign bit, `n / 4 - 1` whole bits, `n - n / 4` fractional bits.
+
+Unsigned Dimid:
+* `n / 2` whole bits, `n - n / 2` fractional bits.
+Signed Dimid:
+* `1` sign bit, `n / 2 - 1` whole bits, `n - n / 2` fractional bits.
 
 Unsigned Acutes:
-* Given `n` bits of data:
 * `n` fractional bits.
-
 Signed Acutes:
-* Given `n` bits of data:
 * `1` sign bit, `n - 1` fractional bits.
 
 Ex: 
@@ -56,35 +60,35 @@ For data ranges, type any value into wolframalpha to see its full decimal format
 Certum Data Ranges:
 | Bit Depth | Min Signed             | Max Signed            | Min Unsigned | Max Unsigned           |
 | ---       | ---                    | ---                   | ---          | ---                    |
-| 8 Bits    | -4 + 2<sup>-5</sup>    | 4 - 2<sup>-5</sup>    | 0            | 8 - 2<sup>-5</sup>     |
-| 16 Bits   | -8 + 2<sup>-12</sup>   | 8 - 2<sup>-12</sup>   | 0            | 16 - 2<sup>-12</sup>   |
-| 32 Bits   | -16 + 2<sup>-27</sup>  | 16 - 2<sup>-27</sup>  | 0            | 32 - 2<sup>-27</sup>   |
-| 64 Bits   | -32 + 2<sup>-58</sup>  | 32 - 2<sup>-58</sup>  | 0            | 64 - 2<sup>-58</sup>   |
-| 128 Bits  | -64 + 2<sup>-121</sup> | 64 - 2<sup>-121</sup> | 0            | 128 - 2<sup>-121</sup> |
+| 8 Bits    | -2 + 2<sup>-6</sup>    | 2 - 2<sup>-6</sup>    | 0            | 4 - 2<sup>-6</sup>     |
+| 16 Bits   | -4 + 2<sup>-13</sup>   | 4 - 2<sup>-13</sup>   | 0            | 8 - 2<sup>-13</sup>    |
+| 32 Bits   | -8 + 2<sup>-28</sup>   | 8 - 2<sup>-28</sup>   | 0            | 16 - 2<sup>-28</sup>   |
+| 64 Bits   | -16 + 2<sup>-59</sup>  | 16 - 2<sup>-59</sup>  | 0            | 32 - 2<sup>-59</sup>   |
+| 128 Bits  | -32 + 2<sup>-122</sup> | 32 - 2<sup>-122</sup> | 0            | 64 - 2<sup>-122</sup>  |
 
 Quarta Data Ranges:
-| Bit Depth | Min Signed               | Max Signed              | Min Unsigned | Max Unsigned            |
-| ---       | ---                      | ---                     | ---          | ---                     |
-| 8 Bits    | -2 + 2<sup>-6</sup>      | 2 - 2<sup>-6</sup>      | 0            | 4 - 2<sup>-6</sup>      |
-| 16 Bits   | -8 + 2<sup>-12</sup>     | 8 - 2<sup>-12</sup>     | 0            | 16 - 2<sup>-12</sup>    |
-| 32 Bits   | -128 + 2<sup>-24</sup>   | 128 - 2<sup>-24</sup>   | 0            | 256 - 2<sup>-24</sup>   |
+| Bit Depth | Min Signed             | Max Signed            | Min Unsigned | Max Unsigned          |
+| ---       | ---                    | ---                   | ---          | ---                   |
+| 8 Bits    | -2 + 2<sup>-6</sup>    | 2 - 2<sup>-6</sup>    | 0            | 4 - 2<sup>-6</sup>    |
+| 16 Bits   | -8 + 2<sup>-12</sup>   | 8 - 2<sup>-12</sup>   | 0            | 16 - 2<sup>-12</sup>  |
+| 32 Bits   | -128 + 2<sup>-24</sup> | 128 - 2<sup>-24</sup> | 0            | 256 - 2<sup>-24</sup> |
 | 64 Bits   | -2<sup>15</sup> + 2<sup>-48</sup> | 2<sup>15</sup> - 2<sup>-48</sup> | 0 | 2<sup>16</sup> - 2<sup>-48</sup> |
 | 128 Bits  | -2<sup>31</sup> + 2<sup>-96</sup> | 2<sup>31</sup> - 2<sup>-96</sup> | 0 | 2<sup>32</sup> - 2<sup>-96</sup> |
 
 Dimid Data Ranges:
-| Bit Depth | Min Signed               | Max Signed              | Min Unsigned | Max Unsigned            |
-| ---       | ---                      | ---                     | ---          | ---                     |
-| 8 Bits    | -8 + 2<sup>-4</sup>      | 8 - 2<sup>-4</sup>      | 0            | 16 - 2<sup>-4</sup>     |
-| 16 Bits   | -128 + 2<sup>-8</sup>    | 128 - 2<sup>-8</sup>    | 0            | 256 - 2<sup>-8</sup>    |
+| Bit Depth | Min Signed            | Max Signed           | Min Unsigned | Max Unsigned         |
+| ---       | ---                   | ---                  | ---          | ---                  |
+| 8 Bits    | -8 + 2<sup>-4</sup>   | 8 - 2<sup>-4</sup>   | 0            | 16 - 2<sup>-4</sup>  |
+| 16 Bits   | -128 + 2<sup>-8</sup> | 128 - 2<sup>-8</sup> | 0            | 256 - 2<sup>-8</sup> |
 | 32 Bits   | -2<sup>15</sup> + 2<sup>-16</sup> | 2<sup>15</sup> - 2<sup>-16</sup> | 0 | 2<sup>16</sup> - 2<sup>-16</sup> |
 | 64 Bits   | -2<sup>31</sup> + 2<sup>-32</sup> | 2<sup>31</sup> - 2<sup>-32</sup> | 0 | 2<sup>32</sup> - 2<sup>-32</sup> |
 | 128 Bits  | -2<sup>63</sup> + 2<sup>-64</sup> | 2<sup>63</sup> - 2<sup>-64</sup> | 0 | 2<sup>64</sup> - 2<sup>-64</sup> |
 
 Acute Data Ranges:
-| Bit Depth | Min Signed            | Max Signed           | Min Unsigned | Max Unsigned           |
-| ---       | ---                   | ---                  | ---          | ---                    |
-| 8 Bits    | -1 + 2<sup>-7</sup>   | 1 - 2<sup>-7</sup>   | 0            | 1 - 2<sup>-8</sup>     |
-| 16 Bits   | -1 + 2<sup>-15</sup>  | 1 - 2<sup>-15</sup>  | 0            | 1 - 2<sup>-16</sup>    |
-| 32 Bits   | -1 + 2<sup>-31</sup>  | 1 - 2<sup>-31</sup>  | 0            | 1 - 2<sup>-32</sup>    |
-| 64 Bits   | -1 + 2<sup>-63</sup>  | 1 - 2<sup>-63</sup>  | 0            | 1 - 2<sup>-64</sup>    |
-| 128 Bits  | -1 + 2<sup>-127</sup> | 1 - 2<sup>-127</sup> | 0            | 1 - 2<sup>-128</sup>   |
+| Bit Depth | Min Signed            | Max Signed           | Min Unsigned | Max Unsigned         |
+| ---       | ---                   | ---                  | ---          | ---                  |
+| 8 Bits    | -1 + 2<sup>-7</sup>   | 1 - 2<sup>-7</sup>   | 0            | 1 - 2<sup>-8</sup>   |
+| 16 Bits   | -1 + 2<sup>-15</sup>  | 1 - 2<sup>-15</sup>  | 0            | 1 - 2<sup>-16</sup>  |
+| 32 Bits   | -1 + 2<sup>-31</sup>  | 1 - 2<sup>-31</sup>  | 0            | 1 - 2<sup>-32</sup>  |
+| 64 Bits   | -1 + 2<sup>-63</sup>  | 1 - 2<sup>-63</sup>  | 0            | 1 - 2<sup>-64</sup>  |
+| 128 Bits  | -1 + 2<sup>-127</sup> | 1 - 2<sup>-127</sup> | 0            | 1 - 2<sup>-128</sup> |
