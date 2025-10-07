@@ -1,10 +1,10 @@
 # Certums
 
-Translated-
-Certum - Fixed
-Quarta - Quarter
-Dimidium - Half
-Acute - Sharp
+Translated:<br>
+Certum - Fixed<br>
+Quarta - Quarter<br>
+Dimidium - Half<br>
+Acute - Sharp<br>
 
 This is a simple numeric extension in rust that implements low-level fixed-sized fixed-point numbers
 as well as extensions and utilities for them in many different forms.
