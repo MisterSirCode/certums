@@ -63,22 +63,22 @@ Certum Data Ranges:
 | 128 Bits  | -64 + 2<sup>-121</sup> | 64 - 2<sup>-121</sup> | 0            | 128 - 2<sup>-121</sup> |
 
 Quarta Data Ranges:
-| Bit Depth | Min Signed               | Max Signed              | Min Unsigned | Max Unsigned         |
-| ---       | ---                      | ---                     | ---          | ---                  |
-| 8 Bits    | -2 + 2<sup>-6</sup>      | 2 - 2<sup>-6</sup>      | 0            | 4 - 2<sup>-6</sup>   |
-| 16 Bits   | -8 + 2<sup>-12</sup>     | 8 - 2<sup>-12</sup>     | 0            | 16 - 2<sup>-12</sup> |
-| 32 Bits   | -128 + 2<sup>-24</sup>   | 128 - 2<sup>-24</sup>   | 0            | 256 - 2<sup>-24</sup> |
+| Bit Depth | Min Signed               | Max Signed              | Min Unsigned | Max Unsigned            |
+| ---       | ---                      | ---                     | ---          | ---                     |
+| 8 Bits    | -2 + 2<sup>-6</sup>      | 2 - 2<sup>-6</sup>      | 0            | 4 - 2<sup>-6</sup>      |
+| 16 Bits   | -8 + 2<sup>-12</sup>     | 8 - 2<sup>-12</sup>     | 0            | 16 - 2<sup>-12</sup>    |
+| 32 Bits   | -128 + 2<sup>-24</sup>   | 128 - 2<sup>-24</sup>   | 0            | 256 - 2<sup>-24</sup>   |
 | 64 Bits   | -32768 + 2<sup>-48</sup> | 32768 - 2<sup>-48</sup> | 0            | 65536 - 2<sup>-48</sup> |
 | 128 Bits  | -2<sup>31</sup> + 2<sup>-96</sup> | 2<sup>31</sup> - 2<sup>-96</sup> | 0 | 2<sup>32</sup> - 2<sup>-96</sup> |
 
 Dimid Data Ranges:
-| Bit Depth | Min Signed             | Max Signed            | Min Unsigned | Max Unsigned           |
-| ---       | ---                    | ---                   | ---          | ---                    |
-| 8 Bits    | -4 + 2<sup>-6</sup>    | 4 - 2<sup>-5</sup>    | 0            | 8 - 2<sup>-5</sup>     |
-| 16 Bits   | -8 + 2<sup>-12</sup>   | 8 - 2<sup>-12</sup>   | 0            | 16 - 2<sup>-12</sup>   |
-| 32 Bits   | -16 + 2<sup>-24</sup>  | 16 - 2<sup>-27</sup>  | 0            | 32 - 2<sup>-27</sup>   |
-| 64 Bits   | -32 + 2<sup>-48</sup>  | 32 - 2<sup>-58</sup>  | 0            | 64 - 2<sup>-58</sup>   |
-| 128 Bits  | -64 + 2<sup>-96</sup> | 64 - 2<sup>-121</sup> | 0            | 128 - 2<sup>-121</sup> |
+| Bit Depth | Min Signed               | Max Signed              | Min Unsigned | Max Unsigned            |
+| ---       | ---                      | ---                     | ---          | ---                     |
+| 8 Bits    | -8 + 2<sup>-4</sup>      | 8 - 2<sup>-4</sup>      | 0            | 16 - 2<sup>-4</sup>     |
+| 16 Bits   | -128 + 2<sup>-8</sup>    | 128 - 2<sup>-8</sup>    | 0            | 256 - 2<sup>-8</sup>    |
+| 32 Bits   | -32768 + 2<sup>-16</sup> | 32768 - 2<sup>-16</sup> | 0            | 65536 - 2<sup>-16</sup> |
+| 64 Bits   | -2<sup>31</sup> + 2<sup>-32</sup> | 2<sup>31</sup> - 2<sup>-32</sup> | 0 | 2<sup>32</sup> - 2<sup>-32</sup> |
+| 128 Bits  | -2<sup>63</sup> + 2<sup>-64</sup> | 2<sup>63</sup> - 2<sup>-64</sup> | 0 | 2<sup>64</sup> - 2<sup>-64</sup> |
 
 Acute Data Ranges:
 | Bit Depth | Min Signed            | Max Signed           | Min Unsigned | Max Unsigned           |
