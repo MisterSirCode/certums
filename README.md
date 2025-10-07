@@ -51,11 +51,13 @@ Ex:
 * Signed -Acute: `11010101` = -0.6640625
 * Unsigned Acute: `10101011` = 0.66796875
 
+For data ranges, paste any value into wolframalpha to see its whole format.
+
 Certums Data Ranges:
-| Bit Depth | Min Signed           | Max Signed          | Min Unsigned | Max Unsigned         |
-| ---       | ---                  | ---                 | ---          | ---                  |
-| 8 Bits    | -3 - 2<sup>-5</sup>  | 3 + 2<sup>-5</sup>  | 0            | 7 + 2<sup>-5</sup>   |
-| 16 Bits   | -7 - 2<sup>-12</sup> | 7 + 2<sup>-12</sup> | 0            | 15 + 2<sup>-12</sup> |
-| 32 Bits   | -15 |  | 0           |  |
-| 64 Bits   | -31 |  | 0           |  |
-| 128 Bits  | -63 |  | 0           |  |
+| Bit Depth | Min Signed             | Max Signed            | Min Unsigned | Max Unsigned           |
+| ---       | ---                    | ---                   | ---          | ---                    |
+| 8 Bits    | -3 - 2<sup>-5</sup>    | 3 + 2<sup>-5</sup>    | 0            | 7 + 2<sup>-5</sup>     |
+| 16 Bits   | -7 - 2<sup>-12</sup>   | 7 + 2<sup>-12</sup>   | 0            | 15 + 2<sup>-12</sup>   |
+| 32 Bits   | -15 - 2<sup>-27</sup>  | 15 + 2<sup>-27</sup>  | 0            | 31 + 2<sup>-27</sup>   |
+| 64 Bits   | -31 - 2<sup>-58</sup>  | 31 + 2<sup>-58</sup>  | 0            | 63 + 2<sup>-58</sup>   |
+| 128 Bits  | -63 - 2<sup>-121</sup> | 63 + 2<sup>-121</sup> | 0            | 127 + 2<sup>-121</sup> |
