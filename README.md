@@ -1,15 +1,14 @@
 # Certums
 
-Translated:<br>
-Certum - Fixed<br>
-Quarta - Quarter<br>
-Dimidium - Half<br>
-Acute - Sharp<br>
-
 This is a simple numeric extension in rust that implements low-level fixed-sized fixed-point numbers
 as well as extensions and utilities for them in many different forms.
 
-The goal is to have a flexible and high-precision number system for tasks that rely largely on fractional components over supporting whole-number values
+Certums and their variants are fixed-point values with whole number and fractional components.
+Acutes are fractional numbers with no whole number components.
+
+The goal is to have a flexible and high-precision number system for tasks that rely largely on fractional components over supporting whole-number values.
+
+These values are easily (Though losslessly) convertable between eachother through simple bit-shifts, making them a convenient and easy-to-use format.
 
 Certums and their variants follow simple binary-algebraic rules.
 All four types share the same special cases:
@@ -17,11 +16,6 @@ All four types share the same special cases:
 * Infinity will inherit the sign
 * Any complete array of `0` bits represents 0
 * Any complete array of `0` bits with a negative Sign Bit represents `NaN`
-
-Certums are fixed-points with small whole number components. 
-Quartas are fixed-points where a fourth of the bits are whole numbers, the rest are fractional.
-Dimids are fixed-points with half whole number bits, half fractional bits.
-Acutes are fixed-points that lack whole number bits, instead representing a 0-1 fraction with the highest precision possible.
 
 Certums and Acutes are quite simple and defined by simple structures, `n` representing bit count:
 
@@ -92,3 +86,9 @@ Acute Data Ranges:
 | 32 Bits   | -1 + 2<sup>-31</sup>  | 1 - 2<sup>-31</sup>  | 0            | 1 - 2<sup>-32</sup>  |
 | 64 Bits   | -1 + 2<sup>-63</sup>  | 1 - 2<sup>-63</sup>  | 0            | 1 - 2<sup>-64</sup>  |
 | 128 Bits  | -1 + 2<sup>-127</sup> | 1 - 2<sup>-127</sup> | 0            | 1 - 2<sup>-128</sup> |
+
+Translated:<br>
+Certum - Fixed<br>
+Quarta - Quarter<br>
+Dimidium - Half<br>
+Acute - Sharp<br>

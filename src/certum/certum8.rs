@@ -47,11 +47,6 @@ impl From<&u8> for c8 {
 }
 
 impl c8 {
-    /// Default es value. Highest precision es available for this type
-    pub const DES: u8 = 1;
-    /// The Posit equivalent of Pi for this type
-    pub const PI: c8 = c8 { bits: 0b01011001 };
-
     /// Get the two's complement
     fn twos_comp(bits: u8) -> u8 {
         !(bits) + 1
@@ -64,7 +59,7 @@ impl c8 {
         else { 1 } // Positive
     }
 
-    /// Get the sign of the current Posit
+    /// Get the sign of the current Certum
     pub fn sign(&self) -> i8 {
         c8::int_sign(self.bits)
     }
