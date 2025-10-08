@@ -59,6 +59,8 @@ impl From<&u8> for uc8 {
 
 impl From<f32> for uc8 {
     /// Convert a 32-bit Float to an 8-bit Certum
+    /// 
+    /// Converting a float to an unsigned certum will truncate signs
     fn from(val: f32) -> Self {
         uc8::from(val as f64)
     }
@@ -66,11 +68,13 @@ impl From<f32> for uc8 {
 
 impl From<f64> for uc8 {
     /// Convert a 64-bit Float to an 8-bit Certum
+    /// 
+    /// Converting a float to an unsigned certum will truncate signs
     fn from(val: f64) -> Self {
         let (_sgn, int, frc) = f64_split(val);
         // Combine integer and fraction parts
         // 8 bits - 2 int bits = 6 bit shifts
-        // 8 bits - 6 bits = 2 bit shifts
+        // 8 bits - 6 frc bits = 2 bit shifts
         let bits = ((int as u8) << 6) | u64_to_u8_round(frc >> 2);
         uc8 { bits }
     }

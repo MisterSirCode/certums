@@ -1,6 +1,5 @@
 use super::super::utils;
 use utils::f64_split;
-use utils::u64_to_u8_round;
 
 /// Define a generic 8-bit Signed Certum
 #[derive(Copy, Clone, Debug)]
@@ -13,65 +12,69 @@ pub struct uc64 {
 }
 
 impl From<uc64> for f64 {
-    /// Convert an 8-bit Certum to a 64-bit Float
+    /// Convert an 64-bit Certum to a 64-bit Float
     fn from(value: uc64) -> Self {
         let (int, frc) = value.components();
-        let float_frc = (frc as f64) / 256f64; // MSB-Shifted fraction / 2^Bits
+        let float_frc = (frc as f64) / 18446744073709551616f64; // MSB-Shifted fraction / 2^Bits
         (int as f64) + float_frc // Add integer and fraction
     }
 }
 
 impl From<&uc64> for f64 {
-    /// Convert an 8-bit Certum to a 64-bit Float
+    /// Convert an 64-bit Certum to a 64-bit Float
     fn from(value: &uc64) -> Self {
         f64::from(*value)
     }
 }
 
 impl From<uc64> for f32 {
-    /// Convert an 8-bit Certum to a 32-bit Float
+    /// Convert an 64-bit Certum to a 32-bit Float
     fn from(value: uc64) -> Self {
         f64::from(value) as f32
     }
 }
 
 impl From<&uc64> for f32 {
-    /// Convert an 8-bit Certum to a 32-bit Float
+    /// Convert an 64-bit Certum to a 32-bit Float
     fn from(value: &uc64) -> Self {
         f64::from(*value) as f32
     }
 }
 
 
-impl From<u8> for uc64 {
-    /// Convert an 8-bit UInt to an 8-bit Certum
-    fn from(bits: u8) -> Self {
+impl From<u64> for uc64 {
+    /// Convert an 64-bit UInt to an 64-bit Certum
+    fn from(bits: u64) -> Self {
         uc64 { bits }
     }
 }
 
-impl From<&u8> for uc64 {
-    /// Convert an 8-bit UInt to an 8-bit Certum
-    fn from(value: &u8) -> Self {
+impl From<&u64> for uc64 {
+    /// Convert an 64-bit UInt to an 64-bit Certum
+    fn from(value: &u64) -> Self {
         uc64::from(*value)
     }
 }
 
 impl From<f32> for uc64 {
-    /// Convert a 32-bit Float to an 8-bit Certum
+    /// Convert a 32-bit Float to an 64-bit Certum
+    /// 
+    /// Converting a float to an unsigned certum will truncate signs
     fn from(val: f32) -> Self {
         uc64::from(val as f64)
     }
 }
 
 impl From<f64> for uc64 {
-    /// Convert a 64-bit Float to an 8-bit Certum
+    /// Convert a 64-bit Float to an 64-bit Certum
+    /// 
+    /// Converting a float to an unsigned certum will truncate signs
     fn from(val: f64) -> Self {
         let (_sgn, int, frc) = f64_split(val);
         // Combine integer and fraction parts
-        // 8 bits - 2 int bits = 6 bit shifts
-        // 8 bits - 6 bits = 2 bit shifts
-        let bits = ((int as u8) << 6) | u64_to_u8_round(frc >> 2);
+        // 64 bits - 5 int bits = 59 bit shifts
+        // 64 bits - 59 frc bits = 5 bit shifts
+        let bits = ((int as u64) << 59) | (frc >> 5);
         uc64 { bits }
     }
 }
@@ -80,13 +83,13 @@ impl uc64 {
     /// Return the binary components of the current certum
     /// 
     /// (Integer Component, Fraction Component)
-    pub fn components(&self) -> (u8, u8) {
+    pub fn components(&self) -> (u64, u64) {
         // Order ints smallest component as LSB
-        // 8 bits - 2 int bits = 6 bit shifts
-        let int = self.bits >> 6;
+        // 64 bits - 5 int bits = 6 bit shifts
+        let int = self.bits >> 59;
         // Order fraction's largest component as MSB
-        // 8 bits - 6 frc bits = 2 bit shifts
-        let frc = self.bits << 2;
+        // 64 bits - 59 frc bits = 5 bit shifts
+        let frc = self.bits << 5;
         (int, frc)
     }
 }
