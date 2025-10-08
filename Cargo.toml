@@ -1,7 +1,7 @@
 [package]
 name = "certums"
 version = "0.0.1"
-description = "An indev lightweight converter and numeric type extension for Posits"
+description = "Yet another fixed-point type system"
 license-file = "LICENSE"
-repository = "https://github.com/MisterSirCode/posits"
+repository = "https://github.com/MisterSirCode/certums"
 edition = "2024"
