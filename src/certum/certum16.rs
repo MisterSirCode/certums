@@ -59,17 +59,7 @@ impl From<&u16> for c16 {
 impl From<f32> for c16 {
     /// Convert a 32-bit Float to a 16-bit Certum
     fn from(val: f32) -> Self {
-        let (sgn, int, frc) = f32_split(val);
-        // Adjust sign to be on the opposite side of the bits
-        // 16 bits - 1 sign bit = 15 bit shifts
-        let sign = (sgn as u16) << 15;
-        // Combine integer and fraction parts
-        // 16 bits - 1 sign bit - 2 int bits = 13 bit shifts
-        // 1 sign bit + 2 int bits = 3 bit shifts
-        let combined = ((int as u16) << 13) | u32_to_u16_round(frc >> 3);
-        // Clamp off for sign and add sign bit
-        let bits = sign | (combined & 0x7FFF);
-        c16 { bits }
+        c16::from(val as f64)
     }
 }
 
@@ -85,6 +75,7 @@ impl From<f64> for c16 {
         // 1 sign bit + 2 int bits = 3 bit shifts
         let combined = ((int as u16) << 13) | u64_to_u16_round(frc >> 3);
         // Clamp off for sign and add sign bit
+        // 0x7FFF = 2^(16 bits - 1) - 1
         let bits = sign | (combined & 0x7FFF);
         c16 { bits }
     }

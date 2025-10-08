@@ -1,5 +1,4 @@
 use super::super::utils;
-use utils::f32_split;
 use utils::f64_split;
 use utils::u64_to_u32_round;
 
@@ -67,14 +66,15 @@ impl From<f64> for c32 {
     fn from(val: f64) -> Self {
         let (sgn, int, frc) = f64_split(val);
         // Adjust sign to be on the opposite side of the bits
-        // 16 bits - 1 sign bit = 15 bit shifts
-        let sign = (sgn as u32) << 15;
+        // 32 bits - 1 sign bit = 31 bit shifts
+        let sign = (sgn as u32) << 31;
         // Combine integer and fraction parts
-        // 16 bits - 1 sign bit - 2 int bits = 13 bit shifts
-        // 1 sign bit + 2 int bits = 3 bit shifts
-        let combined = ((int as u32) << 13) | u64_to_u32_round(frc >> 3);
+        // 32 bits - 1 sign bit - 3 int bits = 28 bit shifts
+        // 1 sign bit + 3 int bits = 4 bit shifts
+        let combined = ((int as u32) << 28) | u64_to_u32_round(frc >> 4);
         // Clamp off for sign and add sign bit
-        let bits = sign | (combined & 0x7FFF);
+        // 0x7FFFFFFF = 2^(32 bits - 1) - 1
+        let bits = sign | (combined & 0x7FFFFFFF);
         c32 { bits }
     }
 }
@@ -84,7 +84,7 @@ impl c32 {
     /// 
     /// 1 = negative, 0 = zero or positive
     pub fn bin_sign(&self) -> u32 {
-        if self.bits & 0x8000 == 0x8000 { 1 }
+        if self.bits & 0x80000000 == 0x80000000 { 1 }
         else { 0 }
     }
 
@@ -93,7 +93,7 @@ impl c32 {
     /// 1 = positive, 0 = zero, -1 = negative
     pub fn sign(&self) -> i8 {
         if self.bits == 0 { 0 } // 0 Case
-        else if self.bits & 0x8000 == 0x8000 { -1 } // Match MSB - Negative
+        else if self.bits & 0x80000000 == 0x80000000 { -1 } // Match MSB - Negative
         else { 1 } // Positive
     }
 
@@ -102,10 +102,10 @@ impl c32 {
     /// (Scalar Sign, Integer Component, Fraction Component)
     pub fn components(&self) -> (i8, u32, u32) {
         let sgn = self.sign(); // Get a binary sign of the certum
-        // 16 bits - 2 int bits = 14 bit shifts
-        let int = (self.bits << 1) >> 14; // Cut off sign bit and order integer's smallest component as LSB
-        // 1 sign bit + 2 int bits = 3 bit shifts
-        let frc = self.bits << 3; // Order fraction's largest component as MSB
+        // 32 bits - 3 int bits = 29 bit shifts
+        let int = (self.bits << 1) >> 29; // Cut off sign bit and order integer's smallest component as LSB
+        // 1 sign bit + 3 int bits = 4 bit shifts
+        let frc = self.bits << 4; // Order fraction's largest component as MSB
         (sgn, int, frc)
     }
 }

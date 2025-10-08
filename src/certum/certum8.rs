@@ -1,6 +1,6 @@
 use super::super::utils;
-use utils::f32_split;
-use utils::u32_to_u8_round;
+use utils::f64_split;
+use utils::u64_to_u8_round;
 
 /// Define a generic 8-bit Signed Certum
 #[derive(Copy, Clone, Debug)]
@@ -54,27 +54,28 @@ impl From<&u8> for c8 {
     }
 }
 
-// Convert Floats to Certums
-
 impl From<f32> for c8 {
+    /// Convert a 32-bit Float to an 8-bit Certum
     fn from(val: f32) -> Self {
-        let (sgn, int, frc) = f32_split(val);
+        c8::from(val as f64)
+    }
+}
+
+impl From<f64> for c8 {
+    /// Convert a 64-bit Float to an 8-bit Certum
+    fn from(val: f64) -> Self {
+        let (sgn, int, frc) = f64_split(val);
         // Adjust sign to be on the opposite side of the bits
         // 8 bits - 1 sign bit = 7 bit shifts
         let sign = sgn << 7;
         // Combine integer and fraction parts
         // 8 bits - 1 sign bit - 1 int bit = 6 bit shifts
         // 8 bits - 6 bits = 2 bit shifts
-        let combined = ((int as u8) << 6) | u32_to_u8_round(frc >> 2);
+        let combined = ((int as u8) << 6) | u64_to_u8_round(frc >> 2);
         // Clamp off for sign and add sign bit
+        // 0x7F = 2^(8 bits - 1) - 1
         let bits = sign | (combined & 0x7F);
         c8 { bits }
-    }
-}
-
-impl From<f64> for c8 {
-    fn from(val: f64) -> Self {
-        c8::from(val as f32) // f32 is beyond c8 precision, dont duplicate code
     }
 }
 
