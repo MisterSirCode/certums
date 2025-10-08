@@ -20,9 +20,9 @@ All four types share the same special cases:
 Certums and Acutes are quite simple and defined by simple structures, `n` representing bit count:
 
 Unsigned Certum:
-* `log_2(n)` whole bits, `n - log_2(n) + 1` fractional bits.
+* `log_2(n) - 1` whole bits, `n - log_2(n) + 1` fractional bits.
 Signed Certums:
-* `1` sign bit, `log_2(n) - 1` whole bits, `n - log_2(n) + 1` fractional bits.
+* `1` sign bit, `log_2(n) - 2` whole bits, `n - log_2(n) + 1` fractional bits.
 
 Unsigned Quarta:
 * `n / 4` whole bits, `n - n / 4` fractional bits.
@@ -52,13 +52,13 @@ Ex:
 For data ranges, type any value into wolframalpha to see its full decimal format.
 
 Certum Data Ranges:
-| Bit Depth | Min Signed             | Max Signed            | Min Unsigned | Max Unsigned           |
-| ---       | ---                    | ---                   | ---          | ---                    |
-| 8 Bits    | -2 + 2<sup>-6</sup>    | 2 - 2<sup>-6</sup>    | 0            | 4 - 2<sup>-6</sup>     |
-| 16 Bits   | -4 + 2<sup>-13</sup>   | 4 - 2<sup>-13</sup>   | 0            | 8 - 2<sup>-13</sup>    |
-| 32 Bits   | -8 + 2<sup>-28</sup>   | 8 - 2<sup>-28</sup>   | 0            | 16 - 2<sup>-28</sup>   |
-| 64 Bits   | -16 + 2<sup>-59</sup>  | 16 - 2<sup>-59</sup>  | 0            | 32 - 2<sup>-59</sup>   |
-| 128 Bits  | -32 + 2<sup>-122</sup> | 32 - 2<sup>-122</sup> | 0            | 64 - 2<sup>-122</sup>  |
+| Bit Depth | Min Signed             | Max Signed            | Min Unsigned | Max Unsigned           | Integer:Fraction Signed | Integer:Fraction Unsigned |
+| ---       | ---                    | ---                   | ---          | ---                    | --- | --- |
+| 8 Bits    | -2 + 2<sup>-6</sup>    | 2 - 2<sup>-6</sup>    | 0            | 4 - 2<sup>-6</sup>     | 1:6 ||
+| 16 Bits   | -4 + 2<sup>-13</sup>   | 4 - 2<sup>-13</sup>   | 0            | 8 - 2<sup>-13</sup>    | ||
+| 32 Bits   | -8 + 2<sup>-28</sup>   | 8 - 2<sup>-28</sup>   | 0            | 16 - 2<sup>-28</sup>   |||
+| 64 Bits   | -16 + 2<sup>-59</sup>  | 16 - 2<sup>-59</sup>  | 0            | 32 - 2<sup>-59</sup>   |||
+| 128 Bits  | -32 + 2<sup>-122</sup> | 32 - 2<sup>-122</sup> | 0            | 64 - 2<sup>-122</sup>  |||
 
 Quarta Data Ranges:
 | Bit Depth | Min Signed             | Max Signed            | Min Unsigned | Max Unsigned          |
