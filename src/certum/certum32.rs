@@ -16,7 +16,7 @@ impl From<c32> for f64 {
     /// Convert a 32-bit Certum to a 64-bit Float
     fn from(value: c32) -> Self {
         let (sgn, int, frc) = value.components();
-        let float_frc = (frc as f64) / 268435456f64; // MSB-Shifted fraction / 2^Bits
+        let float_frc = (frc as f64) / 4294967296f64; // MSB-Shifted fraction / 2^Bits
         ((int as f64) + float_frc) * sgn as f64 // Add integer and fraction, multiply sign
     }
 }
