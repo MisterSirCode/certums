@@ -10,3 +10,4 @@ pub mod certum;
 pub use certum::certum8::c8;
 pub use certum::certum16::c16;
 pub use certum::certum32::c32;
+pub use certum::certum64::c64;
