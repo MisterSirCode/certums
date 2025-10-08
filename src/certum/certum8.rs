@@ -12,9 +12,8 @@ pub struct c8 {
     pub bits: u8
 }
 
-// Convert Certums to Floats
-
 impl From<c8> for f64 {
+    /// Convert an 8-bit Certum to a 64-bit Float
     fn from(value: c8) -> Self {
         let (sgn, int, frc) = value.components();
         let float_frc = (frc as f64) / 256f64; // MSB-Shifted fraction / 2^Bits
@@ -23,32 +22,36 @@ impl From<c8> for f64 {
 }
 
 impl From<&c8> for f64 {
+    /// Convert an 8-bit Certum to a 64-bit Float
     fn from(value: &c8) -> Self {
         f64::from(*value)
     }
 }
 
 impl From<c8> for f32 {
+    /// Convert an 8-bit Certum to a 32-bit Float
     fn from(value: c8) -> Self {
         f64::from(value) as f32
     }
 }
 
 impl From<&c8> for f32 {
+    /// Convert an 8-bit Certum to a 32-bit Float
     fn from(value: &c8) -> Self {
         f64::from(*value) as f32
     }
 }
 
-// Create a Certum from a u8
 
 impl From<u8> for c8 {
+    /// Convert an 8-bit UInt to an 8-bit Certum
     fn from(bits: u8) -> Self {
         c8 { bits }
     }
 }
 
 impl From<&u8> for c8 {
+    /// Convert an 8-bit UInt to an 8-bit Certum
     fn from(value: &u8) -> Self {
         c8::from(*value)
     }

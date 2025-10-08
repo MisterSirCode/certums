@@ -1,7 +1,5 @@
 use super::super::utils;
-use utils::f32_split;
 use utils::f64_split;
-use utils::u32_to_u16_round;
 use utils::u64_to_u16_round;
 
 /// Define a generic 8-bit Signed Certum
@@ -14,9 +12,8 @@ pub struct c16 {
     pub bits: u16
 }
 
-// Convert Certums to Floats
-
 impl From<c16> for f64 {
+    /// Convert a 16-bit Certum to a 64-bit Float
     fn from(value: c16) -> Self {
         let (sgn, int, frc) = value.components();
         let float_frc = (frc as f64) / 65536f64; // MSB-Shifted fraction / 2^Bits
@@ -25,32 +22,35 @@ impl From<c16> for f64 {
 }
 
 impl From<&c16> for f64 {
+    /// Convert a 16-bit Certum to a 64-bit Float
     fn from(value: &c16) -> Self {
         f64::from(*value)
     }
 }
 
 impl From<c16> for f32 {
+    /// Convert a 16-bit Certum to a 32-bit Float
     fn from(value: c16) -> Self {
         f64::from(value) as f32
     }
 }
 
 impl From<&c16> for f32 {
+    /// Convert a 16-bit Certum to a 32-bit Float
     fn from(value: &c16) -> Self {
         f64::from(*value) as f32
     }
 }
 
-// Create a Certum from a u16
-
 impl From<u16> for c16 {
+    /// Convert a 16-bit UInt to a 16-bit Certum
     fn from(bits: u16) -> Self {
         c16 { bits }
     }
 }
 
 impl From<&u16> for c16 {
+    /// Convert a 16-bit UInt to a 16-bit Certum
     fn from(value: &u16) -> Self {
         c16::from(*value)
     }
