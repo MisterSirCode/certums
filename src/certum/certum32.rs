@@ -1,100 +1,89 @@
 use super::super::utils;
 use utils::f32_split;
 use utils::f64_split;
-use utils::u32_to_u16_round;
-use utils::u64_to_u16_round;
+use utils::u64_to_u32_round;
 
 /// Define a generic 8-bit Signed Certum
 #[derive(Copy, Clone, Debug)]
 #[expect(non_camel_case_types)]
-pub struct c16 {
+pub struct c32 {
     /// The raw bits of the certum
     /// 
-    /// 1 Sign bit, 2 Integer bits, 13 Fraction bits
-    pub bits: u16
+    /// 1 Sign bit, 3 Integer bits, 28 Fraction bits
+    pub bits: u32
 }
 
 // Convert Certums to Floats
 
-impl From<c16> for f64 {
-    fn from(value: c16) -> Self {
+impl From<c32> for f64 {
+    fn from(value: c32) -> Self {
         let (sgn, int, frc) = value.components();
-        let float_frc = (frc as f64) / 65536f64; // MSB-Shifted fraction / 2^Bits
+        let float_frc = (frc as f64) / 268435456f64; // MSB-Shifted fraction / 2^Bits
         ((int as f64) + float_frc) * sgn as f64 // Add integer and fraction, multiply sign
     }
 }
 
-impl From<&c16> for f64 {
-    fn from(value: &c16) -> Self {
+impl From<&c32> for f64 {
+    fn from(value: &c32) -> Self {
         f64::from(*value)
     }
 }
 
-impl From<c16> for f32 {
-    fn from(value: c16) -> Self {
+impl From<c32> for f32 {
+    fn from(value: c32) -> Self {
         f64::from(value) as f32
     }
 }
 
-impl From<&c16> for f32 {
-    fn from(value: &c16) -> Self {
+impl From<&c32> for f32 {
+    fn from(value: &c32) -> Self {
         f64::from(*value) as f32
     }
 }
 
-// Create a Certum from a u16
+// Create a Certum from a u32
 
-impl From<u16> for c16 {
-    fn from(bits: u16) -> Self {
-        c16 { bits }
+impl From<u32> for c32 {
+    fn from(bits: u32) -> Self {
+        c32 { bits }
     }
 }
 
-impl From<&u16> for c16 {
-    fn from(value: &u16) -> Self {
-        c16::from(*value)
+impl From<&u32> for c32 {
+    fn from(value: &u32) -> Self {
+        c32::from(*value)
     }
 }
 
-impl From<f32> for c16 {
+impl From<f32> for c32 {
     /// Convert a 32-bit Float to a 16-bit Certum
     fn from(val: f32) -> Self {
-        let (sgn, int, frc) = f32_split(val);
-        // Adjust sign to be on the opposite side of the bits
-        // 16 bits - 1 sign bit = 15 bit shifts
-        let sign = (sgn as u16) << 15;
-        // Combine integer and fraction parts
-        // 16 bits - 1 sign bit - 2 int bits = 13 bit shifts
-        // 1 sign bit + 2 int bits = 3 bit shifts
-        let combined = ((int as u16) << 13) | u32_to_u16_round(frc >> 3);
-        // Clamp off for sign and add sign bit
-        let bits = sign | (combined & 0x7FFF);
-        c16 { bits }
+        c32::from(val as f64)
     }
 }
 
-impl From<f64> for c16 {
+impl From<f64> for c32 {
     /// Convert a 64-bit Float to a 16-bit Certum
     fn from(val: f64) -> Self {
         let (sgn, int, frc) = f64_split(val);
         // Adjust sign to be on the opposite side of the bits
         // 16 bits - 1 sign bit = 15 bit shifts
-        let sign = (sgn as u16) << 15;
+        let sign = (sgn as u32) << 15;
         // Combine integer and fraction parts
         // 16 bits - 1 sign bit - 2 int bits = 13 bit shifts
         // 1 sign bit + 2 int bits = 3 bit shifts
-        let combined = ((int as u16) << 13) | u64_to_u16_round(frc >> 3);
+        let combined = ((int as u32) << 13) | u64_to_u32_round(frc >> 3);
         // Clamp off for sign and add sign bit
         let bits = sign | (combined & 0x7FFF);
-        c16 { bits }
+        c32 { bits }
     }
 }
 
-impl c16 {
+impl c32 {
     /// Get the binary sign of the current certum
     /// 
     /// 1 = negative, 0 = zero or positive
-    pub fn bin_sign(&self) -> u16 {
+    pub fn bin_sign(&self) -> u32 {
         if self.bits & 0x8000 == 0x8000 { 1 }
         else { 0 }
     }
@@ -111,7 +100,7 @@ impl c16 {
     /// Return the binary components of the current certum
     /// 
     /// (Scalar Sign, Integer Component, Fraction Component)
-    pub fn components(&self) -> (i8, u16, u16) {
+    pub fn components(&self) -> (i8, u32, u32) {
         let sgn = self.sign(); // Get a binary sign of the certum
         // 16 bits - 2 int bits = 14 bit shifts
         let int = (self.bits << 1) >> 14; // Cut off sign bit and order integer's smallest component as LSB

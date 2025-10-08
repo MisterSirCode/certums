@@ -9,3 +9,4 @@ pub mod certum;
 // Expose c8-c128 to top-level crate
 pub use certum::certum8::c8;
 pub use certum::certum16::c16;
+pub use certum::certum32::c32;
