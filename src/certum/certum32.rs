@@ -68,11 +68,11 @@ impl From<f64> for c32 {
     fn from(val: f64) -> Self {
         let (sgn, int, frc) = f64_split(val);
         // Adjust sign to be on the opposite side of the bits
-        // 32 bits - 1 sign bit = 31 bit shifts
+        // 32 bits - 1 sgn bit = 31 bit shifts
         let sign = (sgn as u32) << 31;
         // Combine integer and fraction parts
-        // 32 bits - 1 sign bit - 3 int bits = 28 bit shifts
-        // 1 sign bit + 3 int bits = 4 bit shifts
+        // 32 bits - 1 sgn bit - 3 int bits = 28 bit shifts
+        // 1 sgn bit + 3 int bits = 4 bit shifts
         let combined = ((int as u32) << 28) | u64_to_u32_round(frc >> 4);
         // Clamp off for sign and add sign bit
         // 0x7FFFFFFF = 2^(32 bits - 1) - 1
@@ -106,7 +106,7 @@ impl c32 {
         let sgn = self.sign(); // Get a binary sign of the certum
         // 32 bits - 3 int bits = 29 bit shifts
         let int = (self.bits << 1) >> 29; // Cut off sign bit and order integer's smallest component as LSB
-        // 1 sign bit + 3 int bits = 4 bit shifts
+        // 1 sgn bit + 3 int bits = 4 bit shifts
         let frc = self.bits << 4; // Order fraction's largest component as MSB
         (sgn, int, frc)
     }

@@ -69,10 +69,10 @@ impl From<f64> for c8 {
     fn from(val: f64) -> Self {
         let (sgn, int, frc) = f64_split(val);
         // Adjust sign to be on the opposite side of the bits
-        // 8 bits - 1 sign bit = 7 bit shifts
+        // 8 bits - 1 sgn bit = 7 bit shifts
         let sign = sgn << 7;
         // Combine integer and fraction parts
-        // 8 bits - 1 sign bit - 1 int bit = 6 bit shifts
+        // 8 bits - 1 sgn bit - 1 int bit = 6 bit shifts
         // 8 bits - 6 bits = 2 bit shifts
         let combined = ((int as u8) << 6) | u64_to_u8_round(frc >> 2);
         // Clamp off for sign and add sign bit
@@ -110,7 +110,7 @@ impl c8 {
         // 8 bits - 1 int bit = 7 bit shifts
         let int = (self.bits << 1) >> 7;
         // Order fraction's largest component as MSB
-        // 1 sign bit + 1 int bit = 2 bit shifts
+        // 1 sgn bit + 1 int bit = 2 bit shifts
         let frc = self.bits << 2;
         (sgn, int, frc)
     }
