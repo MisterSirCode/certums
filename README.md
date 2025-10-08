@@ -10,6 +10,8 @@ The goal is to have a flexible and high-precision number system for tasks that r
 
 These values are easily (Though losslessly) convertable between eachother through simple bit-shifts, making them a convenient and easy-to-use format.
 
+* **NOTE: Due to the lack of widespread support, conversion of Certums (and variants) to f16s and f128s is not supported**
+
 Certums and their variants follow simple binary-algebraic rules.
 All four types share the same special cases:
 * Any complete array of `1` bits (Exclusive of the Sign Bit) represents Infinity: `INF`
