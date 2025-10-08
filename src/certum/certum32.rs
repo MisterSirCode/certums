@@ -57,14 +57,14 @@ impl From<&u32> for c32 {
 }
 
 impl From<f32> for c32 {
-    /// Convert a 32-bit Float to a 16-bit Certum
+    /// Convert a 32-bit Float to a 32-bit Certum
     fn from(val: f32) -> Self {
         c32::from(val as f64)
     }
 }
 
 impl From<f64> for c32 {
-    /// Convert a 64-bit Float to a 16-bit Certum
+    /// Convert a 64-bit Float to a 32-bit Certum
     fn from(val: f64) -> Self {
         let (sgn, int, frc) = f64_split(val);
         // Adjust sign to be on the opposite side of the bits
