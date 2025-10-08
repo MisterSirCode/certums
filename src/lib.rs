@@ -8,3 +8,4 @@ pub mod certum;
 // pub mod acute;
 // Expose c8-c128 to top-level crate
 pub use certum::certum8::c8;
+pub use certum::certum16::c16;

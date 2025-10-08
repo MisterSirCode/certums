@@ -4,6 +4,8 @@ use core::f64;
 use core::f32;
 #[cfg(test)]
 use super::c8;
+#[cfg(test)]
+use super::c16;
 // #[cfg(test)]
 // use super::posit16::p16;
 // #[cfg(test)]
@@ -21,7 +23,16 @@ use super::c8;
 pub fn unit_tests() {
     // Signed Certum-8 Unit Tests
     assert_eq!(c8::from(f32::consts::PI).bits, 0b01001001);
-    assert_eq!(f32::from(c8::from(0b01001001)), 1.140625);
+    assert_eq!(c8::from(f64::consts::PI).bits, 0b01001001);
+    assert_eq!(f32::from(c8::from(0b01001001)), 1.140625f32);
+    assert_eq!(f64::from(c8::from(0b01001001)), 1.140625f64);
+    // Unsigned Certum-8 Unit Tests
+
+    // Signed Certum-16 Unit Tests
+    assert_eq!(c16::from(f32::consts::PI).bits, 0b0110010010001000);
+    assert_eq!(c16::from(f64::consts::PI).bits, 0b0110010010001000);
+    assert_eq!(f32::from(c16::from(0b0110010010001000)), 3.1416015625f32);
+    assert_eq!(f64::from(c16::from(0b0110010010001000)), 3.1416015625f64);
     // assert_eq!(f64::from(p8::from(0b10100111)), -3.125);     // p8_1 Default Negative
     // assert_eq!(p8::from(0b01101001).as_float_es(0), 3.125);  // p8_0 Custom ES Special-Case
     // assert_eq!(p8::from(0b10010111).as_float_es(0), -3.125); // p8_0 Custom ES Special-Case Negative

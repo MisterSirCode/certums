@@ -1,6 +1,6 @@
 // https://docs.rs/num-traits/latest/src/num_traits/float.rs.html#2049
 
-fn integer_decode_f32(f: f32) -> (u64, i16, i8) {
+pub fn integer_decode_f32(f: f32) -> (u64, i16, i8) {
     let bits: u32 = f.to_bits();
     let sign: i8 = if bits >> 31 == 0 { 1 } else { -1 };
     let mut exponent: i16 = ((bits >> 23) & 0xff) as i16;
