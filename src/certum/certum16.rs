@@ -1,6 +1,9 @@
+#![allow(dead_code)]
+
 use super::super::utils;
 use utils::f64_split;
 use utils::u64_to_u16_round;
+
 
 /// Define a generic 8-bit Signed Certum
 #[derive(Copy, Clone, Debug)]
@@ -82,6 +85,19 @@ impl From<f64> for c16 {
 }
 
 impl c16 {
+    /// Minimum value for a 16-bit Certum.
+    /// 
+    /// Decimal: -3.9998779296875
+    const MIN: c16 = c16 { bits: 0x8000 };
+    /// Maximum value for a 16-bit Certum.
+    /// 
+    /// Decimal: 3.9998779296875
+    const MAX: c16 = c16 { bits: 0x7FFF };
+    /// Archimede's Constant - Pi
+    /// 
+    /// Decimal: 3.1416015625
+    const PI: c16 = c16 { bits: 0x6488 };
+
     /// Get the binary sign of the current certum
     /// 
     /// 1 = negative, 0 = zero or positive

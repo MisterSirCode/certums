@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use super::super::utils;
 use utils::f64_split;
 use utils::u64_to_u8_round;
@@ -81,6 +83,19 @@ impl From<f64> for uc8 {
 }
 
 impl uc8 {
+    /// Minimum value for an 8-bit Unsigned Certum.
+    /// 
+    /// Decimal: 0
+    const MIN: uc8 = uc8 { bits: 0 };
+    /// Maximum value for an 8-bit Unsigned Certum.
+    /// 
+    /// Decimal: 3.984375
+    const MAX: uc8 = uc8 { bits: 0xFF };
+    /// Archimede's Constant - Pi
+    /// 
+    /// Decimal: 3.140625
+    const PI: uc8 = uc8 { bits: 0xC9 };
+
     /// Return the binary components of the current certum
     /// 
     /// (Integer Component, Fraction Component)

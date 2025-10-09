@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use super::super::utils;
 use utils::f64_split;
 use utils::u64_to_u16_round;
@@ -81,6 +83,19 @@ impl From<f64> for uc16 {
 }
 
 impl uc16 {
+    /// Minimum value for a 16-bit Unsigned Certum.
+    /// 
+    /// Decimal: 0
+    const MIN: uc16 = uc16 { bits: 0 };
+    /// Maximum value for a 16-bit Unsigned Certum.
+    /// 
+    /// Decimal: 7.9998779296875
+    const MAX: uc16 = uc16 { bits: 0xFFFF };
+    /// Archimede's Constant - Pi
+    /// 
+    /// Decimal: 3.1416015625
+    const PI: uc16 = uc16 { bits: 0x6488 };
+
     /// Return the binary components of the current certum
     /// 
     /// (Integer Component, Fraction Component)

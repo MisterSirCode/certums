@@ -2,6 +2,7 @@
 /// The `extra` module organizes the types and additional functions involved with the use of Posits
 pub mod utils;
 pub mod certum;
+pub mod macros;
 
 #[cfg(test)]
 pub mod tests;

@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use super::super::utils;
 use utils::f64_split;
 use utils::u64_to_u8_round;
@@ -83,6 +85,19 @@ impl From<f64> for c8 {
 }
 
 impl c8 {
+    /// Minimum value for an 8-bit Certum.
+    /// 
+    /// Decimal: -1.984375
+    const MIN: c8 = c8 { bits: 0x80 };
+    /// Maximum value for an 8-bit Certum.
+    /// 
+    /// Decimal: 1.984375
+    const MAX: c8 = c8 { bits: 0x7F };
+    /// Archimede's Constant - Pi
+    /// 
+    /// Decimal: 1.140625
+    const PI: c8 = c8 { bits: 0x49 };
+
     /// Get the binary sign of the current certum
     /// 
     /// 1 = negative, 0 = zero or positive

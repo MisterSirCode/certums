@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use super::super::utils;
 use utils::f64_split;
 use utils::u64_to_u32_round;
@@ -82,6 +84,19 @@ impl From<f64> for c32 {
 }
 
 impl c32 {
+    /// Minimum value for a 32-bit Certum.
+    /// 
+    /// Decimal: -7.9999999962747097015380859375
+    const MIN: c32 = c32 { bits: 0x80000000 };
+    /// Maximum value for a 32-bit Certum.
+    /// 
+    /// Decimal: 7.9999999962747097015380859375
+    const MAX: c32 = c32 { bits: 0x7FFFFFFF };
+    /// Archimede's Constant - Pi
+    /// 
+    /// Decimal: 3.1415926553308963775634765625
+    const PI: c32 = c32 { bits: 0x3243F6A9 };
+
     /// Get the binary sign of the current certum
     /// 
     /// 1 = negative, 0 = zero or positive

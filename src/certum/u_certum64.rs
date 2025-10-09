@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use super::super::utils;
 use utils::f64_split;
 
@@ -80,6 +82,19 @@ impl From<f64> for uc64 {
 }
 
 impl uc64 {
+    /// Minimum value for a 64-bit Unsigned Certum.
+    /// 
+    /// Decimal: 0
+    const MIN: uc64 = uc64 { bits: 0 };
+    /// Maximum value for a 64-bit Unsigned Certum.
+    /// 
+    /// Decimal: 31.99999999999999999826527652402319290558807551860809326171875
+    const MAX: uc64 = uc64 { bits: 0xFFFFFFFFFFFFFFFF };
+    /// Archimede's Constant - Pi
+    /// 
+    /// Decimal: 3.141592653589793115997963468544185161590576171875
+    const PI: uc64 = uc64 { bits: 0x1921FB54442D1800 };
+
     /// Return the binary components of the current certum
     /// 
     /// (Integer Component, Fraction Component)
