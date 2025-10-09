@@ -95,3 +95,37 @@ pub fn u64_to_u16_round(val: u64) -> u16 {
 pub fn u64_to_u32_round(val: u64) -> u32 {
     ((val + 0x80000000) >> 32) as u32
 }
+
+use {
+    core::{f32, f64},
+    super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64}
+};
+
+pub fn display_certums(value: f64) {
+    let val8 = c8::from(value);
+    let val16 = c16::from(value);
+    let val32 = c32::from(value);
+    let val64 = c64::from(value);
+    println!("\nSigned Types: ");
+    println!("0x{:02X}", val8.bits);
+    println!("{:.8}", f64::from(val8));
+    println!("0x{:04X}", val16.bits);
+    println!("{:.16}", f64::from(val16));
+    println!("0x{:08X}", val32.bits);
+    println!("{:.32}", f64::from(val32));
+    println!("0x{:016X}", val64.bits);
+    println!("{:.64}", f64::from(val64));
+    let uval8 = uc8::from(value);
+    let uval16 = uc16::from(value);
+    let uval32 = uc32::from(value);
+    let uval64 = uc64::from(value);
+    println!("\nUnsigned Types: ");
+    println!("0x{:02X}", uval8.bits);
+    println!("{:.8}", f64::from(uval8));
+    println!("0x{:04X}", uval16.bits);
+    println!("{:.16}", f64::from(uval16));
+    println!("0x{:08X}", uval32.bits);
+    println!("{:.32}", f64::from(uval32));
+    println!("0x{:016X}", uval64.bits);
+    println!("{:.64}", f64::from(uval64));
+}
