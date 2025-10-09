@@ -93,7 +93,7 @@ impl c8 {
     /// 
     /// Decimal: 1.984375
     const MAX: c8 = c8 { bits: 0x7F };
-    /// Archimede's Constant - Pi
+    /// Archimede's Constant - π
     /// 
     /// Decimal: 1.140625
     const PI: c8 = c8 { bits: 0x49 };

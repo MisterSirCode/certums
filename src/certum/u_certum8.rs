@@ -91,7 +91,11 @@ impl uc8 {
     /// 
     /// Decimal: 3.984375
     const MAX: uc8 = uc8 { bits: 0xFF };
-    /// Archimede's Constant - Pi
+    /// Archimede's Constant - π
+    /// 
+    /// Decimal: 3.140625
+    const PI: uc8 = uc8 { bits: 0xC9 };
+    /// Eulers's Number - e
     /// 
     /// Decimal: 3.140625
     const PI: uc8 = uc8 { bits: 0xC9 };

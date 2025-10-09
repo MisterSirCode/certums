@@ -93,7 +93,7 @@ impl c16 {
     /// 
     /// Decimal: 3.9998779296875
     const MAX: c16 = c16 { bits: 0x7FFF };
-    /// Archimede's Constant - Pi
+    /// Archimede's Constant - π
     /// 
     /// Decimal: 3.1416015625
     const PI: c16 = c16 { bits: 0x6488 };

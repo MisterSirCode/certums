@@ -90,7 +90,7 @@ impl uc64 {
     /// 
     /// Decimal: 31.99999999999999999826527652402319290558807551860809326171875
     const MAX: uc64 = uc64 { bits: 0xFFFFFFFFFFFFFFFF };
-    /// Archimede's Constant - Pi
+    /// Archimede's Constant - π
     /// 
     /// Decimal: 3.141592653589793115997963468544185161590576171875
     const PI: uc64 = uc64 { bits: 0x1921FB54442D1800 };

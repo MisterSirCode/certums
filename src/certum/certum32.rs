@@ -92,7 +92,7 @@ impl c32 {
     /// 
     /// Decimal: 7.9999999962747097015380859375
     const MAX: c32 = c32 { bits: 0x7FFFFFFF };
-    /// Archimede's Constant - Pi
+    /// Archimede's Constant - π
     /// 
     /// Decimal: 3.1415926553308963775634765625
     const PI: c32 = c32 { bits: 0x3243F6A9 };

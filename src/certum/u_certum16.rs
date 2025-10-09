@@ -91,7 +91,7 @@ impl uc16 {
     /// 
     /// Decimal: 7.9998779296875
     const MAX: uc16 = uc16 { bits: 0xFFFF };
-    /// Archimede's Constant - Pi
+    /// Archimede's Constant - π
     /// 
     /// Decimal: 3.1416015625
     const PI: uc16 = uc16 { bits: 0x6488 };
