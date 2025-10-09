@@ -73,7 +73,7 @@ impl From<f64> for uc16 {
     /// 
     /// Converting a float to an unsigned certum will truncate signs
     fn from(val: f64) -> Self {
-        let (_sgn, int, frc) = f64_split(val);
+        let (_sgn, int, frc) = f64_split(val.clamp(uc16::MINF, uc16::MAXF));
         // Combine integer and fraction parts
         // 16 bits - 3 int bits = 13 bit shifts
         // 16 bits - 13 frc bits = 3 bit shifts
@@ -91,6 +91,10 @@ impl uc16 {
     /// 
     /// Decimal: 7.9998779296875
     const MAX: uc16 = uc16 { bits: 0xFFFF };
+    /// Minimum value as a 64-bit Float
+    const MINF: f64 = 0f64;
+    /// Maximum value as a 64-bit Float
+    const MAXF: f64 = 7.9998779296875f64;
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.1416015625

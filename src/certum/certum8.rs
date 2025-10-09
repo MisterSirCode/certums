@@ -69,7 +69,7 @@ impl From<f32> for c8 {
 impl From<f64> for c8 {
     /// Convert a 64-bit Float to an 8-bit Certum
     fn from(val: f64) -> Self {
-        let (sgn, int, frc) = f64_split(val);
+        let (sgn, int, frc) = f64_split(val.clamp(c8::MINF, c8::MAXF));
         // Adjust sign to be on the opposite side of the bits
         // 8 bits - 1 sgn bit = 7 bit shifts
         let sign = sgn << 7;
@@ -93,14 +93,10 @@ impl c8 {
     /// 
     /// Decimal: 1.984375
     const MAX: c8 = c8 { bits: 0x7F };
-    /// Archimede's Constant - π
-    /// 
-    /// Decimal: 1.140625
-    const PI: c8 = c8 { bits: 0x49 };
-    /// Eulers's Number - e
-    /// 
-    /// Decimal: 1.71875
-    const E: c8 = c8 { bits: 0x6E };
+    /// Minimum value as a 64-bit Float
+    const MINF: f64 = -1.984375f64;
+    /// Maximum value as a 64-bit Float
+    const MAXF: f64 = 1.984375f64;
 
     /// Get the binary sign of the current certum
     /// 

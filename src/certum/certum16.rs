@@ -69,7 +69,7 @@ impl From<f32> for c16 {
 impl From<f64> for c16 {
     /// Convert a 64-bit Float to a 16-bit Certum
     fn from(val: f64) -> Self {
-        let (sgn, int, frc) = f64_split(val);
+        let (sgn, int, frc) = f64_split(val.clamp(c16::MINF, c16::MAXF));
         // Adjust sign to be on the opposite side of the bits
         // 16 bits - 1 sgn bit = 15 bit shifts
         let sign = (sgn as u16) << 15;
@@ -93,6 +93,10 @@ impl c16 {
     /// 
     /// Decimal: 3.9998779296875
     const MAX: c16 = c16 { bits: 0x7FFF };
+    /// Minimum value as a 64-bit Float
+    const MINF: f64 = -3.9998779296875f64;
+    /// Maximum value as a 64-bit Float
+    const MAXF: f64 = 3.9998779296875f64;
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.1416015625
