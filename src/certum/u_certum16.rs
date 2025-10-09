@@ -95,6 +95,10 @@ impl uc16 {
     /// 
     /// Decimal: 3.1416015625
     const PI: uc16 = uc16 { bits: 0x6488 };
+    /// Eulers's Number - e
+    /// 
+    /// Decimal: 2.71826171875
+    const E: uc16 = uc16 { bits: 0x56FC };
 
     /// Return the binary components of the current certum
     /// 

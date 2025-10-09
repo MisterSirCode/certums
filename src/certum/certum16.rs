@@ -97,6 +97,10 @@ impl c16 {
     /// 
     /// Decimal: 3.1416015625
     const PI: c16 = c16 { bits: 0x6488 };
+    /// Eulers's Number - e
+    /// 
+    /// Decimal: 2.71826171875
+    const E: c16 = c16 { bits: 0x56FC };
 
     /// Get the binary sign of the current certum
     /// 

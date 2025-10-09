@@ -97,6 +97,10 @@ impl c8 {
     /// 
     /// Decimal: 1.140625
     const PI: c8 = c8 { bits: 0x49 };
+    /// Eulers's Number - e
+    /// 
+    /// Decimal: 1.71875
+    const E: c8 = c8 { bits: 0x6E };
 
     /// Get the binary sign of the current certum
     /// 

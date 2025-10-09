@@ -97,8 +97,8 @@ impl uc8 {
     const PI: uc8 = uc8 { bits: 0xC9 };
     /// Eulers's Number - e
     /// 
-    /// Decimal: 3.140625
-    const PI: uc8 = uc8 { bits: 0xC9 };
+    /// Decimal: 2.71875
+    const E: uc8 = uc8 { bits: 0xAE };
 
     /// Return the binary components of the current certum
     /// 

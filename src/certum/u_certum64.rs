@@ -94,6 +94,10 @@ impl uc64 {
     /// 
     /// Decimal: 3.141592653589793115997963468544185161590576171875
     const PI: uc64 = uc64 { bits: 0x1921FB54442D1800 };
+    /// Eulers's Number - e
+    /// 
+    /// Decimal: 2.718281828459045090795598298427648842334747314453125
+    const E: uc64 = uc64 { bits: 0x15BF0A8B14576900 };
 
     /// Return the binary components of the current certum
     /// 

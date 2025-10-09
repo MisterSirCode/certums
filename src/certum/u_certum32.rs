@@ -95,6 +95,10 @@ impl uc32 {
     /// 
     /// Decimal: 3.1415926553308963775634765625
     const PI: uc32 = uc32 { bits: 0x3243F6A9 };
+    /// Eulers's Number - e
+    /// 
+    /// Decimal: 2.718281827867031097412109375
+    const E: uc32 = uc32 { bits: 0x2B7E1516 };
 
     /// Return the binary components of the current certum
     /// 
