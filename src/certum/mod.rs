@@ -11,14 +11,15 @@ pub mod u_certum64;
 
 use {
     std::cmp::{Eq},
-    std::ops::{Add, Neg},
+    std::ops::{Add, Sub, Neg},
     crate::{
         negate, 
         from_direct, 
         from_right_shift, 
         from_left_shift, 
         equivalent_solo, 
-        add_same_signed, 
+        add_same, 
+        sub_same,
         float_casts,
         float_convert_sc, 
         float_convert_uc
@@ -109,7 +110,11 @@ equivalent_solo!(uc64);
 
 // Algebra
 
-add_same_signed!(c8,  u8,  i8,  u16,  i16,  8,  2, 0x7F);
-add_same_signed!(c16, u16, i16, u32,  i32,  16, 3, 0x7FFF);
-add_same_signed!(c32, u32, i32, u64,  i64,  32, 4, 0x7FFFFFFF);
-add_same_signed!(c64, u64, i64, u128, i128, 64, 5, 0x7FFFFFFFFFFFFFFF);
+add_same!(c8,  u8,  i8);
+add_same!(c16, u16, i16);
+add_same!(c32, u32, i32);
+add_same!(c64, u64, i64);
+sub_same!(c8,  u8,  i8);
+sub_same!(c16, u16, i16);
+sub_same!(c32, u32, i32);
+sub_same!(c64, u64, i64);

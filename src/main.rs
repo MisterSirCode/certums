@@ -13,4 +13,6 @@ fn main() {
     let n1 = c16::from(f64::consts::PI);
     let n2 = -c16::from(1f64);
     println!("\n{:.016}", f64::from(n1 + n2));
+    println!("\n{:.016},            {:.016}", c16::from(-1f64).bits, (-c16::from(1f64)).bits);
+    println!("{:016b}, {:016b}", c16::from(-1f64).bits, (-c16::from(1f64)).bits);
 }

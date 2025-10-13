@@ -77,13 +77,26 @@ macro_rules! equivalent_other {
 
 #[macro_export]
 /// Addition for types
-macro_rules! add_same_signed {
-    ($target:ident, $uint:ty, $sint:ty, $duint:ty, $dsint:ty, $scale:expr, $dec:expr, $lim:expr) => {
+macro_rules! add_same {
+    ($target:ident, $uint:ty, $sint:ty) => {
         impl Add for $target {
             type Output = $target;
-            fn add(self, rhs: Self) -> Self::Output {
-                if (self == $target::MAX) | (rhs == $target::MAX) { return $target::MAX };
+            fn add(self, rhs: Self) -> Self {
                 let bits = <$sint>::saturating_add(self.bits as $sint, rhs.bits as $sint);
+                $target { bits: bits as $uint }
+            }
+        }
+    }
+}
+
+#[macro_export]
+/// Addition for types
+macro_rules! sub_same {
+    ($target:ident, $uint:ty, $sint:ty) => {
+        impl Sub for $target {
+            type Output = $target;
+            fn sub(self, rhs: Self) -> Self {
+                let bits = <$sint>::saturating_sub(self.bits as $sint, rhs.bits as $sint);
                 $target { bits: bits as $uint }
             }
         }
@@ -161,8 +174,9 @@ macro_rules! float_convert_sc {
                 let combined = ((int as $uint) << ($scale - $dec)) | $target::u64_round(frc >> $dec);
                 // Clamp off for sign and add sign bit
                 // 2^(bits - 1) - 1
-                let bits = sign | (combined & $lim);
-                $target { bits }
+                let mut checked = (combined & $lim);
+                if sign > 0 { checked = !checked + 1 }
+                $target { bits: sign | checked }
             }
         }
     };
