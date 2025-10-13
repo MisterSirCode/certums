@@ -11,10 +11,51 @@ pub mod u_certum64;
 
 use {
     std::cmp::{Eq},
-    std::ops::{Add},
-    crate::{from_direct, from_right_shift, from_left_shift, equivalent_solo, add_same_signed},
+    std::ops::{Add, Neg},
+    crate::{
+        negate, 
+        from_direct, 
+        from_right_shift, 
+        from_left_shift, 
+        equivalent_solo, 
+        add_same_signed, 
+        float_casts,
+        float_convert_sc, 
+        float_convert_uc
+    },
     super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64},
+    super::utils::{f64_split}
 };
+
+// Float Casting
+
+float_casts!(c8,   u8);
+float_casts!(c16,  u16);
+float_casts!(c32,  u32);
+float_casts!(c64,  u64);
+float_casts!(uc8,  u8);
+float_casts!(uc16, u16);
+float_casts!(uc32, u32);
+float_casts!(uc64, u64);
+float_convert_sc!(c8,   u8,  8,  2, 0x7F);
+float_convert_sc!(c16,  u16, 16, 3, 0x7FFF);
+float_convert_sc!(c32,  u32, 32, 4, 0x7FFFFFFF);
+float_convert_sc!(c64,  u64, 64, 5, 0x7FFFFFFFFFFFFFFF);
+float_convert_uc!(uc8,  u8,  8,  2, 0x7F);
+float_convert_uc!(uc16, u16, 16, 3, 0x7FFF);
+float_convert_uc!(uc32, u32, 32, 4, 0x7FFFFFFF);
+float_convert_uc!(uc64, u64, 64, 5, 0x7FFFFFFFFFFFFFFF);
+
+// Negation
+
+negate!(c8);
+negate!(c16);
+negate!(c32);
+negate!(c64);
+negate!(uc8);
+negate!(uc16);
+negate!(uc32);
+negate!(uc64);
 
 // Type Conversion
 
@@ -68,7 +109,7 @@ equivalent_solo!(uc64);
 
 // Algebra
 
-add_same_signed!(c8,  u8,  i8,  u16, i16,  8,  2, 0x7F);
-add_same_signed!(c16, u16, i16, u32, i32,  16, 3, 0x7FFF);
-add_same_signed!(c32, u32, i32, u64, i64,  32, 4, 0x7FFFFFFF);
+add_same_signed!(c8,  u8,  i8,  u16,  i16,  8,  2, 0x7F);
+add_same_signed!(c16, u16, i16, u32,  i32,  16, 3, 0x7FFF);
+add_same_signed!(c32, u32, i32, u64,  i64,  32, 4, 0x7FFFFFFF);
 add_same_signed!(c64, u64, i64, u128, i128, 64, 5, 0x7FFFFFFFFFFFFFFF);

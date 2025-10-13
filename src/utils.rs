@@ -68,32 +68,11 @@ pub fn u32_to_u8_round(val: u32) -> u8 {
     ((val + 0x800000) >> 24) as u8
 }
 
-/// Clamp a u64 and round to a u8 properly.
-/// 
-/// Right-shift MSB to (64 - 9), carry case with + 1, right-shift MSB to make 8 bits. Clamp to u8
-pub fn u64_to_u8_round(val: u64) -> u8 {
-    ((val + 0x80000000000000) >> 56) as u8
-}
-
 /// Clamp a u32 and round to a u16 properly.
 /// 
 /// Right-shift MSB to (32 - 17), carry case with + 1, right-shift MSB to make 16 bits. Clamp to u16
 pub fn u32_to_u16_round(val: u32) -> u16 {
     ((val + 0x8000) >> 16) as u16
-}
-
-/// Clamp a u64 and round to a u16 properly.
-/// 
-/// Right-shift MSB to (64 - 17), carry case with + 1, right-shift MSB to make 16 bits. Clamp to u16
-pub fn u64_to_u16_round(val: u64) -> u16 {
-    ((val + 0x800000000000) >> 48) as u16
-}
-
-/// Clamp a u64 and round to a u32 properly.
-/// 
-/// Right-shift MSB to (64 - 33), carry case with + 1, right-shift MSB to make 32 bits. Clamp to u32
-pub fn u64_to_u32_round(val: u64) -> u32 {
-    ((val + 0x80000000) >> 32) as u32
 }
 
 use {

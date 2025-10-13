@@ -1,87 +1,13 @@
 #![allow(dead_code)]
 
-use super::super::utils;
-use utils::f64_split;
-use utils::u64_to_u8_round;
-
-/// Define a generic 8-bit Signed Certum
 #[derive(Copy, Clone, Debug)]
 #[expect(non_camel_case_types)]
+/// Define a generic 8-bit Signed Certum
 pub struct c8 {
     /// The raw bits of the certum
     /// 
     /// 1 Sign bit, 1 Integer bit, 6 Fraction bits
     pub bits: u8
-}
-
-impl From<c8> for f64 {
-    /// Convert an 8-bit Certum to a 64-bit Float
-    fn from(value: c8) -> Self {
-        let (sgn, int, frc) = value.components();
-        let float_frc = (frc as f64) / 256f64; // MSB-Shifted fraction / 2^Bits
-        ((int as f64) + float_frc) * sgn as f64 // Add integer and fraction, multiply sign
-    }
-}
-
-impl From<&c8> for f64 {
-    /// Convert an 8-bit Certum to a 64-bit Float
-    fn from(value: &c8) -> Self {
-        f64::from(*value)
-    }
-}
-
-impl From<c8> for f32 {
-    /// Convert an 8-bit Certum to a 32-bit Float
-    fn from(value: c8) -> Self {
-        f64::from(value) as f32
-    }
-}
-
-impl From<&c8> for f32 {
-    /// Convert an 8-bit Certum to a 32-bit Float
-    fn from(value: &c8) -> Self {
-        f64::from(*value) as f32
-    }
-}
-
-
-impl From<u8> for c8 {
-    /// Convert an 8-bit UInt to an 8-bit Certum
-    fn from(bits: u8) -> Self {
-        c8 { bits }
-    }
-}
-
-impl From<&u8> for c8 {
-    /// Convert an 8-bit UInt to an 8-bit Certum
-    fn from(value: &u8) -> Self {
-        c8::from(*value)
-    }
-}
-
-impl From<f32> for c8 {
-    /// Convert a 32-bit Float to an 8-bit Certum
-    fn from(val: f32) -> Self {
-        c8::from(val as f64)
-    }
-}
-
-impl From<f64> for c8 {
-    /// Convert a 64-bit Float to an 8-bit Certum
-    fn from(val: f64) -> Self {
-        let (sgn, int, frc) = f64_split(val.clamp(c8::MINF, c8::MAXF));
-        // Adjust sign to be on the opposite side of the bits
-        // 8 bits - 1 sgn bit = 7 bit shifts
-        let sign = sgn << 7;
-        // Combine integer and fraction parts
-        // 8 bits - 1 sgn bit - 1 int bit = 6 bit shifts
-        // 8 bits - 6 bits = 2 bit shifts
-        let combined = ((int as u8) << 6) | u64_to_u8_round(frc >> 2);
-        // Clamp off for sign and add sign bit
-        // 0x7F = 2^(8 bits - 1) - 1
-        let bits = sign | (combined & 0x7F);
-        c8 { bits }
-    }
 }
 
 impl c8 {
@@ -128,5 +54,12 @@ impl c8 {
         // 1 sgn bit + 1 int bit = 2 bit shifts
         let frc = self.bits << 2;
         (sgn, int, frc)
+    }
+
+    /// Clamp a u64 and round to a u8 properly.
+    /// 
+    /// Right-shift MSB to (64 - 9), carry case with + 1, right-shift MSB to make 8 bits. Clamp to u8
+    pub fn u64_round(val: u64) -> u8 {
+        ((val + 0x80000000000000) >> 56) as u8
     }
 }

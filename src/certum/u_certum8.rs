@@ -1,85 +1,13 @@
 #![allow(dead_code)]
 
-use super::super::utils;
-use utils::f64_split;
-use utils::u64_to_u8_round;
-
-/// Define a generic 8-bit Signed Certum
 #[derive(Copy, Clone, Debug)]
 #[expect(non_camel_case_types)]
+/// Define a generic 8-bit Unsigned Certum
 pub struct uc8 {
     /// The raw bits of the certum
     /// 
     /// 2 Integer bits, 6 Fraction bits
     pub bits: u8
-}
-
-impl From<uc8> for f64 {
-    /// Convert an 8-bit Certum to a 64-bit Float
-    fn from(value: uc8) -> Self {
-        let (int, frc) = value.components();
-        let float_frc = (frc as f64) / 256f64; // MSB-Shifted fraction / 2^Bits
-        (int as f64) + float_frc // Add integer and fraction
-    }
-}
-
-impl From<&uc8> for f64 {
-    /// Convert an 8-bit Certum to a 64-bit Float
-    fn from(value: &uc8) -> Self {
-        f64::from(*value)
-    }
-}
-
-impl From<uc8> for f32 {
-    /// Convert an 8-bit Certum to a 32-bit Float
-    fn from(value: uc8) -> Self {
-        f64::from(value) as f32
-    }
-}
-
-impl From<&uc8> for f32 {
-    /// Convert an 8-bit Certum to a 32-bit Float
-    fn from(value: &uc8) -> Self {
-        f64::from(*value) as f32
-    }
-}
-
-
-impl From<u8> for uc8 {
-    /// Convert an 8-bit UInt to an 8-bit Certum
-    fn from(bits: u8) -> Self {
-        uc8 { bits }
-    }
-}
-
-impl From<&u8> for uc8 {
-    /// Convert an 8-bit UInt to an 8-bit Certum
-    fn from(value: &u8) -> Self {
-        uc8::from(*value)
-    }
-}
-
-impl From<f32> for uc8 {
-    /// Convert a 32-bit Float to an 8-bit Certum
-    /// 
-    /// Converting a float to an unsigned certum will truncate signs
-    fn from(val: f32) -> Self {
-        uc8::from(val as f64)
-    }
-}
-
-impl From<f64> for uc8 {
-    /// Convert a 64-bit Float to an 8-bit Certum
-    /// 
-    /// Converting a float to an unsigned certum will truncate signs
-    fn from(val: f64) -> Self {
-        let (_sgn, int, frc) = f64_split(val.clamp(uc8::MINF, uc8::MAXF));
-        // Combine integer and fraction parts
-        // 8 bits - 2 int bits = 6 bit shifts
-        // 8 bits - 6 frc bits = 2 bit shifts
-        let bits = ((int as u8) << 6) | u64_to_u8_round(frc >> 2);
-        uc8 { bits }
-    }
 }
 
 impl uc8 {
@@ -115,5 +43,12 @@ impl uc8 {
         // 8 bits - 6 frc bits = 2 bit shifts
         let frc = self.bits << 2;
         (int, frc)
+    }
+
+    /// Clamp a u64 and round to a u8 properly.
+    /// 
+    /// Right-shift MSB to (64 - 9), carry case with + 1, right-shift MSB to make 8 bits. Clamp to u8
+    pub fn u64_round(val: u64) -> u8 {
+        ((val + 0x80000000000000) >> 56) as u8
     }
 }

@@ -1,85 +1,13 @@
 #![allow(dead_code)]
 
-use super::super::utils;
-use utils::f64_split;
-use utils::u64_to_u16_round;
-
-/// Define a generic 8-bit Signed Certum
 #[derive(Copy, Clone, Debug)]
 #[expect(non_camel_case_types)]
+/// Define a generic 16-bit Unsigned Certum
 pub struct uc16 {
     /// The raw bits of the certum
     /// 
     /// 3 Integer bits, 13 Fraction bits
     pub bits: u16
-}
-
-impl From<uc16> for f64 {
-    /// Convert an 16-bit Certum to a 64-bit Float
-    fn from(value: uc16) -> Self {
-        let (int, frc) = value.components();
-        let float_frc = (frc as f64) / 65536f64; // MSB-Shifted fraction / 2^Bits
-        (int as f64) + float_frc // Add integer and fraction
-    }
-}
-
-impl From<&uc16> for f64 {
-    /// Convert an 16-bit Certum to a 64-bit Float
-    fn from(value: &uc16) -> Self {
-        f64::from(*value)
-    }
-}
-
-impl From<uc16> for f32 {
-    /// Convert an 16-bit Certum to a 32-bit Float
-    fn from(value: uc16) -> Self {
-        f64::from(value) as f32
-    }
-}
-
-impl From<&uc16> for f32 {
-    /// Convert an 16-bit Certum to a 32-bit Float
-    fn from(value: &uc16) -> Self {
-        f64::from(*value) as f32
-    }
-}
-
-
-impl From<u16> for uc16 {
-    /// Convert an 16-bit UInt to an 16-bit Certum
-    fn from(bits: u16) -> Self {
-        uc16 { bits }
-    }
-}
-
-impl From<&u16> for uc16 {
-    /// Convert an 16-bit UInt to an 16-bit Certum
-    fn from(value: &u16) -> Self {
-        uc16::from(*value)
-    }
-}
-
-impl From<f32> for uc16 {
-    /// Convert a 32-bit Float to an 16-bit Certum
-    /// 
-    /// Converting a float to an unsigned certum will truncate signs
-    fn from(val: f32) -> Self {
-        uc16::from(val as f64)
-    }
-}
-
-impl From<f64> for uc16 {
-    /// Convert a 64-bit Float to an 16-bit Certum
-    /// 
-    /// Converting a float to an unsigned certum will truncate signs
-    fn from(val: f64) -> Self {
-        let (_sgn, int, frc) = f64_split(val.clamp(uc16::MINF, uc16::MAXF));
-        // Combine integer and fraction parts
-        // 16 bits - 3 int bits = 13 bit shifts
-        // 16 bits - 13 frc bits = 3 bit shifts
-        let bits = ((int as u16) << 13) | u64_to_u16_round(frc >> 3);
-        uc16 { bits }
-    }
 }
 
 impl uc16 {
@@ -115,5 +43,12 @@ impl uc16 {
         // 16 bits - 13 frc bits = 3 bit shifts
         let frc = self.bits << 3;
         (int, frc)
+    }
+
+    /// Clamp a u64 and round to a u16 properly.
+    /// 
+    /// Right-shift MSB to (64 - 17), carry case with + 1, right-shift MSB to make 16 bits. Clamp to u16
+    pub fn u64_round(val: u64) -> u16 {
+        ((val + 0x800000000000) >> 48) as u16
     }
 }
