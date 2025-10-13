@@ -8,7 +8,7 @@ Acutes are fractional numbers with no whole number components.
 
 The goal is to have a flexible and high-precision number system for tasks that rely largely on fractional components over supporting whole-number values.
 
-These values are easily (Though losslessly) convertable between eachother through simple bit-shifts, making them a convenient and easy-to-use format.
+These values are easily (Though lossily) convertable between eachother through simple bit-shifts, making them a convenient and easy-to-use format.
 
 * **NOTE: Due to the lack of widespread support, conversion of Certums (and variants) to f16s and f128s is not supported**
 
