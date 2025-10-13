@@ -5,3 +5,6 @@ description = "(INDEV) Yet another fixed-point number system"
 license-file = "LICENSE"
 repository = "https://github.com/MisterSirCode/certums"
 edition = "2024"
+exclude = [
+    "src/main.rs"
+]
