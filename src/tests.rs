@@ -1,3 +1,5 @@
+#![allow(unused_imports)]
+
 use {
     core::{f32, f64},
     super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64},
@@ -59,7 +61,7 @@ pub fn interpretation_tests() {
     assert_eq!(f64::from(uc64::from(0b0001100100100001111110110101010001000100001011010001100000000000)), 3.141592653589793115997963468544185161590576171875);
 }
 
-#[test]
-/// Run all unit tests for conversion of types
-pub fn conversion_tests() {
-}
+// #[test]
+// Run all unit tests for conversion of types
+// pub fn conversion_tests() {
+// }

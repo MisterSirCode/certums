@@ -87,23 +87,23 @@ impl c32 {
     /// Minimum value for a 32-bit Certum.
     /// 
     /// Decimal: -7.9999999962747097015380859375
-    const MIN: c32 = c32 { bits: 0x80000000 };
+    pub const MIN: c32 = c32 { bits: 0x80000000 };
     /// Maximum value for a 32-bit Certum.
     /// 
     /// Decimal: 7.9999999962747097015380859375
-    const MAX: c32 = c32 { bits: 0x7FFFFFFF };
+    pub const MAX: c32 = c32 { bits: 0x7FFFFFFF };
     /// Minimum value as a 64-bit Float
-    const MINF: f64 = -7.99999999627471f64;
+    pub const MINF: f64 = -7.99999999627471f64;
     /// Maximum value as a 64-bit Float
-    const MAXF: f64 = 7.99999999627471f64;
+    pub const MAXF: f64 = 7.99999999627471f64;
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.1415926553308963775634765625
-    const PI: c32 = c32 { bits: 0x3243F6A9 };
+    pub const PI: c32 = c32 { bits: 0x3243F6A9 };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.718281827867031097412109375
-    const E: c32 = c32 { bits: 0x2B7E1516 };
+    pub const E: c32 = c32 { bits: 0x2B7E1516 };
 
     /// Get the binary sign of the current certum
     /// 

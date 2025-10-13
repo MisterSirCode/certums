@@ -86,23 +86,23 @@ impl c64 {
     /// Minimum value for a 64-bit Certum.
     /// 
     /// Decimal: -15.99999999999999999826527652402319290558807551860809326171875
-    const MIN: c64 = c64 { bits: 0x8000000000000000 };
+    pub const MIN: c64 = c64 { bits: 0x8000000000000000 };
     /// Maximum value for a 64-bit Certum.
     /// 
     /// Decimal: 15.99999999999999999826527652402319290558807551860809326171875
-    const MAX: c64 = c64 { bits: 0x7FFFFFFFFFFFFFFF };
+    pub const MAX: c64 = c64 { bits: 0x7FFFFFFFFFFFFFFF };
     /// Minimum value as a 64-bit Float
-    const MINF: f64 = -16f64;
+    pub const MINF: f64 = -16f64;
     /// Maximum value as a 64-bit Float
-    const MAXF: f64 = 16f64;
+    pub const MAXF: f64 = 16f64;
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.141592653589793115997963468544185161590576171875
-    const PI: c64 = c64 { bits: 0x1921FB54442D1800 };
+    pub const PI: c64 = c64 { bits: 0x1921FB54442D1800 };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.718281828459045090795598298427648842334747314453125
-    const E: c64 = c64 { bits: 0x15BF0A8B14576900 };
+    pub const E: c64 = c64 { bits: 0x15BF0A8B14576900 };
 
     /// Get the binary sign of the current certum
     /// 

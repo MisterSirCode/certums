@@ -9,42 +9,66 @@ pub mod u_certum16;
 pub mod u_certum32;
 pub mod u_certum64;
 
-use crate::{from_direct, from_right_shift, from_left_shift};
-use super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64};
+use {
+    std::cmp::{Eq},
+    std::ops::{Add},
+    crate::{from_direct, from_right_shift, from_left_shift, equivalent_solo, add_same_signed},
+    super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64},
+};
 
-from_direct!(c8, uc8);
-from_direct!(c16, uc16);
-from_direct!(c32, uc32);
-from_direct!(c64, uc64);
-from_direct!(uc8, c8);
+// Type Conversion
+
+from_direct!(c8,   uc8);
+from_direct!(c16,  uc16);
+from_direct!(c32,  uc32);
+from_direct!(c64,  uc64);
+from_direct!(uc8,  c8);
 from_direct!(uc16, c16);
 from_direct!(uc32, c32);
 from_direct!(uc64, c64);
 
-from_right_shift!(c8, c16, u16, 1);
-from_right_shift!(c8, c32, u32, 2);
-from_right_shift!(c8, c64, u64, 3);
+from_right_shift!(c8,  c16, u16, 1);
+from_right_shift!(c8,  c32, u32, 2);
+from_right_shift!(c8,  c64, u64, 3);
 from_right_shift!(c16, c32, u32, 1);
 from_right_shift!(c16, c64, u64, 2);
 from_right_shift!(c32, c64, u64, 1);
 
 from_left_shift!(c64, c32, u32, 1);
 from_left_shift!(c64, c16, u16, 2);
-from_left_shift!(c64, c8, u8, 3);
+from_left_shift!(c64, c8,  u8,  3);
 from_left_shift!(c32, c16, u16, 1);
-from_left_shift!(c32, c8, u8, 2);
-from_left_shift!(c16, c8, u8, 1);
+from_left_shift!(c32, c8,  u8,  2);
+from_left_shift!(c16, c8,  u8,  1);
 
-from_right_shift!(uc8, uc16, u16, 1);
-from_right_shift!(uc8, uc32, u32, 2);
-from_right_shift!(uc8, uc64, u64, 3);
+from_right_shift!(uc8,  uc16, u16, 1);
+from_right_shift!(uc8,  uc32, u32, 2);
+from_right_shift!(uc8,  uc64, u64, 3);
 from_right_shift!(uc16, uc32, u32, 1);
 from_right_shift!(uc16, uc64, u64, 2);
 from_right_shift!(uc32, uc64, u64, 1);
 
 from_left_shift!(uc64, uc32, u32, 1);
 from_left_shift!(uc64, uc16, u16, 2);
-from_left_shift!(uc64, uc8, u8, 3);
+from_left_shift!(uc64, uc8,  u8,  3);
 from_left_shift!(uc32, uc16, u16, 1);
-from_left_shift!(uc32, uc8, u8, 2);
-from_left_shift!(uc16, uc8, u8, 1);
+from_left_shift!(uc32, uc8,  u8,  2);
+from_left_shift!(uc16, uc8,  u8,  1);
+
+// Checks
+
+equivalent_solo!(c8);
+equivalent_solo!(c16);
+equivalent_solo!(c32);
+equivalent_solo!(c64);
+equivalent_solo!(uc8);
+equivalent_solo!(uc16);
+equivalent_solo!(uc32);
+equivalent_solo!(uc64);
+
+// Algebra
+
+add_same_signed!(c8,  u8,  i8,  u16, i16,  8,  2, 0x7F);
+add_same_signed!(c16, u16, i16, u32, i32,  16, 3, 0x7FFF);
+add_same_signed!(c32, u32, i32, u64, i64,  32, 4, 0x7FFFFFFF);
+add_same_signed!(c64, u64, i64, u128, i128, 64, 5, 0x7FFFFFFFFFFFFFFF);

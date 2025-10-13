@@ -86,23 +86,23 @@ impl uc32 {
     /// Minimum value for a 32-bit Unsigned Certum.
     /// 
     /// Decimal: 0
-    const MIN: uc32 = uc32 { bits: 0 };
+    pub const MIN: uc32 = uc32 { bits: 0 };
     /// Maximum value for a 32-bit Unsigned Certum.
     /// 
     /// Decimal: 15.9999999962747097015380859375
-    const MAX: uc32 = uc32 { bits: 0xFFFFFFFF };
+    pub const MAX: uc32 = uc32 { bits: 0xFFFFFFFF };
     /// Minimum value as a 64-bit Float
-    const MINF: f64 = 0f64;
+    pub const MINF: f64 = 0f64;
     /// Maximum value as a 64-bit Float
-    const MAXF: f64 = 15.99999999627471f64;
+    pub const MAXF: f64 = 15.99999999627471f64;
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.1415926553308963775634765625
-    const PI: uc32 = uc32 { bits: 0x3243F6A9 };
+    pub const PI: uc32 = uc32 { bits: 0x3243F6A9 };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.718281827867031097412109375
-    const E: uc32 = uc32 { bits: 0x2B7E1516 };
+    pub const E: uc32 = uc32 { bits: 0x2B7E1516 };
 
     /// Return the binary components of the current certum
     /// 

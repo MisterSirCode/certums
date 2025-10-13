@@ -86,23 +86,23 @@ impl uc8 {
     /// Minimum value for an 8-bit Unsigned Certum.
     /// 
     /// Decimal: 0
-    const MIN: uc8 = uc8 { bits: 0 };
+    pub const MIN: uc8 = uc8 { bits: 0 };
     /// Maximum value for an 8-bit Unsigned Certum.
     /// 
     /// Decimal: 3.984375
-    const MAX: uc8 = uc8 { bits: 0xFF };
+    pub const MAX: uc8 = uc8 { bits: 0xFF };
     /// Minimum value as a 64-bit Float
-    const MINF: f64 = 0f64;
+    pub const MINF: f64 = 0f64;
     /// Maximum value as a 64-bit Float
-    const MAXF: f64 = 3.984375f64;
+    pub const MAXF: f64 = 3.984375f64;
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.140625
-    const PI: uc8 = uc8 { bits: 0xC9 };
+    pub const PI: uc8 = uc8 { bits: 0xC9 };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.71875
-    const E: uc8 = uc8 { bits: 0xAE };
+    pub const E: uc8 = uc8 { bits: 0xAE };
 
     /// Return the binary components of the current certum
     /// 

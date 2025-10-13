@@ -12,14 +12,10 @@ These values are easily (Though losslessly) convertable between eachother throug
 
 * **NOTE: Due to the lack of widespread support, conversion of Certums (and variants) to f16s and f128s is not supported**
 
-Certums and their variants follow simple binary-algebraic rules.
-All four types share the same special cases:
-* Any complete array of `1` bits (Exclusive of the Sign Bit) represents Infinity: `INF`
-* Infinity will inherit the sign
-* Any complete array of `0` bits represents 0
-* Any complete array of `0` bits with a negative Sign Bit represents `NaN`
+* **Additionally: Only Certums and Float conversion are currently implemented**
 
-Certums and Acutes are quite simple and defined by simple structures, `n` representing bit count:
+
+Certums (and variants) and Acutes are quite simple and defined by simple structures, `n` representing bit count:
 
 Unsigned Certum:
 * `log_2(n) - 1` whole bits, `n - log_2(n) + 1` fractional bits.
@@ -40,16 +36,6 @@ Unsigned Acutes:
 * `n` fractional bits.
 Signed Acutes:
 * `1` sign bit, `n - 1` fractional bits.
-
-Ex: 
-
-8-Bit
-* Signed Certum: `01010101` = 2.65625
-* Signed -Certum: `11010101` = -2.65625
-* Unsigned Certum: `10010101` = 4.65625
-* Signed Acute: `01010101` = 0.6640625
-* Signed -Acute: `11010101` = -0.6640625
-* Unsigned Acute: `10101011` = 0.66796875
 
 For data ranges, type any value into wolframalpha to see its full decimal format.
 
