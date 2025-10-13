@@ -27,21 +27,25 @@ Certums (and variants) and Acutes are quite simple and defined by simple structu
 
 Unsigned Certum:
 * `log_2(n) - 1` whole bits, `n - log_2(n) + 1` fractional bits.
+
 Signed Certums:
 * `1` sign bit, `log_2(n) - 2` whole bits, `n - log_2(n) + 1` fractional bits.
 
 Unsigned Quarta:
 * `n / 4` whole bits, `n - n / 4` fractional bits.
+
 Signed Quarta:
 * `1` sign bit, `n / 4 - 1` whole bits, `n - n / 4` fractional bits.
 
 Unsigned Dimid:
 * `n / 2` whole bits, `n - n / 2` fractional bits.
+
 Signed Dimid:
 * `1` sign bit, `n / 2 - 1` whole bits, `n - n / 2` fractional bits.
 
 Unsigned Acutes:
 * `n` fractional bits.
+
 Signed Acutes:
 * `1` sign bit, `n - 1` fractional bits.
 
