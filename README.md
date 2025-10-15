@@ -10,6 +10,10 @@ The goal is to have a flexible and high-precision number system for tasks that r
 
 These values are easily (Though lossily) convertable between eachother through simple bit-shifts, making them a convenient and easy-to-use format.
 
+### Changelog
+
+- V0.0.11 - Initial release and fixes
+
 * **NOTE: Due to the lack of widespread support, conversion of Certums (and variants) to f16s and f128s is not supported**
 
 ### Currently Implemented Types and Operands
