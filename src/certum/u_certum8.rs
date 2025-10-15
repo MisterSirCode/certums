@@ -26,10 +26,18 @@ impl uc8 {
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.140625
+    /// Exact:   3.14
+    /// 
+    /// Digits of Accuracy: 3
+    /// 
     pub const PI: uc8 = uc8 { bits: 0xC9 };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.71875
+    /// Exact:   2.718
+    /// 
+    /// Digits of Accuracy: 4
+    /// 
     pub const E: uc8 = uc8 { bits: 0xAE };
 
     /// Return the binary components of the current certum

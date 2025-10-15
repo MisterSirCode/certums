@@ -128,6 +128,20 @@ macro_rules! sub_same {
 }
 
 #[macro_export]
+/// Addition for types
+macro_rules! mul_same {
+    ($target:ident, $uint:ty, $sint:ty) => {
+        impl Add for $target {
+            type Output = $target;
+            fn add(self, rhs: Self) -> Self {
+                let bits = <$sint>::saturating_add(self.bits as $sint, rhs.bits as $sint);
+                $target { bits: bits as $uint }
+            }
+        }
+    }
+}
+
+#[macro_export]
 /// General float casts
 macro_rules! float_casts {
     ($target:ident, $uint:ty) => {
@@ -169,6 +183,8 @@ macro_rules! float_casts {
         impl From<f32> for $target {
             /// Convert from a 32-Bit Float
             fn from(val: f32) -> Self {
+                if val == f32::INFINITY { return $target::MAX }
+                if val == f32::NEG_INFINITY { return $target::MIN }
                 $target::from(val as f64)
             }
         }
@@ -189,6 +205,8 @@ macro_rules! float_convert_sc {
         impl From<f64> for $target {
             /// Convert from a 64-bit Float
             fn from(val: f64) -> Self {
+                if val == f64::INFINITY { return $target::MAX }
+                if val == f64::NEG_INFINITY { return $target::MIN }
                 let (sgn, int, frc) = f64_split(val.clamp($target::MINF, $target::MAXF));
                 let sign = (sgn as $uint) << ($scale - 1);
                 // Combine integer and fraction parts

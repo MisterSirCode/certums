@@ -25,12 +25,20 @@ impl c64 {
     pub const MAXF: f64 = 16f64;
     /// Archimede's Constant - π
     /// 
-    /// Decimal: 3.141592653589793115997963468544185161590576171875
-    pub const PI: c64 = c64 { bits: 0x1921FB54442D1800 };
+    /// Decimal: 3.1415926535897932374286067869206817704252898693084716796875
+    /// Exact:   3.14159265358979323
+    /// 
+    /// Digits of Accuracy: 18
+    /// 
+    pub const PI: c64 = c64 { bits: 0x1921FB54442D1846 };
     /// Eulers's Number - e
     /// 
-    /// Decimal: 2.718281828459045090795598298427648842334747314453125
-    pub const E: c64 = c64 { bits: 0x15BF0A8B14576900 };
+    /// Decimal: 2.71828182845904523477764680450263767852447926998138427734375
+    /// Exact:   2.71828182845904523
+    /// 
+    /// Digits of Accuracy: 18
+    /// 
+    pub const E: c64 = c64 { bits: 0x15BF0A8B14576953 };
 
     /// Get the binary sign of the current certum
     /// 

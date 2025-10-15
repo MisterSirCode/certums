@@ -25,11 +25,19 @@ impl uc32 {
     pub const MAXF: f64 = 15.99999999627471f64;
     /// Archimede's Constant - π
     /// 
-    /// Decimal: 3.1415926553308963775634765625
-    pub const PI: uc32 = uc32 { bits: 0x3243F6A9 };
+    /// Decimal: 3.1415926516056060791015625
+    /// Exact:   3.14159265
+    /// 
+    /// Digits of Accuracy: 9
+    /// 
+    pub const PI: uc32 = uc32 { bits: 0x3243F6A8 };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.718281827867031097412109375
+    /// Exact:   2.71828182
+    /// 
+    /// Digits of Accuracy: 9
+    /// 
     pub const E: uc32 = uc32 { bits: 0x2B7E1516 };
 
     /// Return the binary components of the current certum

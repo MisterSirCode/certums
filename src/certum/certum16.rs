@@ -25,11 +25,19 @@ impl c16 {
     pub const MAXF: f64 = 3.9998779296875f64;
     /// Archimede's Constant - π
     /// 
-    /// Decimal: 3.1416015625
-    pub const PI: c16 = c16 { bits: 0x6488 };
+    /// Decimal: 3.1414794921875
+    /// Exact:   3.141
+    /// 
+    /// Digits of Accuracy: 4
+    /// 
+    pub const PI: c16 = c16 { bits: 0x6487 };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.71826171875
+    /// Exact:   2.7182
+    /// 
+    /// Digits of Accuracy: 5
+    /// 
     pub const E: c16 = c16 { bits: 0x56FC };
 
     /// Get the binary sign of the current certum
