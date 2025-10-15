@@ -48,6 +48,30 @@ macro_rules! from_right_shift {
 }
 
 #[macro_export]
+/// Convert between two certum variants through a left shift then a cast
+macro_rules! from_left_shift_signed {
+    ($source:ident, $target:ident, $cast:ty, $bits:expr, $shift:expr) => {
+        impl From<$source> for $target {
+            fn from(value: $source) -> Self {
+                $target { bits: (value.bits as $cast) << ($bits - $shift + 1) }
+            }
+        }
+    }
+}
+
+#[macro_export]
+/// Convert between two certum variants through a cast then a right shift
+macro_rules! from_right_shift_signed {
+    ($source:ident, $target:ident, $cast:ty, $bits:expr, $shift:expr) => {
+        impl From<$source> for $target {
+            fn from(value: $source) -> Self {
+                $target { bits: (value.bits >> ($bits - $shift + 1)) as $cast }
+            }
+        }
+    }
+}
+
+#[macro_export]
 /// Equivalency Checks
 macro_rules! equivalent_solo {
     ($target:ident) => {

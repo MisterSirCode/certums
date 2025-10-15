@@ -61,15 +61,15 @@ pub fn interpretation_tests() {
     assert_eq!(f64::from(uc64::PI),                       3.141592653589793115997963468544185161590576171875);
 
     // Signed Certum-128 Unit Tests
-    assert_eq!(c128::from(pi32).bits, 0x00000000000000000C90FDB000000000);
+    assert_eq!(c128::from(pi32).bits, 0x1921FB60000000000000000000000000);
     assert_eq!(c128::from(pi64),      c128::PI);
-    assert_eq!(f32::from(c128::from(0x00000000000000000C90FDB000000000)), 3.1415927410125732421875);
+    assert_eq!(f32::from(c128::from(0x1921FB60000000000000000000000000)), 3.1415927410125732421875);
     assert_eq!(f64::from(c128::PI),                                       3.141592653589793115997963468544185161590576171875);
 
     // Unsigned Certum-128 Unit Tests
-    assert_eq!(uc128::from(pi32).bits, 0x00000000000000000C90FDB000000000);
+    assert_eq!(uc128::from(pi32).bits, 0x0C90FDB0000000000000000000000000);
     assert_eq!(uc128::from(pi64),      uc128::PI);
-    assert_eq!(f32::from(uc128::from(0x00000000000000000C90FDB000000000)), 3.1415927410125732421875);
+    assert_eq!(f32::from(uc128::from(0x0C90FDB0000000000000000000000000)), 3.1415927410125732421875);
     assert_eq!(f64::from(uc128::PI),                                       3.141592653589793115997963468544185161590576171875);
 }
 

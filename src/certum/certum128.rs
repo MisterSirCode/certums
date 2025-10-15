@@ -26,11 +26,11 @@ impl c128 {
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.141592653589793115997963468544185161590576171875
-    pub const PI: c128 = c128 { bits: 0x00000000000000000C90FDAA22168C00 };
+    pub const PI: c128 = c128 { bits: 0x1921FB54442D18000000000000000000 };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.718281828459045090795598298427648842334747314453125
-    pub const E: c128 = c128 { bits: 0x00000000000000000ADF85458A2BB480 };
+    pub const E: c128 = c128 { bits: 0x15BF0A8B145769000000000000000000 };
 
     /// Get the binary sign of the current certum
     /// 

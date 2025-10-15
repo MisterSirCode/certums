@@ -26,11 +26,11 @@ impl uc128 {
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.141592653589793115997963468544185161590576171875
-    pub const PI: uc128 = uc128 { bits: 0x00000000000000000C90FDAA22168C00 };
+    pub const PI: uc128 = uc128 { bits: 0x0C90FDAA22168C000000000000000000 };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.718281828459045090795598298427648842334747314453125
-    pub const E: uc128 = uc128 { bits: 0x00000000000000000ADF85458A2BB480 };
+    pub const E: uc128 = uc128 { bits: 0x0ADF85458A2BB4800000000000000000 };
 
     /// Return the binary components of the current certum
     /// 

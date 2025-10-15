@@ -17,7 +17,9 @@ use {
     crate::{
         negate, 
         from_direct, 
+        from_right_shift_signed, 
         from_right_shift, 
+        from_left_shift_signed, 
         from_left_shift, 
         equivalent_solo, 
         add_same, 
@@ -80,27 +82,27 @@ from_direct!(uc32, c32);
 from_direct!(uc64, c64);
 from_direct!(uc128, c128);
 
-from_left_shift!(c8,  c16,  u16,  8, 1);
-from_left_shift!(c8,  c32,  u32,  8, 2);
-from_left_shift!(c8,  c64,  u64,  8, 3);
-from_left_shift!(c8,  c128, u128, 8, 4);
-from_left_shift!(c16, c32,  u32,  16, 1);
-from_left_shift!(c16, c64,  u64,  16, 2);
-from_left_shift!(c16, c128, u128, 16, 3);
-from_left_shift!(c32, c64,  u64,  32, 1);
-from_left_shift!(c32, c128, u128, 32, 2);
-from_left_shift!(c64, c128, u128, 64, 1);
+from_left_shift_signed!(c8,  c16,  u16,  8, 1);
+from_left_shift_signed!(c8,  c32,  u32,  8, 2);
+from_left_shift_signed!(c8,  c64,  u64,  8, 3);
+from_left_shift_signed!(c8,  c128, u128, 8, 4);
+from_left_shift_signed!(c16, c32,  u32,  16, 1);
+from_left_shift_signed!(c16, c64,  u64,  16, 2);
+from_left_shift_signed!(c16, c128, u128, 16, 3);
+from_left_shift_signed!(c32, c64,  u64,  32, 1);
+from_left_shift_signed!(c32, c128, u128, 32, 2);
+from_left_shift_signed!(c64, c128, u128, 64, 1);
 
-from_right_shift!(c128, c64, u64, 64, 1);
-from_right_shift!(c128, c32, u32, 32, 2);
-from_right_shift!(c128, c16, u16, 16, 3);
-from_right_shift!(c128, c8,  u8,  8, 4);
-from_right_shift!(c64,  c32, u32, 32, 1);
-from_right_shift!(c64,  c16, u16, 16, 2);
-from_right_shift!(c64,  c8,  u8,  8, 3);
-from_right_shift!(c32,  c16, u16, 16, 1);
-from_right_shift!(c32,  c8,  u8,  8, 2);
-from_right_shift!(c16,  c8,  u8,  8, 1);
+from_right_shift_signed!(c128, c64, u64, 64, 1);
+from_right_shift_signed!(c128, c32, u32, 32, 2);
+from_right_shift_signed!(c128, c16, u16, 16, 3);
+from_right_shift_signed!(c128, c8,  u8,  8, 4);
+from_right_shift_signed!(c64,  c32, u32, 32, 1);
+from_right_shift_signed!(c64,  c16, u16, 16, 2);
+from_right_shift_signed!(c64,  c8,  u8,  8, 3);
+from_right_shift_signed!(c32,  c16, u16, 16, 1);
+from_right_shift_signed!(c32,  c8,  u8,  8, 2);
+from_right_shift_signed!(c16,  c8,  u8,  8, 1);
 
 from_left_shift!(uc8,  uc16,  u16,  8, 1);
 from_left_shift!(uc8,  uc32,  u32,  8, 2);
