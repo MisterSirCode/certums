@@ -33,10 +33,10 @@ use {
 
 // Float Casting
 
-float_convert_sc!(c8,   u8,  8,   2, 0x7F);
-float_convert_sc!(c16,  u16, 16,  3, 0x7FFF);
-float_convert_sc!(c32,  u32, 32,  4, 0x7FFFFFFF);
-float_convert_sc!(c64,  u64, 64,  5, 0x7FFFFFFFFFFFFFFF);
+float_convert_sc!(c8,  u8,  i8,  8,   2, 0x7F);
+float_convert_sc!(c16, u16, i16, 16,  3, 0x7FFF);
+float_convert_sc!(c32, u32, i32, 32,  4, 0x7FFFFFFF);
+float_convert_sc!(c64, u64, i64, 64,  5, 0x7FFFFFFFFFFFFFFF);
 lossy_float_convert!(c128, c64);
 float_convert_uc!(uc8,  u8,  8,  2, 0x7F);
 float_convert_uc!(uc16, u16, 16, 3, 0x7FFF);
@@ -80,49 +80,49 @@ from_direct!(uc32, c32);
 from_direct!(uc64, c64);
 from_direct!(uc128, c128);
 
-from_right_shift!(c8,  c16,  u16,  1);
-from_right_shift!(c8,  c32,  u32,  2);
-from_right_shift!(c8,  c64,  u64,  3);
-from_right_shift!(c8,  c128, u128, 4);
-from_right_shift!(c16, c32,  u32,  1);
-from_right_shift!(c16, c64,  u64,  2);
-from_right_shift!(c16, c128, u128, 3);
-from_right_shift!(c32, c64,  u64,  1);
-from_right_shift!(c32, c128, u128, 2);
-from_right_shift!(c64, c128, u128, 1);
+from_left_shift!(c8,  c16,  u16,  8, 1);
+from_left_shift!(c8,  c32,  u32,  8, 2);
+from_left_shift!(c8,  c64,  u64,  8, 3);
+from_left_shift!(c8,  c128, u128, 8, 4);
+from_left_shift!(c16, c32,  u32,  16, 1);
+from_left_shift!(c16, c64,  u64,  16, 2);
+from_left_shift!(c16, c128, u128, 16, 3);
+from_left_shift!(c32, c64,  u64,  32, 1);
+from_left_shift!(c32, c128, u128, 32, 2);
+from_left_shift!(c64, c128, u128, 64, 1);
 
-from_left_shift!(c128, c64, u64, 1);
-from_left_shift!(c128, c32, u32, 2);
-from_left_shift!(c128, c16, u16, 3);
-from_left_shift!(c128, c8,  u8,  4);
-from_left_shift!(c64,  c32, u32, 1);
-from_left_shift!(c64,  c16, u16, 2);
-from_left_shift!(c64,  c8,  u8,  3);
-from_left_shift!(c32,  c16, u16, 1);
-from_left_shift!(c32,  c8,  u8,  2);
-from_left_shift!(c16,  c8,  u8,  1);
+from_right_shift!(c128, c64, u64, 64, 1);
+from_right_shift!(c128, c32, u32, 32, 2);
+from_right_shift!(c128, c16, u16, 16, 3);
+from_right_shift!(c128, c8,  u8,  8, 4);
+from_right_shift!(c64,  c32, u32, 32, 1);
+from_right_shift!(c64,  c16, u16, 16, 2);
+from_right_shift!(c64,  c8,  u8,  8, 3);
+from_right_shift!(c32,  c16, u16, 16, 1);
+from_right_shift!(c32,  c8,  u8,  8, 2);
+from_right_shift!(c16,  c8,  u8,  8, 1);
 
-from_right_shift!(uc8,  uc16,  u16,  1);
-from_right_shift!(uc8,  uc32,  u32,  2);
-from_right_shift!(uc8,  uc64,  u64,  3);
-from_right_shift!(uc8,  uc128, u128, 4);
-from_right_shift!(uc16, uc32,  u32,  1);
-from_right_shift!(uc16, uc64,  u64,  2);
-from_right_shift!(uc16, uc128, u128, 3);
-from_right_shift!(uc32, uc64,  u64,  1);
-from_right_shift!(uc32, uc128, u128, 2);
-from_right_shift!(uc64, uc128, u128, 1);
+from_left_shift!(uc8,  uc16,  u16,  8, 1);
+from_left_shift!(uc8,  uc32,  u32,  8, 2);
+from_left_shift!(uc8,  uc64,  u64,  8, 3);
+from_left_shift!(uc8,  uc128, u128, 8, 4);
+from_left_shift!(uc16, uc32,  u32,  16, 1);
+from_left_shift!(uc16, uc64,  u64,  16, 2);
+from_left_shift!(uc16, uc128, u128, 16, 3);
+from_left_shift!(uc32, uc64,  u64,  32, 1);
+from_left_shift!(uc32, uc128, u128, 32, 2);
+from_left_shift!(uc64, uc128, u128, 64, 1);
 
-from_left_shift!(uc128, uc64, u64, 1);
-from_left_shift!(uc128, uc32, u32, 2);
-from_left_shift!(uc128, uc16, u16, 3);
-from_left_shift!(uc128, uc8,  u8,  4);
-from_left_shift!(uc64,  uc32, u32, 1);
-from_left_shift!(uc64,  uc16, u16, 2);
-from_left_shift!(uc64,  uc8,  u8,  3);
-from_left_shift!(uc32,  uc16, u16, 1);
-from_left_shift!(uc32,  uc8,  u8,  2);
-from_left_shift!(uc16,  uc8,  u8,  1);
+from_right_shift!(uc128, uc64, u64, 64, 1);
+from_right_shift!(uc128, uc32, u32, 32, 2);
+from_right_shift!(uc128, uc16, u16, 16, 3);
+from_right_shift!(uc128, uc8,  u8,  8, 4);
+from_right_shift!(uc64,  uc32, u32, 32, 1);
+from_right_shift!(uc64,  uc16, u16, 16, 2);
+from_right_shift!(uc64,  uc8,  u8,  8, 3);
+from_right_shift!(uc32,  uc16, u16, 16, 1);
+from_right_shift!(uc32,  uc8,  u8,  8, 2);
+from_right_shift!(uc16,  uc8,  u8,  8, 1);
 
 // Checks
 

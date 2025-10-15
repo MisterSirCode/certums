@@ -80,7 +80,7 @@ use {
     super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64, c128, uc128}
 };
 
-pub fn display_certums(value: f64) {
+pub fn display_certums(value: f32) {
     let val8 = c8::from(value);
     let val16 = c16::from(value);
     let val32 = c32::from(value);

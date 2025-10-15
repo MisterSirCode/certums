@@ -14,7 +14,7 @@ These values are easily (Though lossily) convertable between eachother through s
 
 ### Currently Implemented Types and Operands
 
-* 8-64 bit Certums, 8-64 bit Unsigned Certums
+* 8-128 bit Certums, 8-128 bit Unsigned Certums
 * Casting / Float conversion for all types
 * Negation for all types
 * Addition and Subtraction for all types

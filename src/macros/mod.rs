@@ -26,10 +26,10 @@ macro_rules! from_direct {
 #[macro_export]
 /// Convert between two certum variants through a left shift then a cast
 macro_rules! from_left_shift {
-    ($source:ident, $target:ident, $cast:ty, $shift:expr) => {
+    ($source:ident, $target:ident, $cast:ty, $bits:expr, $shift:expr) => {
         impl From<$source> for $target {
             fn from(value: $source) -> Self {
-                $target { bits: (value.bits << $shift) as $cast }
+                $target { bits: (value.bits as $cast) << ($bits - $shift) }
             }
         }
     }
@@ -38,10 +38,10 @@ macro_rules! from_left_shift {
 #[macro_export]
 /// Convert between two certum variants through a cast then a right shift
 macro_rules! from_right_shift {
-    ($source:ident, $target:ident, $cast:ty, $shift:expr) => {
+    ($source:ident, $target:ident, $cast:ty, $bits:expr, $shift:expr) => {
         impl From<$source> for $target {
             fn from(value: $source) -> Self {
-                $target { bits: (value.bits as $cast) >> $shift }
+                $target { bits: (value.bits >> ($bits - $shift)) as $cast }
             }
         }
     }
@@ -154,13 +154,11 @@ macro_rules! float_casts {
 #[macro_export]
 /// Float conversion for signed certums
 macro_rules! float_convert_sc {
-    ($target:ident, $uint:ty, $scale:expr, $dec:expr, $lim:expr) => {
+    ($target:ident, $uint:ty, $sint:ty, $scale:expr, $dec:expr, $lim:expr) => {
         impl From<$target> for f64 {
             /// Convert to a 64-bit Float
             fn from(value: $target) -> Self {
-                let (sgn, int, frc) = value.components();
-                let float_frc = (frc as f64) / f64::powi(2f64, $scale); // MSB-Shifted fraction / 2^Bits
-                ((int as f64) + float_frc) * sgn as f64 // Add integer and fraction, multiply sign
+                (value.bits as $sint) as f64 / (<$uint>::from(1u8) << ($scale - $dec)) as f64
             }
         }
 
