@@ -37,7 +37,7 @@ impl uc64 {
     /// (Integer Component, Fraction Component)
     pub fn components(&self) -> (u64, u64) {
         // Order ints smallest component as LSB
-        // 64 bits - 5 int bits = 6 bit shifts
+        // 64 bits - 5 int bits = 59 bit shifts
         let int = self.bits >> 59;
         // Order fraction's largest component as MSB
         // 64 bits - 59 frc bits = 5 bit shifts

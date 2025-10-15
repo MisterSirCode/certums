@@ -2,26 +2,26 @@
 
 #[derive(Copy, Clone, Debug)]
 #[expect(non_camel_case_types)]
-/// Define a generic 64-bit Signed Certum
+/// Define a generic 128-bit Signed Certum
 pub struct c128 {
     /// The raw bits of the certum
     /// 
-    /// 1 Sign bit, 4 Integer bits, 59 Fraction bits
+    /// 1 Sign bit, 5 Integer bits, 122 Fraction bits
     pub bits: u128
 }
 
 impl c128 {
-    /// Minimum value for a 64-bit Certum.
+    /// Minimum value for a 128-bit Certum.
     /// 
-    /// Decimal: -15.99999999999999999826527652402319290558807551860809326171875
+    /// Decimal: -31.99999999999999999999999999999999999981192090386843399872500215404444069154901351091646599655859972699545323848724365234375
     pub const MIN: c128 = c128 { bits: 0x80000000000000000000000000000000 };
-    /// Maximum value for a 64-bit Certum.
+    /// Maximum value for a 128-bit Certum.
     /// 
-    /// Decimal: 15.99999999999999999826527652402319290558807551860809326171875
+    /// Decimal: 31.99999999999999999999999999999999999981192090386843399872500215404444069154901351091646599655859972699545323848724365234375
     pub const MAX: c128 = c128 { bits: 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF };
-    /// Minimum value as a 64-bit Float
+    /// Minimum value as a 128-bit Float
     pub const MINF: f64 = -32f64;
-    /// Maximum value as a 64-bit Float
+    /// Maximum value as a 128-bit Float
     pub const MAXF: f64 = 32f64;
     /// Archimede's Constant - π
     /// 
