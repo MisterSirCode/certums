@@ -19,3 +19,4 @@ pub use certum::u_certum8::uc8;
 pub use certum::u_certum16::uc16;
 pub use certum::u_certum32::uc32;
 pub use certum::u_certum64::uc64;
+pub use certum::u_certum128::uc128;

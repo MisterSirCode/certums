@@ -61,7 +61,7 @@ impl c128 {
         (sgn, int, frc)
     }
 
-    /// Internal Use Only
+    /// Internal use only
     pub fn u64_round(val: u64) -> u64 {
         val
     }

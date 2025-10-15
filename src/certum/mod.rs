@@ -9,7 +9,7 @@ pub mod u_certum8;
 pub mod u_certum16;
 pub mod u_certum32;
 pub mod u_certum64;
-// pub mod u_certum128;
+pub mod u_certum128;
 
 use {
     std::cmp::{Eq},
@@ -27,7 +27,7 @@ use {
         float_convert_uc,
         lossy_float_convert
     },
-    super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64, c128},
+    super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64, c128, uc128},
     super::utils::{f64_split}
 };
 
@@ -58,10 +58,12 @@ negate!(c8);
 negate!(c16);
 negate!(c32);
 negate!(c64);
+negate!(c128);
 negate!(uc8);
 negate!(uc16);
 negate!(uc32);
 negate!(uc64);
+negate!(uc128);
 
 // Type Conversion
 
@@ -69,12 +71,12 @@ from_direct!(c8,   uc8);
 from_direct!(c16,  uc16);
 from_direct!(c32,  uc32);
 from_direct!(c64,  uc64);
-// from_direct!(c128,  uc128);
+from_direct!(c128,  uc128);
 from_direct!(uc8,  c8);
 from_direct!(uc16, c16);
 from_direct!(uc32, c32);
 from_direct!(uc64, c64);
-// from_direct!(uc128, c128);
+from_direct!(uc128, c128);
 
 from_right_shift!(c8,  c16,  u16,  1);
 from_right_shift!(c8,  c32,  u32,  2);
@@ -123,7 +125,7 @@ equivalent_solo!(uc8);
 equivalent_solo!(uc16);
 equivalent_solo!(uc32);
 equivalent_solo!(uc64);
-// equivalent_solo!(uc128);
+equivalent_solo!(uc128);
 
 // Algebra
 
