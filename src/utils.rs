@@ -77,7 +77,7 @@ pub fn u32_to_u16_round(val: u32) -> u16 {
 
 use {
     core::{f32, f64},
-    super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64}
+    super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64, c128}
 };
 
 pub fn display_certums(value: f64) {
@@ -85,6 +85,7 @@ pub fn display_certums(value: f64) {
     let val16 = c16::from(value);
     let val32 = c32::from(value);
     let val64 = c64::from(value);
+    let val128 = c128::from(value);
     println!("\nSigned Types: ");
     println!("0x{:02X}", val8.bits);
     println!("{:.8}", f64::from(val8));
@@ -94,6 +95,8 @@ pub fn display_certums(value: f64) {
     println!("{:.32}", f64::from(val32));
     println!("0x{:016X}", val64.bits);
     println!("{:.64}", f64::from(val64));
+    println!("0x{:032X}", val128.bits);
+    println!("{:.128}", f64::from(val128));
     let uval8 = uc8::from(value);
     let uval16 = uc16::from(value);
     let uval32 = uc32::from(value);

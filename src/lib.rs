@@ -13,6 +13,7 @@ pub use certum::certum8::c8;
 pub use certum::certum16::c16;
 pub use certum::certum32::c32;
 pub use certum::certum64::c64;
+pub use certum::certum128::c128;
 // Expose uc8-uc128 to top-level crate
 pub use certum::u_certum8::uc8;
 pub use certum::u_certum16::uc16;

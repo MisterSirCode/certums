@@ -108,43 +108,42 @@ macro_rules! sub_same {
 macro_rules! float_casts {
     ($target:ident, $uint:ty) => {
         impl From<&$target> for f64 {
-            /// Convert a Certum to a 64-bit Float
+            /// Convert to a 64-bit Float
             fn from(value: &$target) -> Self {
                 f64::from(*value)
             }
         }
 
         impl From<$target> for f32 {
-            /// Convert a Certum to a 32-bit Float
+            /// Convert to a 32-bit Float
             fn from(value: $target) -> Self {
                 f64::from(value) as f32
             }
         }
 
         impl From<&$target> for f32 {
-            /// Convert a Certum to a 32-bit Float
+            /// Convert to a 32-bit Float
             fn from(value: &$target) -> Self {
                 f64::from(*value) as f32
             }
         }
 
-
         impl From<$uint> for $target {
-            /// Convert an UInt to a Certum
+            /// Convert from a UInt
             fn from(bits: $uint) -> Self {
                 $target { bits }
             }
         }
 
         impl From<&$uint> for $target {
-            /// Convert an UInt to a Certum
+            /// Convert from a UInt
             fn from(value: &$uint) -> Self {
                 $target::from(*value)
             }
         }
 
         impl From<f32> for $target {
-            /// Convert a 32-bit Float to a Certum
+            /// Convert from a 32-Bit Float
             fn from(val: f32) -> Self {
                 $target::from(val as f64)
             }
@@ -157,7 +156,7 @@ macro_rules! float_casts {
 macro_rules! float_convert_sc {
     ($target:ident, $uint:ty, $scale:expr, $dec:expr, $lim:expr) => {
         impl From<$target> for f64 {
-            /// Convert a Certum to a 64-bit Float
+            /// Convert to a 64-bit Float
             fn from(value: $target) -> Self {
                 let (sgn, int, frc) = value.components();
                 let float_frc = (frc as f64) / f64::powi(2f64, $scale); // MSB-Shifted fraction / 2^Bits
@@ -166,7 +165,7 @@ macro_rules! float_convert_sc {
         }
 
         impl From<f64> for $target {
-            /// Convert a 64-bit Float to a Certum
+            /// Convert from a 64-bit Float
             fn from(val: f64) -> Self {
                 let (sgn, int, frc) = f64_split(val.clamp($target::MINF, $target::MAXF));
                 let sign = (sgn as $uint) << ($scale - 1);
@@ -187,7 +186,7 @@ macro_rules! float_convert_sc {
 macro_rules! float_convert_uc {
     ($target:ident, $uint:ty, $scale:expr, $dec:expr, $lim:expr) => {
         impl From<$target> for f64 {
-            /// Convert a Certum to a 64-bit Float
+            /// Convert to a 64-bit Float
             fn from(value: $target) -> Self {
                 let (int, frc) = value.components();
                 let float_frc = (frc as f64) / f64::powi(2f64, $scale); // MSB-Shifted fraction / 2^Bits
@@ -196,12 +195,32 @@ macro_rules! float_convert_uc {
         }
 
         impl From<f64> for $target {
-            /// Convert a 64-bit Float to a Certum
+            /// Convert from a 64-bit Float
             fn from(val: f64) -> Self {
                 let (_sgn, int, frc) = f64_split(val.clamp($target::MINF, $target::MAXF));
                 // Combine integer and fraction parts
                 let bits = ((int as $uint) << ($scale - $dec)) | $target::u64_round(frc >> $dec);
                 $target { bits }
+            }
+        }
+    };
+}
+
+#[macro_export]
+// Float conversion for types > 64 bit
+macro_rules! lossy_float_convert {
+    ($target:ident, $fromtype:ident) => {
+        impl From<$target> for f64 {
+            /// Convert to a 64-bit Float
+            fn from(value: $target) -> Self {
+                f64::from($fromtype::from(value))
+            }
+        }
+
+        impl From<f64> for $target {
+            /// Convert from a 64-bit Float
+            fn from(val: f64) -> Self {
+                $target::from($fromtype::from(val))
             }
         }
     };
