@@ -12,7 +12,7 @@ These values are easily (Though lossily) convertable between eachother through s
 
 ### Changelog
 
-- V0.0.2 - Fix algebra and add 128-bit certums
+- V0.1.0 - Fix algebra and add 128-bit certums
 
 * **NOTE: Due to the lack of widespread support, conversion of Certums (and variants) to f16s and f128s is not supported**
 
