@@ -20,7 +20,7 @@ impl c16 {
     /// Decimal: 3.9998779296875
     pub const MAX: c16 = c16 { bits: 0x7FFF };
     /// Minimum value as a 64-bit Float
-    pub const MINF: f64 = -3.9998779296875f64;
+    pub const MINF: f64 = -4.0f64;
     /// Maximum value as a 64-bit Float
     pub const MAXF: f64 = 3.9998779296875f64;
     /// Archimede's Constant - π

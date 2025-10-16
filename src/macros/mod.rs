@@ -16,8 +16,8 @@ macro_rules! negate {
 macro_rules! from_direct {
     ($source:ident, $target:ident) => {
         impl From<$source> for $target {
-            fn from(value: $source) -> Self {
-                $target { bits: value.bits }
+            fn from(val: $source) -> Self {
+                $target { bits: val.bits }
             }
         }
     }
@@ -28,8 +28,8 @@ macro_rules! from_direct {
 macro_rules! from_left_shift {
     ($source:ident, $target:ident, $cast:ty, $bits:expr, $shift:expr) => {
         impl From<$source> for $target {
-            fn from(value: $source) -> Self {
-                $target { bits: (value.bits as $cast) << ($bits - $shift) }
+            fn from(val: $source) -> Self {
+                $target { bits: (val.bits as $cast) << ($bits - $shift) }
             }
         }
     }
@@ -40,8 +40,8 @@ macro_rules! from_left_shift {
 macro_rules! from_right_shift {
     ($source:ident, $target:ident, $cast:ty, $bits:expr, $shift:expr) => {
         impl From<$source> for $target {
-            fn from(value: $source) -> Self {
-                $target { bits: (value.bits >> ($bits - $shift)) as $cast }
+            fn from(val: $source) -> Self {
+                $target { bits: (val.bits >> ($bits - $shift)) as $cast }
             }
         }
     }
@@ -52,8 +52,8 @@ macro_rules! from_right_shift {
 macro_rules! from_left_shift_signed {
     ($source:ident, $target:ident, $cast:ty, $bits:expr, $shift:expr) => {
         impl From<$source> for $target {
-            fn from(value: $source) -> Self {
-                $target { bits: (value.bits as $cast) << ($bits - $shift + 1) }
+            fn from(val: $source) -> Self {
+                $target { bits: (val.bits as $cast) << ($bits - $shift + 1) }
             }
         }
     }
@@ -64,8 +64,8 @@ macro_rules! from_left_shift_signed {
 macro_rules! from_right_shift_signed {
     ($source:ident, $target:ident, $cast:ty, $bits:expr, $shift:expr) => {
         impl From<$source> for $target {
-            fn from(value: $source) -> Self {
-                $target { bits: (value.bits >> ($bits - $shift + 1)) as $cast }
+            fn from(val: $source) -> Self {
+                $target { bits: (val.bits >> ($bits - $shift + 1)) as $cast }
             }
         }
     }
@@ -147,22 +147,22 @@ macro_rules! float_casts {
     ($target:ident, $uint:ty) => {
         impl From<&$target> for f64 {
             /// Convert to a 64-bit Float
-            fn from(value: &$target) -> Self {
-                f64::from(*value)
+            fn from(val: &$target) -> Self {
+                f64::from(*val)
             }
         }
 
         impl From<$target> for f32 {
             /// Convert to a 32-bit Float
-            fn from(value: $target) -> Self {
-                f64::from(value) as f32
+            fn from(val: $target) -> Self {
+                f64::from(val) as f32
             }
         }
 
         impl From<&$target> for f32 {
             /// Convert to a 32-bit Float
-            fn from(value: &$target) -> Self {
-                f64::from(*value) as f32
+            fn from(val: &$target) -> Self {
+                f64::from(*val) as f32
             }
         }
 
@@ -175,8 +175,8 @@ macro_rules! float_casts {
 
         impl From<&$uint> for $target {
             /// Convert from a UInt
-            fn from(value: &$uint) -> Self {
-                $target::from(*value)
+            fn from(val: &$uint) -> Self {
+                $target::from(*val)
             }
         }
 
@@ -197,8 +197,8 @@ macro_rules! float_convert_sc {
     ($target:ident, $uint:ty, $sint:ty, $scale:expr, $dec:expr, $lim:expr) => {
         impl From<$target> for f64 {
             /// Convert to a 64-bit Float
-            fn from(value: $target) -> Self {
-                (value.bits as $sint) as f64 / (<$uint>::from(1u8) << ($scale - $dec)) as f64
+            fn from(val: $target) -> Self {
+                (val.bits as $sint) as f64 / (<$uint>::from(1u8) << ($scale - $dec)) as f64
             }
         }
 
@@ -227,8 +227,8 @@ macro_rules! float_convert_uc {
     ($target:ident, $uint:ty, $scale:expr, $dec:expr, $lim:expr) => {
         impl From<$target> for f64 {
             /// Convert to a 64-bit Float
-            fn from(value: $target) -> Self {
-                let (int, frc) = value.components();
+            fn from(val: $target) -> Self {
+                let (int, frc) = val.components();
                 let float_frc = (frc as f64) / f64::powi(2f64, $scale); // MSB-Shifted fraction / 2^Bits
                 (int as f64) + float_frc // Add integer and fraction
             }
@@ -248,19 +248,39 @@ macro_rules! float_convert_uc {
 
 #[macro_export]
 // Float conversion for types > 64 bit
-macro_rules! lossy_float_convert {
-    ($target:ident, $fromtype:ident) => {
+macro_rules! lossy_float_signed {
+    ($target:ident, $fromtype:ident, $shift:expr) => {
         impl From<$target> for f64 {
             /// Convert to a 64-bit Float
-            fn from(value: $target) -> Self {
-                f64::from($fromtype::from(value))
+            fn from(val: $target) -> Self {
+                f64::from($fromtype { bits: $fromtype::from($target { bits: val.bits >> $shift }).bits << $shift })
             }
         }
 
         impl From<f64> for $target {
             /// Convert from a 64-bit Float
             fn from(val: f64) -> Self {
-                $target::from($fromtype::from(val))
+                $target { bits: $target::from($fromtype { bits: $fromtype::from(val).bits >> $shift }).bits << $shift }
+            }
+        }
+    };
+}
+
+#[macro_export]
+// Float conversion for types > 64 bit
+macro_rules! lossy_float_unsigned {
+    ($target:ident, $fromtype:ident, $shift:expr) => {
+        impl From<$target> for f64 {
+            /// Convert to a 64-bit Float
+            fn from(val: $target) -> Self {
+                f64::from($fromtype { bits: $fromtype::from($target { bits: val.bits << $shift }).bits >> $shift })
+            }
+        }
+
+        impl From<f64> for $target {
+            /// Convert from a 64-bit Float
+            fn from(val: f64) -> Self {
+                $target { bits: $target::from($fromtype { bits: $fromtype::from(val).bits << $shift }).bits >> $shift }
             }
         }
     };

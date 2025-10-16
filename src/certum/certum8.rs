@@ -20,7 +20,7 @@ impl c8 {
     /// Decimal: 1.984375
     pub const MAX: c8 = c8 { bits: 0x7F };
     /// Minimum value as a 64-bit Float
-    pub const MINF: f64 = -1.984375f64;
+    pub const MINF: f64 = -2.0f64;
     /// Maximum value as a 64-bit Float
     pub const MAXF: f64 = 1.984375f64;
 

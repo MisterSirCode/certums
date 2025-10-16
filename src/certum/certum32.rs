@@ -20,7 +20,7 @@ impl c32 {
     /// Decimal: 7.9999999962747097015380859375
     pub const MAX: c32 = c32 { bits: 0x7FFFFFFF };
     /// Minimum value as a 64-bit Float
-    pub const MINF: f64 = -7.99999999627471f64;
+    pub const MINF: f64 = -8.0f64;
     /// Maximum value as a 64-bit Float
     pub const MAXF: f64 = 7.99999999627471f64;
     /// Archimede's Constant - π

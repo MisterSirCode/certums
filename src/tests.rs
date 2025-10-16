@@ -25,56 +25,91 @@ pub fn interpretation_tests() {
     assert_eq!(f64::from(uc8::PI), 3.140625);
 
     // Signed Certum-16 Unit Tests
-    assert_eq!(c16::from(pi32), c16::PI);
-    assert_eq!(c16::from(pi64), c16::PI);
-    assert_eq!(f32::from(c16::PI), 3.1416015625);
-    assert_eq!(f64::from(c16::PI), 3.1416015625);
+    assert_eq!(c16::from(pi32).bits, 0x6488);
+    assert_eq!(c16::from(pi64).bits, 0x6488);
+    assert_eq!(f32::from(c16::PI), 3.1414794921875);
+    assert_eq!(f64::from(c16::PI), 3.1414794921875);
 
     // Unsigned Certum-16 Unit Tests
-    assert_eq!(uc16::from(pi32), uc16::PI);
-    assert_eq!(uc16::from(pi64), uc16::PI);
-    assert_eq!(f32::from(uc16::PI), 3.1416015625);
-    assert_eq!(f64::from(uc16::PI), 3.1416015625);
+    assert_eq!(uc16::from(pi32).bits, 0x6488);
+    assert_eq!(uc16::from(pi64).bits, 0x6488);
+    assert_eq!(f32::from(uc16::PI), 3.1414794921875);
+    assert_eq!(f64::from(uc16::PI), 3.1414794921875);
 
     // Signed Certum-32 Unit Tests
     assert_eq!(c32::from(pi32).bits, 0x3243F6C0);
-    assert_eq!(c32::from(pi64),      c32::PI);
+    assert_eq!(c32::from(pi64).bits, 0x3243F6A9);
     assert_eq!(f32::from(c32::from(0x3243F6C0)), 3.1415927410125732421875);
-    assert_eq!(f64::from(c32::PI),               3.1415926553308963775634765625);
+    assert_eq!(f64::from(c32::PI),               3.141592651605606);
 
     // Unsigned Certum-32 Unit Tests
     assert_eq!(uc32::from(pi32).bits, 0x3243F6C0);
-    assert_eq!(uc32::from(pi64),      uc32::PI);
+    assert_eq!(uc32::from(pi64).bits, 0x3243F6A9);
     assert_eq!(f32::from(uc32::from(0x3243F6C0)), 3.1415927410125732421875);
-    assert_eq!(f64::from(uc32::PI),               3.1415926553308963775634765625);
+    assert_eq!(f64::from(uc32::PI),               3.141592651605606);
 
     // Signed Certum-64 Unit Tests
     assert_eq!(c64::from(pi32).bits, 0x1921FB6000000000);
-    assert_eq!(c64::from(pi64),      c64::PI);
+    assert_eq!(c64::from(pi64).bits, 0x1921FB54442D1800);
     assert_eq!(f32::from(c64::from(0x1921FB6000000000)), 3.1415927410125732421875);
-    assert_eq!(f64::from(c64::PI),                       3.141592653589793115997963468544185161590576171875);
+    assert_eq!(f64::from(c64::PI),                       3.141592653589793);
 
     // Unsigned Certum-64 Unit Tests
     assert_eq!(uc64::from(pi32).bits, 0x1921FB6000000000);
-    assert_eq!(uc64::from(pi64),      uc64::PI);
+    assert_eq!(uc64::from(pi64).bits, 0x1921FB54442D1800);
     assert_eq!(f32::from(uc64::from(0x1921FB6000000000)), 3.1415927410125732421875);
-    assert_eq!(f64::from(uc64::PI),                       3.141592653589793115997963468544185161590576171875);
+    assert_eq!(f64::from(uc64::PI),                       3.141592653589793);
 
     // Signed Certum-128 Unit Tests
     assert_eq!(c128::from(pi32).bits, 0x1921FB60000000000000000000000000);
-    assert_eq!(c128::from(pi64),      c128::PI);
+    assert_eq!(c128::from(pi64).bits, 0x1921FB54442D18000000000000000000);
     assert_eq!(f32::from(c128::from(0x1921FB60000000000000000000000000)), 3.1415927410125732421875);
-    assert_eq!(f64::from(c128::PI),                                       3.141592653589793115997963468544185161590576171875);
+    assert_eq!(f64::from(c128::PI),                                       3.141592653589793);
 
     // Unsigned Certum-128 Unit Tests
     assert_eq!(uc128::from(pi32).bits, 0x0C90FDB0000000000000000000000000);
-    assert_eq!(uc128::from(pi64),      uc128::PI);
+    assert_eq!(uc128::from(pi64).bits, 0xC90FDAA22168C000000000000000000);
     assert_eq!(f32::from(uc128::from(0x0C90FDB0000000000000000000000000)), 3.1415927410125732421875);
-    assert_eq!(f64::from(uc128::PI),                                       3.141592653589793115997963468544185161590576171875);
+    assert_eq!(f64::from(uc128::PI),                                       3.141592653589793);
 }
 
 #[test]
-// Run all unit tests for addition of types
+/// Constants Tests
+pub fn constants_tests() {
+    assert_eq!(f64::from(c8::MIN), c8::MINF);
+    assert_eq!(f64::from(c8::MAX), c8::MAXF);
+    assert_eq!(f64::from(uc8::MIN), uc8::MINF);
+    assert_eq!(f64::from(uc8::MAX), uc8::MAXF);
+    assert_eq!(f64::from(c16::MIN), c16::MINF);
+    assert_eq!(f64::from(c16::MAX), c16::MAXF);
+    assert_eq!(f64::from(uc16::MIN), uc16::MINF);
+    assert_eq!(f64::from(uc16::MAX), uc16::MAXF);
+    assert_eq!(f64::from(c32::MIN), c32::MINF);
+    assert_eq!(f64::from(c32::MAX), c32::MAXF);
+    assert_eq!(f64::from(uc32::MIN), uc32::MINF);
+    assert_eq!(f64::from(uc32::MAX), uc32::MAXF);
+    assert_eq!(f64::from(c64::MIN), c64::MINF);
+    assert_eq!(f64::from(c64::MAX), c64::MAXF);
+    assert_eq!(f64::from(uc64::MIN), uc64::MINF);
+    assert_eq!(f64::from(uc64::MAX), uc64::MAXF);
+    assert_eq!(f64::from(c128::MIN), c128::MINF);
+    assert_eq!(f64::from(c128::MAX), c128::MAXF);
+    assert_eq!(f64::from(uc128::MIN), uc128::MINF);
+    assert_eq!(f64::from(uc128::MAX), uc128::MAXF);
+    assert_eq!(f64::from(uc8::PI), 3.140625);
+    assert_eq!(f64::from(c16::PI), 3.1414794921875);
+    assert_eq!(f64::from(uc16::PI), 3.1414794921875);
+    assert_eq!(f64::from(c32::PI), 3.141592651605606);
+    assert_eq!(f64::from(uc32::PI), 3.141592651605606);
+    assert_eq!(f64::from(c64::PI), 3.141592653589793);
+    assert_eq!(f64::from(uc64::PI), 3.141592653589793);
+    assert_eq!(f64::from(c128::PI), 3.141592653589793);
+    assert_eq!(f64::from(uc128::PI), 3.141592653589793);
+}
+
+
+#[test]
+/// Run all unit tests for addition of types
 pub fn addition_tests() {
     // upper + -lower
     // upper + lower
