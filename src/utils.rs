@@ -114,3 +114,37 @@ pub fn display_certums(value: f64) {
     println!("0x{:032X}", uval128.bits);
     println!("{:.128}", f64::from(uval128));
 }
+
+pub trait QuickLog {
+    fn log_bits(&self);
+}
+
+impl QuickLog for u8 {
+    fn log_bits(&self) {
+        println!("0b{:08b}", self);
+    }
+}
+
+impl QuickLog for u16 {
+    fn log_bits(&self) {
+        println!("0b{:016b}", self);
+    }
+}
+
+impl QuickLog for u32 {
+    fn log_bits(&self) {
+        println!("0b{:032b}", self);
+    }
+}
+
+impl QuickLog for u64 {
+    fn log_bits(&self) {
+        println!("0b{:064b}", self);
+    }
+}
+
+impl QuickLog for u128 {
+    fn log_bits(&self) {
+        println!("0b{:0128b}", self);
+    }
+}

@@ -85,4 +85,19 @@ impl c64 {
     pub fn u64_round(val: u64) -> u64 {
         val
     }
+
+    /// Print line to console with a name and bits
+    pub fn log_bits(&self) {
+        println!("0b{:064b}", self.bits);
+    }
+
+    /// Print line to console with a name and hexadecimal bits
+    pub fn log_hex(&self) {
+        println!("0x{:016X}", self.bits);
+    }
+
+    /// Print line to console with a name and float value
+    pub fn log_value(&self) {
+        println!("0b{:.32}", f64::from(self));
+    }
 }

@@ -59,4 +59,19 @@ impl uc32 {
     pub fn u64_round(val: u64) -> u32 {
         ((val + 0x80000000) >> 32) as u32
     }
+
+    /// Print line to console with a name and bits
+    pub fn log_bits(&self) {
+        println!("0b{:032b}", self.bits);
+    }
+
+    /// Print line to console with a name and hexadecimal bits
+    pub fn log_hex(&self) {
+        println!("0x{:08X}", self.bits);
+    }
+
+    /// Print line to console with a name and float value
+    pub fn log_value(&self) {
+        println!("0b{:.32}", f64::from(self));
+    }
 }

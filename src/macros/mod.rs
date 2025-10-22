@@ -5,6 +5,7 @@ macro_rules! negate {
         impl Neg for $target {
             type Output = $target;
             fn neg(self) -> Self {
+                if self == Self::MIN { return Self::MAX; }
                 Self { bits: !self.bits + 1 }
             }
         }
@@ -48,24 +49,36 @@ macro_rules! from_right_shift {
 }
 
 #[macro_export]
-/// Convert between two certum variants through a left shift then a cast
+/// Convert between two certum variants through a cast then a left shift
 macro_rules! from_left_shift_signed {
     ($source:ident, $target:ident, $cast:ty, $to_bits:expr, $from_bits:expr, $shift:expr) => {
         impl From<$source> for $target {
             fn from(val: $source) -> Self {
-                $target { bits: ((val.bits as $cast) << ($to_bits - $from_bits - $shift)) }
+                if val == $source::MIN { return $target::MIN; }
+                if val == $source::MAX { return $target::MAX; }
+                val.log_bits();
+                let sign = val.sign();
+                if sign == -1i8 {
+                    $target { bits: (((-val).bits & $source::MAXB) as $cast) << ($to_bits - $from_bits - $shift) }
+                } else {
+                    $target { bits: ((val.bits & $source::MAXB) as $cast) << ($to_bits - $from_bits - $shift) }
+                }
             }
         }
     }
 }
 
 #[macro_export]
-/// Convert between two certum variants through a cast then a right shift
+/// Convert between two certum variants through a right shift then a cast
 macro_rules! from_right_shift_signed {
     ($source:ident, $target:ident, $cast:ty, $to_bits:expr, $from_bits:expr, $shift:expr) => {
         impl From<$source> for $target {
             fn from(val: $source) -> Self {
-                $target { bits: ((val.bits >> ($from_bits - $to_bits - $shift)) as $cast) }
+                if val == $source::MIN { return $target::MIN; }
+                if val == $source::MAX { return $target::MAX; }
+                let sign = ((val.sign_inverter() >> ($from_bits - $to_bits - $shift)) as $cast) ^ $target::MINB;
+                let bit = sign & $target::MINB;
+                $target { bits: (((val.bits >> ($from_bits - $to_bits - $shift)) as $cast) & $target::MAXB) | bit }
             }
         }
     }

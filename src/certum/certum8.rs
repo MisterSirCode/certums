@@ -74,4 +74,19 @@ impl c8 {
     pub fn u64_round(val: u64) -> u8 {
         ((val + 0x80000000000000) >> 56) as u8
     }
+
+    /// Print line to console with a name and bits
+    pub fn log_bits(&self) {
+        println!("0b{:08b}", self.bits);
+    }
+
+    /// Print line to console with a name and hexadecimal bits
+    pub fn log_hex(&self) {
+        println!("0x{:02X}", self.bits);
+    }
+
+    /// Print line to console with a name and float value
+    pub fn log_value(&self) {
+        println!("0b{:.32}", f64::from(self));
+    }
 }

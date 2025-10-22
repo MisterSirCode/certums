@@ -57,4 +57,19 @@ impl uc128 {
     pub fn u64_round(val: u128) -> u128 {
         val
     }
+
+    /// Print line to console with a name and bits
+    pub fn log_bits(&self) {
+        println!("0b{:0128b}", self.bits);
+    }
+
+    /// Print line to console with a name and hexadecimal bits
+    pub fn log_hex(&self) {
+        println!("0x{:032X}", self.bits);
+    }
+
+    /// Print line to console with a name and float value
+    pub fn log_value(&self) {
+        println!("0b{:.32}", f64::from(self));
+    }
 }
