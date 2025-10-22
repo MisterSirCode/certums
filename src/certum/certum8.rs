@@ -11,9 +11,9 @@ pub struct c8 {
 }
 
 impl c8 {
-    /// Minimum value as bits
+    /// Minimum value in bits
     pub const MINB: u8 = 0x80;
-    /// Maximum value as bits
+    /// Maximum value in bits
     pub const MAXB: u8 = 0x7F;
     /// Minimum value for an 8-bit Certum.
     /// 

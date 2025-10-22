@@ -11,9 +11,9 @@ pub struct c64 {
 }
 
 impl c64 {
-    /// Minimum value as bits
+    /// Minimum value in bits
     pub const MINB: u64 = 0x8000000000000000;
-    /// Maximum value as bits
+    /// Maximum value in bits
     pub const MAXB: u64 = 0x7FFFFFFFFFFFFFFF;
     /// Minimum value for a 64-bit Certum.
     /// 

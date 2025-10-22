@@ -11,9 +11,9 @@ pub struct c128 {
 }
 
 impl c128 {
-    /// Minimum value as bits
+    /// Minimum value in bits
     pub const MINB: u128 = 0x80000000000000000000000000000000;
-    /// Maximum value as bits
+    /// Maximum value in bits
     pub const MAXB: u128 = 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;
     /// Minimum value for a 128-bit Certum.
     /// 

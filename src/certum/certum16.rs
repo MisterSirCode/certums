@@ -11,9 +11,9 @@ pub struct c16 {
 }
 
 impl c16 {
-    /// Minimum value as bits
+    /// Minimum value in bits
     pub const MINB: u16 = 0x8000;
-    /// Maximum value as bits
+    /// Maximum value in bits
     pub const MAXB: u16 = 0x7FFF;
     /// Minimum value for a 16-bit Certum.
     /// 

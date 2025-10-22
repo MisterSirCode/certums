@@ -11,9 +11,9 @@ pub struct c32 {
 }
 
 impl c32 {
-    /// Minimum value as bits
+    /// Minimum value in bits
     pub const MINB: u32 = 0x80000000;
-    /// Maximum value as bits
+    /// Maximum value in bits
     pub const MAXB: u32 = 0x7FFFFFFF;
     /// Minimum value for a 32-bit Certum.
     /// 
