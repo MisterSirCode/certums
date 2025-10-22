@@ -30,6 +30,8 @@ macro_rules! from_left_shift {
     ($source:ident, $target:ident, $cast:ty, $bits:expr, $shift:expr) => {
         impl From<$source> for $target {
             fn from(val: $source) -> Self {
+                if val == $source::MIN { return $target::MIN; }
+                if val == $source::MAX { return $target::MAX; }
                 $target { bits: (val.bits as $cast) << ($bits - $shift) }
             }
         }
@@ -42,6 +44,8 @@ macro_rules! from_right_shift {
     ($source:ident, $target:ident, $cast:ty, $bits:expr, $shift:expr) => {
         impl From<$source> for $target {
             fn from(val: $source) -> Self {
+                if val == $source::MIN { return $target::MIN; }
+                if val == $source::MAX { return $target::MAX; }
                 $target { bits: (val.bits >> ($bits - $shift)) as $cast }
             }
         }
@@ -56,7 +60,6 @@ macro_rules! from_left_shift_signed {
             fn from(val: $source) -> Self {
                 if val == $source::MIN { return $target::MIN; }
                 if val == $source::MAX { return $target::MAX; }
-                val.log_bits();
                 let sign = val.sign();
                 if sign == -1i8 {
                     $target { bits: (((-val).bits & $source::MAXB) as $cast) << ($to_bits - $from_bits - $shift) }

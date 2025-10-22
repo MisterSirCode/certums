@@ -37,12 +37,12 @@ fn main() {
 
     // conversion_tests();
 
-    println!("0b{:032b}", c32::MIN.bits);
-    println!("0b{:08b}", c8::from(c32::MIN).bits);
-    println!("0b{:016b}", c16::from(c32::MIN).bits);
-    println!("0b{:032b}", c32::from(c32::MIN).bits);
-    println!("0b{:064b}", c64::from(c32::MIN).bits);
-    println!("0b{:0128b}", c128::from(c32::MIN).bits);
+    let test = c32::PI;
+    c8::from(test).log_bits();
+    c16::from(test).log_bits();
+    c32::from(test).log_bits();
+    c64::from(test).log_bits();
+    c128::from(test).log_bits();
     // println!("{:032b}", c32::PI.bits);
     // println!("{:016b}", c16::from(c32::PI).bits);
     // assert_eq!(f64::from(c32::from(c8::MAX)), c8::MAXF);S

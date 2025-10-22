@@ -18,15 +18,17 @@ impl c16 {
     /// Minimum value for a 16-bit Certum.
     /// 
     /// Decimal: -3.9998779296875
-    pub const MIN: c16 = c16 { bits: Self::MINB };
+    pub const MIN: Self = Self { bits: Self::MINB };
     /// Maximum value for a 16-bit Certum.
     /// 
     /// Decimal: 3.9998779296875
-    pub const MAX: c16 = c16 { bits: Self::MAXB };
+    pub const MAX: Self = Self { bits: Self::MAXB };
     /// Minimum value as a 64-bit Float
     pub const MINF: f64 = -4.0f64;
     /// Maximum value as a 64-bit Float
     pub const MAXF: f64 = 3.9998779296875f64;
+    /// Grain - Smallest possible absolute quantity of this type
+    pub const GRN: Self = Self { bits: 0b1 };
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.1414794921875
@@ -34,7 +36,7 @@ impl c16 {
     /// 
     /// Digits of Accuracy: 4
     /// 
-    pub const PI: c16 = c16 { bits: 0x6487 };
+    pub const PI: Self = Self { bits: 0x6487 };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.71826171875
@@ -42,7 +44,7 @@ impl c16 {
     /// 
     /// Digits of Accuracy: 5
     /// 
-    pub const E: c16 = c16 { bits: 0x56FC };
+    pub const E: Self = Self { bits: 0x56FC };
 
     /// Get the sign bit of the current certum in the proper location
     /// 

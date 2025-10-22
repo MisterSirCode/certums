@@ -18,15 +18,17 @@ impl c8 {
     /// Minimum value for an 8-bit Certum.
     /// 
     /// Decimal: -1.984375
-    pub const MIN: c8 = c8 { bits: Self::MINB };
+    pub const MIN: Self = Self { bits: Self::MINB };
     /// Maximum value for an 8-bit Certum.
     /// 
     /// Decimal: 1.984375
-    pub const MAX: c8 = c8 { bits: Self::MAXB };
+    pub const MAX: Self = Self { bits: Self::MAXB };
     /// Minimum value as a 64-bit Float
     pub const MINF: f64 = -2.0f64;
     /// Maximum value as a 64-bit Float
     pub const MAXF: f64 = 1.984375f64;
+    /// Grain - Smallest possible absolute quantity of this type
+    pub const GRN: Self = Self { bits: 0b1 };
 
     /// Get the sign bit of the current certum in the proper location
     /// 

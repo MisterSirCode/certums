@@ -18,15 +18,17 @@ impl c128 {
     /// Minimum value for a 128-bit Certum.
     /// 
     /// Decimal: -31.99999999999999999999999999999999999981192090386843399872500215404444069154901351091646599655859972699545323848724365234375
-    pub const MIN: c128 = c128 { bits: Self::MINB };
+    pub const MIN: Self = Self { bits: Self::MINB };
     /// Maximum value for a 128-bit Certum.
     /// 
     /// Decimal: 31.99999999999999999999999999999999999981192090386843399872500215404444069154901351091646599655859972699545323848724365234375
-    pub const MAX: c128 = c128 { bits: Self::MAXB };
+    pub const MAX: Self = Self { bits: Self::MAXB };
     /// Minimum value as a 128-bit Float
     pub const MINF: f64 = -32f64;
     /// Maximum value as a 128-bit Float
     pub const MAXF: f64 = 32f64;
+    /// Grain - Smallest possible absolute quantity of this type
+    pub const GRN: Self = Self { bits: 0b1 };
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.14159265358979323846264338327950288418353141478922216077851131738713791456774700357190699406828571227379143238067626953125
@@ -34,7 +36,7 @@ impl c128 {
     /// 
     /// Digits of Accuracy: 38
     /// 
-    pub const PI: c128 = c128 { bits: 0x1921FB54442D18469898CC51701B839A };
+    pub const PI: Self = Self { bits: 0x1921FB54442D18469898CC51701B839A };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.71828182845904523536028747135266249773554059547040010579213066699799290773116567342115867944585261284373700618743896484375
@@ -42,7 +44,7 @@ impl c128 {
     /// 
     /// Digits of Accuracy: 38
     /// 
-    pub const E: c128 = c128 { bits: 0xADF85458A2BB4A9AAFDC5620273D3CF };
+    pub const E: Self = Self { bits: 0xADF85458A2BB4A9AAFDC5620273D3CF };
 
     /// Get the sign bit of the current certum in the proper location
     /// 

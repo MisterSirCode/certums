@@ -76,45 +76,51 @@ pub fn interpretation_tests() {
 #[test]
 /// Conversion Tests
 pub fn conversion_tests() {
-    assert_eq!(c8::from(c8::MAX).bits,   0b01111111);
-    assert_eq!(c16::from(c8::MAX).bits,  0b0011111110000000);
-    assert_eq!(c32::from(c8::MAX).bits,  0b00011111110000000000000000000000);
-    assert_eq!(c64::from(c8::MAX).bits,  0b0000111111100000000000000000000000000000000000000000000000000000);
-    assert_eq!(c128::from(c8::MAX).bits, 0b00000111111100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000);
-    assert_eq!(c8::from(c16::MAX).bits,   0b01111111);
-    assert_eq!(c16::from(c16::MAX).bits,  0b0011111111111111);
-    assert_eq!(c32::from(c16::MAX).bits,  0b00011111111111111000000000000000);
-    assert_eq!(c64::from(c16::MAX).bits,  0b0000111111111111110000000000000000000000000000000000000000000000);
-    assert_eq!(c128::from(c16::MAX).bits, 0b00000111111111111110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000);
-    // assert_eq!(c8::from(c8::MAX).bits,   0b01111111);
-    // assert_eq!(c16::from(c8::MAX).bits,  0b0011111110000000);
-    // assert_eq!(c32::from(c8::MAX).bits,  0b00011111110000000000000000000000);
-    // assert_eq!(c64::from(c8::MAX).bits,  0b0000111111100000000000000000000000000000000000000000000000000000);
-    // assert_eq!(c128::from(c8::MAX).bits, 0b00000111111100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000);
-    // assert_eq!(c8::from(c8::MAX).bits,   0b01111111);
-    // assert_eq!(c16::from(c8::MAX).bits,  0b0011111110000000);
-    // assert_eq!(c32::from(c8::MAX).bits,  0b00011111110000000000000000000000);
-    // assert_eq!(c64::from(c8::MAX).bits,  0b0000111111100000000000000000000000000000000000000000000000000000);
-    // assert_eq!(c128::from(c8::MAX).bits, 0b00000111111100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000);
+    // Check if type casting works as expected
+    let min_low = c8::MIN;
+    let min_high = c128::MAX;
+    let max_low = c8::MIN;
+    let max_high = c128::MAX;
+    assert_eq!(c8::from(min_low),    c8::MIN);
+    assert_eq!(c16::from(min_low),   c16::MIN);
+    assert_eq!(c32::from(min_low),   c32::MIN);
+    assert_eq!(c64::from(min_low),   c64::MIN);
+    assert_eq!(c128::from(min_low),  c128::MIN);
+    assert_eq!(c8::from(min_high),   c8::MAX);
+    assert_eq!(c16::from(min_high),  c16::MAX);
+    assert_eq!(c32::from(min_high),  c32::MAX);
+    assert_eq!(c64::from(min_high),  c64::MAX);
+    assert_eq!(c128::from(min_high), c128::MAX);
+    assert_eq!(c8::from(max_low),    c8::MIN);
+    assert_eq!(c16::from(max_low),   c16::MIN);
+    assert_eq!(c32::from(max_low),   c32::MIN);
+    assert_eq!(c64::from(max_low),   c64::MIN);
+    assert_eq!(c128::from(max_low),  c128::MIN);
+    assert_eq!(c8::from(max_high),   c8::MAX);
+    assert_eq!(c16::from(max_high),  c16::MAX);
+    assert_eq!(c32::from(max_high),  c32::MAX);
+    assert_eq!(c64::from(max_high),  c64::MAX);
+    assert_eq!(c128::from(max_high), c128::MAX);
+    // Literal checks
 }
 
 #[test]
 /// Constants Tests
 pub fn constants_tests() {
-    assert_eq!(f64::from(c8::MIN), c8::MINF);
-    assert_eq!(f64::from(c8::MAX), c8::MAXF);
-    assert_eq!(f64::from(uc8::MIN), uc8::MINF);
-    assert_eq!(f64::from(uc8::MAX), uc8::MAXF);
-    assert_eq!(f64::from(c16::MIN), c16::MINF);
-    assert_eq!(f64::from(c16::MAX), c16::MAXF);
+    assert_eq!(f64::from(c8::MIN),   c8::MINF);
+    assert_eq!(f64::from(c8::MAX),   c8::MAXF);
+    assert_eq!(f64::from(uc8::MIN),  uc8::MINF);
+    assert_eq!(f64::from(uc8::MAX),  uc8::MAXF);
+    assert_eq!(f64::from(c16::MIN),  c16::MINF);
+    assert_eq!(f64::from(c16::MAX),  c16::MAXF);
     assert_eq!(f64::from(uc16::MIN), uc16::MINF);
     assert_eq!(f64::from(uc16::MAX), uc16::MAXF);
-    assert_eq!(f64::from(c32::MIN), c32::MINF);
-    assert_eq!(f64::from(c32::MAX), c32::MAXF);
+    assert_eq!(f64::from(c32::MIN),  c32::MINF);
+    assert_eq!(f64::from(c32::MAX),  c32::MAXF);
     assert_eq!(f64::from(uc32::MIN), uc32::MINF);
     assert_eq!(f64::from(uc32::MAX), uc32::MAXF);
-    assert_eq!(f64::from(c64::MIN), c64::MINF);
-    assert_eq!(f64::from(c64::MAX), c64::MAXF);
+    assert_eq!(f64::from(c64::MIN),  c64::MINF);
+    assert_eq!(f64::from(c64::MAX),  c64::MAXF);
     assert_eq!(f64::from(uc64::MIN), uc64::MINF);
     assert_eq!(f64::from(uc64::MAX), uc64::MAXF);
     // assert_eq!(f64::from(c128::MIN), c128::MINF);

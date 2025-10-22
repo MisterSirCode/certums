@@ -14,15 +14,17 @@ impl uc64 {
     /// Minimum value for a 64-bit Unsigned Certum.
     /// 
     /// Decimal: 0
-    pub const MIN: uc64 = uc64 { bits: 0 };
+    pub const MIN: Self = Self { bits: 0 };
     /// Maximum value for a 64-bit Unsigned Certum.
     /// 
     /// Decimal: 31.99999999999999999826527652402319290558807551860809326171875
-    pub const MAX: uc64 = uc64 { bits: 0xFFFFFFFFFFFFFFFF };
+    pub const MAX: Self = Self { bits: 0xFFFFFFFFFFFFFFFF };
     /// Minimum value as a 64-bit Float
     pub const MINF: f64 = 0f64;
     /// Maximum value as a 64-bit Float
     pub const MAXF: f64 = 32f64;
+    /// Grain - Smallest possible absolute quantity of this type
+    pub const GRN: Self = Self { bits: 0b1 };
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.1415926535897932374286067869206817704252898693084716796875
@@ -30,7 +32,7 @@ impl uc64 {
     /// 
     /// Digits of Accuracy: 18
     /// 
-    pub const PI: uc64 = uc64 { bits: 0x1921FB54442D1846 };
+    pub const PI: Self = Self { bits: 0x1921FB54442D1846 };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.71828182845904523477764680450263767852447926998138427734375
@@ -38,7 +40,7 @@ impl uc64 {
     /// 
     /// Digits of Accuracy: 18
     /// 
-    pub const E: uc64 = uc64 { bits: 0x15BF0A8B14576953 };
+    pub const E: Self = Self { bits: 0x15BF0A8B14576953 };
 
     /// Return the binary components of the current certum
     /// 

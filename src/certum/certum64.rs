@@ -18,15 +18,17 @@ impl c64 {
     /// Minimum value for a 64-bit Certum.
     /// 
     /// Decimal: -15.99999999999999999826527652402319290558807551860809326171875
-    pub const MIN: c64 = c64 { bits: Self::MINB };
+    pub const MIN: Self = Self { bits: Self::MINB };
     /// Maximum value for a 64-bit Certum.
     /// 
     /// Decimal: 15.99999999999999999826527652402319290558807551860809326171875
-    pub const MAX: c64 = c64 { bits: Self::MAXB };
+    pub const MAX: Self = Self { bits: Self::MAXB };
     /// Minimum value as a 64-bit Float
     pub const MINF: f64 = -16f64;
     /// Maximum value as a 64-bit Float
     pub const MAXF: f64 = 16f64;
+    /// Grain - Smallest possible absolute quantity of this type
+    pub const GRN: Self = Self { bits: 0b1 };
     /// Archimede's Constant - π
     /// 
     /// Decimal: 3.1415926535897932374286067869206817704252898693084716796875
@@ -34,7 +36,7 @@ impl c64 {
     /// 
     /// Digits of Accuracy: 18
     /// 
-    pub const PI: c64 = c64 { bits: 0x1921FB54442D1846 };
+    pub const PI: Self = Self { bits: 0x1921FB54442D1846 };
     /// Eulers's Number - e
     /// 
     /// Decimal: 2.71828182845904523477764680450263767852447926998138427734375
@@ -42,7 +44,7 @@ impl c64 {
     /// 
     /// Digits of Accuracy: 18
     /// 
-    pub const E: c64 = c64 { bits: 0x15BF0A8B14576953 };
+    pub const E: Self = Self { bits: 0x15BF0A8B14576953 };
 
     /// Get the sign bit of the current certum in the proper location
     /// 
