@@ -11,14 +11,18 @@ pub struct c16 {
 }
 
 impl c16 {
+    /// Minimum value as bits
+    pub const MINB: u16 = 0x8000;
+    /// Maximum value as bits
+    pub const MAXB: u16 = 0x7FFF;
     /// Minimum value for a 16-bit Certum.
     /// 
     /// Decimal: -3.9998779296875
-    pub const MIN: c16 = c16 { bits: 0x8000 };
+    pub const MIN: c16 = c16 { bits: Self::MINB };
     /// Maximum value for a 16-bit Certum.
     /// 
     /// Decimal: 3.9998779296875
-    pub const MAX: c16 = c16 { bits: 0x7FFF };
+    pub const MAX: c16 = c16 { bits: Self::MAXB };
     /// Minimum value as a 64-bit Float
     pub const MINF: f64 = -4.0f64;
     /// Maximum value as a 64-bit Float
@@ -40,11 +44,19 @@ impl c16 {
     /// 
     pub const E: c16 = c16 { bits: 0x56FC };
 
+    /// Get the sign bit of the current certum in the proper location
+    /// 
+    /// 1 = negative, 0 = zero or positive
+    pub fn sign_inverter(&self) -> u16 {
+        if self.bits & Self::MINB == Self::MINB { Self::MINB }
+        else { Self::MAXB }
+    }
+
     /// Get the binary sign of the current certum
     /// 
     /// 1 = negative, 0 = zero or positive
     pub fn bin_sign(&self) -> u16 {
-        if self.bits & 0x8000 == 0x8000 { 1 }
+        if self.bits & Self::MINB == Self::MINB { 1 }
         else { 0 }
     }
 
@@ -53,7 +65,7 @@ impl c16 {
     /// 1 = positive, 0 = zero, -1 = negative
     pub fn sign(&self) -> i8 {
         if self.bits == 0 { 0 } // 0 Case
-        else if self.bits & 0x8000 == 0x8000 { -1 } // Match MSB - Negative
+        else if self.bits & Self::MINB == Self::MINB { -1 } // Match MSB - Negative
         else { 1 } // Positive
     }
 

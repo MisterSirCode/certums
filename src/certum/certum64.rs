@@ -11,14 +11,18 @@ pub struct c64 {
 }
 
 impl c64 {
+    /// Minimum value as bits
+    pub const MINB: u64 = 0x8000000000000000;
+    /// Maximum value as bits
+    pub const MAXB: u64 = 0x7FFFFFFFFFFFFFFF;
     /// Minimum value for a 64-bit Certum.
     /// 
     /// Decimal: -15.99999999999999999826527652402319290558807551860809326171875
-    pub const MIN: c64 = c64 { bits: 0x8000000000000000 };
+    pub const MIN: c64 = c64 { bits: Self::MINB };
     /// Maximum value for a 64-bit Certum.
     /// 
     /// Decimal: 15.99999999999999999826527652402319290558807551860809326171875
-    pub const MAX: c64 = c64 { bits: 0x7FFFFFFFFFFFFFFF };
+    pub const MAX: c64 = c64 { bits: Self::MAXB };
     /// Minimum value as a 64-bit Float
     pub const MINF: f64 = -16f64;
     /// Maximum value as a 64-bit Float
@@ -40,11 +44,19 @@ impl c64 {
     /// 
     pub const E: c64 = c64 { bits: 0x15BF0A8B14576953 };
 
+    /// Get the sign bit of the current certum in the proper location
+    /// 
+    /// 1 = negative, 0 = zero or positive
+    pub fn sign_inverter(&self) -> u64 {
+        if self.bits & Self::MINB == Self::MINB { Self::MINB }
+        else { Self::MAXB }
+    }
+
     /// Get the binary sign of the current certum
     /// 
     /// 1 = negative, 0 = zero or positive
     pub fn bin_sign(&self) -> u64 {
-        if self.bits & 0x8000000000000000 == 0x8000000000000000 { 1 }
+        if self.bits & Self::MINB == Self::MINB { 1 }
         else { 0 }
     }
 

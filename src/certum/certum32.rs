@@ -11,14 +11,18 @@ pub struct c32 {
 }
 
 impl c32 {
+    /// Minimum value as bits
+    pub const MINB: u32 = 0x80000000;
+    /// Maximum value as bits
+    pub const MAXB: u32 = 0x7FFFFFFF;
     /// Minimum value for a 32-bit Certum.
     /// 
     /// Decimal: -7.9999999962747097015380859375
-    pub const MIN: c32 = c32 { bits: 0x80000000 };
+    pub const MIN: c32 = c32 { bits: Self::MINB };
     /// Maximum value for a 32-bit Certum.
     /// 
     /// Decimal: 7.9999999962747097015380859375
-    pub const MAX: c32 = c32 { bits: 0x7FFFFFFF };
+    pub const MAX: c32 = c32 { bits: Self::MAXB };
     /// Minimum value as a 64-bit Float
     pub const MINF: f64 = -8.0f64;
     /// Maximum value as a 64-bit Float
@@ -40,11 +44,19 @@ impl c32 {
     /// 
     pub const E: c32 = c32 { bits: 0x2B7E1516 };
 
+    /// Get the sign bit of the current certum in the proper location
+    /// 
+    /// 1 = negative, 0 = zero or positive
+    pub fn sign_inverter(&self) -> u32 {
+        if self.bits & Self::MINB == Self::MINB { Self::MINB }
+        else { Self::MAXB }
+    }
+
     /// Get the binary sign of the current certum
     /// 
     /// 1 = negative, 0 = zero or positive
     pub fn bin_sign(&self) -> u32 {
-        if self.bits & 0x80000000 == 0x80000000 { 1 }
+        if self.bits & Self::MINB == Self::MINB { 1 }
         else { 0 }
     }
 

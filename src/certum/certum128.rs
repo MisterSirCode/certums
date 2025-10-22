@@ -11,14 +11,18 @@ pub struct c128 {
 }
 
 impl c128 {
+    /// Minimum value as bits
+    pub const MINB: u128 = 0x80000000000000000000000000000000;
+    /// Maximum value as bits
+    pub const MAXB: u128 = 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF;
     /// Minimum value for a 128-bit Certum.
     /// 
     /// Decimal: -31.99999999999999999999999999999999999981192090386843399872500215404444069154901351091646599655859972699545323848724365234375
-    pub const MIN: c128 = c128 { bits: 0x80000000000000000000000000000000 };
+    pub const MIN: c128 = c128 { bits: Self::MINB };
     /// Maximum value for a 128-bit Certum.
     /// 
     /// Decimal: 31.99999999999999999999999999999999999981192090386843399872500215404444069154901351091646599655859972699545323848724365234375
-    pub const MAX: c128 = c128 { bits: 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF };
+    pub const MAX: c128 = c128 { bits: Self::MAXB };
     /// Minimum value as a 128-bit Float
     pub const MINF: f64 = -32f64;
     /// Maximum value as a 128-bit Float
@@ -40,11 +44,19 @@ impl c128 {
     /// 
     pub const E: c128 = c128 { bits: 0xADF85458A2BB4A9AAFDC5620273D3CF };
 
+    /// Get the sign bit of the current certum in the proper location
+    /// 
+    /// 1 = negative, 0 = zero or positive
+    pub fn sign_inverter(&self) -> u128 {
+        if self.bits & Self::MINB == Self::MINB { Self::MINB }
+        else { Self::MAXB }
+    }
+
     /// Get the binary sign of the current certum
     /// 
     /// 1 = negative, 0 = zero or positive
     pub fn bin_sign(&self) -> u128 {
-        if self.bits & 0x80000000000000000000000000000000 == 0x80000000000000000000000000000000 { 1 }
+        if self.bits & Self::MINB == Self::MINB { 1 }
         else { 0 }
     }
 
@@ -53,7 +65,7 @@ impl c128 {
     /// 1 = positive, 0 = zero, -1 = negative
     pub fn sign(&self) -> i8 {
         if self.bits == 0 { 0 } // 0 Case
-        else if self.bits & 0x80000000000000000000000000000000 == 0x80000000000000000000000000000000 { -1 } // Match MSB - Negative
+        else if self.bits & Self::MINB == Self::MINB { -1 } // Match MSB - Negative
         else { 1 } // Positive
     }
 
