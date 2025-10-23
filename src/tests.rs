@@ -61,16 +61,16 @@ pub fn interpretation_tests() {
     assert_eq!(f64::from(uc64::PI),                       3.141592653589793);
 
     // Signed Certum-128 Unit Tests
-    // assert_eq!(c128::from(pi32).bits, 0x1921FB60000000000000000000000000);
-    // assert_eq!(c128::from(pi64).bits, 0x1921FB54442D18000000000000000000);
-    // assert_eq!(f32::from(c128::from(0x1921FB60000000000000000000000000)), 3.1415927410125732421875);
-    // assert_eq!(f64::from(c128::PI),                                       3.141592653589793);
+    assert_eq!(c128::from(pi32).bits, 0x0C90FDB0000000000000000000000000);
+    assert_eq!(c128::from(pi64).bits, 0xC90FDAA22168C000000000000000000);
+    assert_eq!(f32::from(c128::from(0x0C90FDB0000000000000000000000000)), 3.1415927410125732421875);
+    assert_eq!(f64::from(c128::PI),                                       3.141592653589793);
 
     // Unsigned Certum-128 Unit Tests
-    // assert_eq!(uc128::from(pi32).bits, 0x0C90FDB0000000000000000000000000);
-    // assert_eq!(uc128::from(pi64).bits, 0xC90FDAA22168C000000000000000000);
-    // assert_eq!(f32::from(uc128::from(0x0C90FDB0000000000000000000000000)), 3.1415927410125732421875);
-    // assert_eq!(f64::from(uc128::PI),                                       3.141592653589793);
+    assert_eq!(uc128::from(pi32).bits, 0x0C90FDB0000000000000000000000000);
+    assert_eq!(uc128::from(pi64).bits, 0xC90FDAA22168C000000000000000000);
+    assert_eq!(f32::from(uc128::from(0x0C90FDB0000000000000000000000000)), 3.1415927410125732421875);
+    assert_eq!(f64::from(uc128::PI),                                       3.141592653589793);
 }
 
 #[test]
@@ -101,7 +101,6 @@ pub fn conversion_tests() {
     assert_eq!(c32::from(max_high),  c32::MAX);
     assert_eq!(c64::from(max_high),  c64::MAX);
     assert_eq!(c128::from(max_high), c128::MAX);
-    // Literal checks
 }
 
 #[test]
@@ -200,8 +199,8 @@ pub fn subtraction_tests() {
     assert_eq!(c64::from(0.5) - c64::from(0.25), c64::from(0.25));
     assert_eq!(c64::from(0.25) - c64::from(-0.5), c64::from(0.75));
     assert_eq!(c64::from(0.25) - c64::from(0.5), c64::from(-0.25));
-    // assert_eq!(c128::from(0.5) - c128::from(-0.25), c128::from(0.75));
-    // assert_eq!(c128::from(0.5) - c128::from(0.25), c128::from(0.25));
-    // assert_eq!(c128::from(0.25) - c128::from(-0.5), c128::from(0.75));
-    // assert_eq!(c128::from(0.25) - c128::from(0.5), c128::from(-0.25));
+    assert_eq!(c128::from(0.5) - c128::from(-0.25), c128::from(0.75));
+    assert_eq!(c128::from(0.5) - c128::from(0.25), c128::from(0.25));
+    assert_eq!(c128::from(0.25) - c128::from(-0.5), c128::from(0.75));
+    assert_eq!(c128::from(0.25) - c128::from(0.5), c128::from(-0.25));
 }

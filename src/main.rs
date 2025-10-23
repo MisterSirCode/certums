@@ -4,66 +4,6 @@ use {
     certums::{c128, c16, c32, c64, c8, from_direct, from_left_shift, from_right_shift, uc128, uc16, uc32, uc64, uc8, utils::display_certums}, core::{f32, f64}
 };
 
-pub fn addition_tests() {
-    // upper + -lower
-    // upper + lower
-    // lower + -upper
-    // lower + upper
-    assert_eq!(c8::from(0.5) + c8::from(-0.25), c8::from(0.25));
-    assert_eq!(c8::from(0.5) + c8::from(0.25), c8::from(0.75));
-    assert_eq!(c8::from(0.25) + c8::from(-0.5), c8::from(-0.25));
-    assert_eq!(c8::from(0.25) + c8::from(0.5), c8::from(0.75));
-    assert_eq!(c16::from(0.5) + c16::from(-0.25), c16::from(0.25));
-    assert_eq!(c16::from(0.5) + c16::from(0.25), c16::from(0.75));
-    assert_eq!(c16::from(0.25) + c16::from(-0.5), c16::from(-0.25));
-    assert_eq!(c16::from(0.25) + c16::from(0.5), c16::from(0.75));
-    assert_eq!(c32::from(0.5) + c32::from(-0.25), c32::from(0.25));
-    assert_eq!(c32::from(0.5) + c32::from(0.25), c32::from(0.75));
-    assert_eq!(c32::from(0.25) + c32::from(-0.5), c32::from(-0.25));
-    assert_eq!(c32::from(0.25) + c32::from(0.5), c32::from(0.75));
-    assert_eq!(c64::from(0.5) + c64::from(-0.25), c64::from(0.25));
-    assert_eq!(c64::from(0.5) + c64::from(0.25), c64::from(0.75));
-    assert_eq!(c64::from(0.25) + c64::from(-0.5), c64::from(-0.25));
-    assert_eq!(c64::from(0.25) + c64::from(0.5), c64::from(0.75));
-    assert_eq!((c128::from(0.5) + c128::from(-0.25)).bits, c128::from(0.25).bits);
-    assert_eq!(c128::from(0.5) + c128::from(0.25), c128::from(0.75));
-    assert_eq!(c128::from(0.25) + c128::from(-0.5), c128::from(-0.25));
-    assert_eq!(c128::from(0.25) + c128::from(0.5), c128::from(0.75));
-}
-
 fn main() {
-    // display_certums(f64::consts::PI);
-    // println!("\n{:064b}", c64::from(f64::NEG_INFINITY).bits);
-    // let n1 = c128::from(30f64);
-    // let n2 = c128::from(-31f64);
-    // println!("\n{:0128b}", n1.bits);
-    // println!("{:0128b}", n2.bits);
-    // println!("{:0128b}", (n1 + n2).bits);
-    // println!("\n{:}", f64::from(n1));
-    // println!("{:}", f64::from(n2));
-    // println!("{:}", f64::from(n1 + n2));
-
-    // conversion_tests();
-
-    let test = -c32::PI;
-    test.log_value();
-    c8::from(test).log_value();
-    c16::from(test).log_value();
-    c32::from(test).log_value();
-    c64::from(test).log_value();
-    c128::from(test).log_value();
-    // c128::from(0.5).log_bits();
-    // c64::from(-0.25).log_bits();
-    // c128::from(c64::from(-0.25)).log_bits();
-    // (c128::from(0.5) + c128::from(-0.25)).log_bits();
-    // c128::from(0.25).log_bits();
-    // println!("{:032b}", c32::PI.bits);
-    // println!("{:016b}", c16::from(c32::PI).bits);
-    // assert_eq!(f64::from(c32::from(c8::MAX)), c8::MAXF);S
-    // assert_eq!(f64::from(c64::from(c8::MAX)), c8::MAXF);
-    // assert_eq!(f64::from(c128::from(c8::MAX)), c8::MAXF);
-    // println!("{:0128b}", (c128::from(0.5) + c128::from(-0.25)).bits);
-    // println!("{:0128b}", (c128::from(0.25)).bits);
-    // println!("{:0}", f64::from(c128::from(0.5) + c128::from(-0.25)));
-    // println!("{:0}", f64::from(c128::from(0.25)));
+    display_certums(f32::consts::PI);
 }
