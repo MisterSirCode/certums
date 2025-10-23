@@ -1,6 +1,6 @@
 [package]
 name = "certums"
-version = "0.2.0"
+version = "0.2.1"
 description = "(INDEV) Yet another fixed-point number system"
 license-file = "LICENSE"
 repository = "https://github.com/MisterSirCode/certums"
