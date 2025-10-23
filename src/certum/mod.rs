@@ -27,8 +27,7 @@ use {
         float_casts,
         float_convert_sc, 
         float_convert_uc,
-        lossy_float_signed,
-        lossy_float_unsigned
+        lossy_float,
     },
     super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64, c128, uc128},
     super::utils::{f64_split}
@@ -40,12 +39,12 @@ float_convert_sc!(c8,  u8,  i8,  8,   2, 0x7F);
 float_convert_sc!(c16, u16, i16, 16,  3, 0x7FFF);
 float_convert_sc!(c32, u32, i32, 32,  4, 0x7FFFFFFF);
 float_convert_sc!(c64, u64, i64, 64,  5, 0x7FFFFFFFFFFFFFFF);
-lossy_float_signed!(c128, c64, 1);
+lossy_float!(c128, c64, 1);
 float_convert_uc!(uc8,  u8,  8,  2, 0x7F);
 float_convert_uc!(uc16, u16, 16, 3, 0x7FFF);
 float_convert_uc!(uc32, u32, 32, 4, 0x7FFFFFFF);
 float_convert_uc!(uc64, u64, 64, 5, 0x7FFFFFFFFFFFFFFF);
-lossy_float_unsigned!(uc128, uc64, 1);
+lossy_float!(uc128, uc64, 1);
 float_casts!(c8,    u8);
 float_casts!(c16,   u16);
 float_casts!(c32,   u32);

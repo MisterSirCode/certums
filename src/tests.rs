@@ -123,10 +123,10 @@ pub fn constants_tests() {
     assert_eq!(f64::from(c64::MAX),  c64::MAXF);
     assert_eq!(f64::from(uc64::MIN), uc64::MINF);
     assert_eq!(f64::from(uc64::MAX), uc64::MAXF);
-    // assert_eq!(f64::from(c128::MIN), c128::MINF);
-    // assert_eq!(f64::from(c128::MAX), c128::MAXF);
-    // assert_eq!(f64::from(uc128::MIN), uc128::MINF);
-    // assert_eq!(f64::from(uc128::MAX), uc128::MAXF);
+    assert_eq!(f64::from(c128::MIN), c64::MINF);
+    assert_eq!(f64::from(c128::MAX), c64::MAXF);
+    assert_eq!(f64::from(uc128::MIN), uc64::MINF);
+    assert_eq!(f64::from(uc128::MAX), uc64::MAXF);
     assert_eq!(f64::from(uc8::PI), 3.140625);
     assert_eq!(f64::from(c16::PI), 3.1414794921875);
     assert_eq!(f64::from(uc16::PI), 3.1414794921875);
@@ -134,8 +134,8 @@ pub fn constants_tests() {
     assert_eq!(f64::from(uc32::PI), 3.141592651605606);
     assert_eq!(f64::from(c64::PI), 3.141592653589793);
     assert_eq!(f64::from(uc64::PI), 3.141592653589793);
-    // assert_eq!(f64::from(c128::PI), 3.141592653589793);
-    // assert_eq!(f64::from(uc128::PI), 3.141592653589793);
+    assert_eq!(f64::from(c128::PI), 3.141592653589793);
+    assert_eq!(f64::from(uc128::PI), 3.141592653589793);
 }
 
 

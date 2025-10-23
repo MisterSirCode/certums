@@ -264,44 +264,23 @@ macro_rules! float_convert_uc {
 
 #[macro_export]
 // Float conversion for types > 64 bit
-macro_rules! lossy_float_signed {
+macro_rules! lossy_float {
     ($target:ident, $fromtype:ident, $shift:expr) => {
         impl From<$target> for f64 {
             /// Convert to a 64-bit Float
             fn from(val: $target) -> Self {
-                f64::from($fromtype { bits: $fromtype::from($target { bits: val.bits >> $shift }).bits << $shift })
+                f64::from($fromtype::from(val))
             }
         }
 
         impl From<f64> for $target {
             /// Convert from a 64-bit Float
             fn from(val: f64) -> Self {
-                $target { bits: $target::from($fromtype { bits: $fromtype::from(val).bits >> $shift }).bits << $shift }
+                $target::from($fromtype::from(val))
             }
         }
     };
 }
-
-#[macro_export]
-// Float conversion for types > 64 bit
-macro_rules! lossy_float_unsigned {
-    ($target:ident, $fromtype:ident, $shift:expr) => {
-        impl From<$target> for f64 {
-            /// Convert to a 64-bit Float
-            fn from(val: $target) -> Self {
-                f64::from($fromtype { bits: $fromtype::from($target { bits: val.bits << $shift }).bits >> $shift })
-            }
-        }
-
-        impl From<f64> for $target {
-            /// Convert from a 64-bit Float
-            fn from(val: f64) -> Self {
-                $target { bits: $target::from($fromtype { bits: $fromtype::from(val).bits << $shift }).bits >> $shift }
-            }
-        }
-    };
-}
-
 
 // impl Add for $target {
 //     type Output = $target;
