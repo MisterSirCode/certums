@@ -127,15 +127,24 @@ pub fn constants_tests() {
     assert_eq!(f64::from(c128::MAX), c64::MAXF);
     assert_eq!(f64::from(uc128::MIN), uc64::MINF);
     assert_eq!(f64::from(uc128::MAX), uc64::MAXF);
-    assert_eq!(f64::from(uc8::PI), 3.140625);
-    assert_eq!(f64::from(c16::PI), 3.1414794921875);
-    assert_eq!(f64::from(uc16::PI), 3.1414794921875);
-    assert_eq!(f64::from(c32::PI), 3.141592651605606);
-    assert_eq!(f64::from(uc32::PI), 3.141592651605606);
-    assert_eq!(f64::from(c64::PI), 3.141592653589793);
-    assert_eq!(f64::from(uc64::PI), 3.141592653589793);
-    assert_eq!(f64::from(c128::PI), 3.141592653589793);
+    assert_eq!(f64::from(uc8::PI),   3.140625);
+    assert_eq!(f64::from(c16::PI),   3.1414794921875);
+    assert_eq!(f64::from(uc16::PI),  3.1414794921875);
+    assert_eq!(f64::from(c32::PI),   3.141592651605606);
+    assert_eq!(f64::from(uc32::PI),  3.141592651605606);
+    assert_eq!(f64::from(c64::PI),   3.141592653589793);
+    assert_eq!(f64::from(uc64::PI),  3.141592653589793);
+    assert_eq!(f64::from(c128::PI),  3.141592653589793);
     assert_eq!(f64::from(uc128::PI), 3.141592653589793);
+    assert_eq!(f64::from(uc8::E),   2.71875);
+    assert_eq!(f64::from(c16::E),   2.71826171875);
+    assert_eq!(f64::from(uc16::E),  2.71826171875);
+    assert_eq!(f64::from(c32::E),   2.718281827867031);
+    assert_eq!(f64::from(uc32::E),  2.718281827867031);
+    assert_eq!(f64::from(c64::E),   2.718281828459045);
+    assert_eq!(f64::from(uc64::E),  2.718281828459045);
+    assert_eq!(f64::from(c128::E),  2.718281828459045);
+    assert_eq!(f64::from(uc128::E), 2.718281828459045);
 }
 
 
@@ -162,10 +171,10 @@ pub fn addition_tests() {
     assert_eq!(c64::from(0.5) + c64::from(0.25), c64::from(0.75));
     assert_eq!(c64::from(0.25) + c64::from(-0.5), c64::from(-0.25));
     assert_eq!(c64::from(0.25) + c64::from(0.5), c64::from(0.75));
-    // assert_eq!(c128::from(0.5) + c128::from(-0.25), c128::from(0.25));
-    // assert_eq!(c128::from(0.5) + c128::from(0.25), c128::from(0.75));
-    // assert_eq!(c128::from(0.25) + c128::from(-0.5), c128::from(-0.25));
-    // assert_eq!(c128::from(0.25) + c128::from(0.5), c128::from(0.75));
+    assert_eq!((c128::from(0.5) + c128::from(-0.25)).bits, c128::from(0.25).bits);
+    assert_eq!(c128::from(0.5) + c128::from(0.25), c128::from(0.75));
+    assert_eq!(c128::from(0.25) + c128::from(-0.5), c128::from(-0.25));
+    assert_eq!(c128::from(0.25) + c128::from(0.5), c128::from(0.75));
 }
 
 #[test]

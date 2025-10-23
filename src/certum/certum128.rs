@@ -100,6 +100,6 @@ impl c128 {
 
     /// Print line to console with a name and float value
     pub fn log_value(&self) {
-        println!("0b{:.32}", f64::from(self));
+        println!("{:.32}", f64::from(self));
     }
 }

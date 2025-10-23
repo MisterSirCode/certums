@@ -4,23 +4,31 @@ use {
     certums::{c128, c16, c32, c64, c8, from_direct, from_left_shift, from_right_shift, uc128, uc16, uc32, uc64, uc8, utils::display_certums}, core::{f32, f64}
 };
 
-pub fn conversion_tests() {
-    assert_eq!(c8::from(c8::MAX).bits, 0x7F);
-    assert_eq!(c16::from(c8::MAX).bits, 0x3F80);
-    assert_eq!(c32::from(c8::MAX).bits, 0x1FC00000);
-    assert_eq!(c64::from(c8::MAX).bits, 0xFE0000000000000);
-    assert_eq!(c128::from(c8::MAX).bits, 0x7F00000000000000000000000000000);
-    assert_eq!(c8::from(c16::MAX).bits, 0x7F);
-    assert_eq!(c16::from(c16::MAX).bits, 0x7FFF);
-    assert_eq!(c32::from(c16::MAX).bits, 0x3FFF8000);
-    assert_eq!(c64::from(c16::MAX).bits, 0x1FFFC00000000000);
-    assert_eq!(c128::from(c16::MAX).bits, 0x0FFFE000000000000000000000000000);
-    assert_eq!(c8::from(c16::MAX).bits, 0x7F);
-    assert_eq!(c16::from(c16::MAX).bits, 0x7FFF);
-    assert_eq!(c32::from(c16::MAX).bits, 0x3FFF8000);
-    assert_eq!(c64::from(c16::MAX).bits, 0x1FFFC00000000000);
-    assert_eq!(c128::from(c16::MAX).bits, 0x0FFFE000000000000000000000000000);
-
+pub fn addition_tests() {
+    // upper + -lower
+    // upper + lower
+    // lower + -upper
+    // lower + upper
+    assert_eq!(c8::from(0.5) + c8::from(-0.25), c8::from(0.25));
+    assert_eq!(c8::from(0.5) + c8::from(0.25), c8::from(0.75));
+    assert_eq!(c8::from(0.25) + c8::from(-0.5), c8::from(-0.25));
+    assert_eq!(c8::from(0.25) + c8::from(0.5), c8::from(0.75));
+    assert_eq!(c16::from(0.5) + c16::from(-0.25), c16::from(0.25));
+    assert_eq!(c16::from(0.5) + c16::from(0.25), c16::from(0.75));
+    assert_eq!(c16::from(0.25) + c16::from(-0.5), c16::from(-0.25));
+    assert_eq!(c16::from(0.25) + c16::from(0.5), c16::from(0.75));
+    assert_eq!(c32::from(0.5) + c32::from(-0.25), c32::from(0.25));
+    assert_eq!(c32::from(0.5) + c32::from(0.25), c32::from(0.75));
+    assert_eq!(c32::from(0.25) + c32::from(-0.5), c32::from(-0.25));
+    assert_eq!(c32::from(0.25) + c32::from(0.5), c32::from(0.75));
+    assert_eq!(c64::from(0.5) + c64::from(-0.25), c64::from(0.25));
+    assert_eq!(c64::from(0.5) + c64::from(0.25), c64::from(0.75));
+    assert_eq!(c64::from(0.25) + c64::from(-0.5), c64::from(-0.25));
+    assert_eq!(c64::from(0.25) + c64::from(0.5), c64::from(0.75));
+    assert_eq!((c128::from(0.5) + c128::from(-0.25)).bits, c128::from(0.25).bits);
+    assert_eq!(c128::from(0.5) + c128::from(0.25), c128::from(0.75));
+    assert_eq!(c128::from(0.25) + c128::from(-0.5), c128::from(-0.25));
+    assert_eq!(c128::from(0.25) + c128::from(0.5), c128::from(0.75));
 }
 
 fn main() {
@@ -37,12 +45,18 @@ fn main() {
 
     // conversion_tests();
 
-    let test = c128::E;
+    let test = -c32::PI;
+    test.log_value();
     c8::from(test).log_value();
     c16::from(test).log_value();
     c32::from(test).log_value();
     c64::from(test).log_value();
-    test.log_value();
+    c128::from(test).log_value();
+    // c128::from(0.5).log_bits();
+    // c64::from(-0.25).log_bits();
+    // c128::from(c64::from(-0.25)).log_bits();
+    // (c128::from(0.5) + c128::from(-0.25)).log_bits();
+    // c128::from(0.25).log_bits();
     // println!("{:032b}", c32::PI.bits);
     // println!("{:016b}", c16::from(c32::PI).bits);
     // assert_eq!(f64::from(c32::from(c8::MAX)), c8::MAXF);S

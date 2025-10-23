@@ -62,7 +62,7 @@ macro_rules! from_left_shift_signed {
                 if val == $source::MAX { return $target::MAX; }
                 let sign = val.sign();
                 if sign == -1i8 {
-                    $target { bits: (((-val).bits & $source::MAXB) as $cast) << ($to_bits - $from_bits - $shift) }
+                    -$target { bits: (((-val).bits & $source::MAXB) as $cast) << ($to_bits - $from_bits - $shift) }
                 } else {
                     $target { bits: ((val.bits & $source::MAXB) as $cast) << ($to_bits - $from_bits - $shift) }
                 }

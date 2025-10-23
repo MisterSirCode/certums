@@ -82,6 +82,7 @@ from_direct!(uc32, c32);
 from_direct!(uc64, c64);
 from_direct!(uc128, c128);
 
+// Smaller to Bigger
 from_left_shift_signed!(c8,  c16,  u16,  16,  8,  1);
 from_left_shift_signed!(c8,  c32,  u32,  32,  8,  2);
 from_left_shift_signed!(c8,  c64,  u64,  64,  8,  3);
@@ -93,6 +94,7 @@ from_left_shift_signed!(c32, c64,  u64,  64,  32, 1);
 from_left_shift_signed!(c32, c128, u128, 128, 32, 2);
 from_left_shift_signed!(c64, c128, u128, 128, 64, 1);
 
+// Bigger to Smaller
 from_right_shift_signed!(c128, c64, u64, 64, 128, 1);
 from_right_shift_signed!(c128, c32, u32, 32, 128, 2);
 from_right_shift_signed!(c128, c16, u16, 16, 128, 3);
@@ -104,6 +106,7 @@ from_right_shift_signed!(c32,  c16, u16, 16, 32,  1);
 from_right_shift_signed!(c32,  c8,  u8,  8,  32,  2);
 from_right_shift_signed!(c16,  c8,  u8,  8,  16,  1);
 
+// Smaller to Bigger
 from_left_shift!(uc8,  uc16,  u16,  8, 1);
 from_left_shift!(uc8,  uc32,  u32,  8, 2);
 from_left_shift!(uc8,  uc64,  u64,  8, 3);
@@ -115,6 +118,7 @@ from_left_shift!(uc32, uc64,  u64,  32, 1);
 from_left_shift!(uc32, uc128, u128, 32, 2);
 from_left_shift!(uc64, uc128, u128, 64, 1);
 
+// Bigger to Smaller
 from_right_shift!(uc128, uc64, u64, 64, 1);
 from_right_shift!(uc128, uc32, u32, 32, 2);
 from_right_shift!(uc128, uc16, u16, 16, 3);
