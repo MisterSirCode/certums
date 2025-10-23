@@ -1,7 +1,5 @@
 #![allow(dead_code)]
 
-use std::process::Output;
-
 #[derive(Copy, Clone, Debug)]
 #[expect(non_camel_case_types)]
 /// Define a generic 8-bit Signed Certum

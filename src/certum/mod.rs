@@ -4,6 +4,7 @@ pub mod certum16;
 pub mod certum32;
 pub mod certum64;
 pub mod certum128;
+
 // Unsigned Certums
 pub mod u_certum8;
 pub mod u_certum16;
@@ -12,7 +13,7 @@ pub mod u_certum64;
 pub mod u_certum128;
 
 use {
-    std::cmp::{Eq, PartialEq, Ord, PartialOrd},
+    std::cmp::{Eq, PartialEq, Ordering},
     std::ops::{Add, Sub, Neg},
     crate::{
         negate, 
@@ -24,7 +25,6 @@ use {
         comparison_solo_signed,
         comparison_solo_unsigned,
         equivalent_solo, 
-        equivalent_other,
         add_same, 
         sub_same,
         float_casts,

@@ -113,7 +113,7 @@ macro_rules! comparison_solo_unsigned {
     ($target:ident) => {
         impl Ord for $target {
             fn cmp(&self, other: &Self) -> Ordering {
-                self.bits.cmp((&other).bits)
+                self.bits.cmp(&other.bits)
             }
         }
 

@@ -204,3 +204,77 @@ pub fn subtraction_tests() {
     assert_eq!(c128::from(0.25) - c128::from(-0.5), c128::from(0.75));
     assert_eq!(c128::from(0.25) - c128::from(0.5), c128::from(-0.25));
 }
+
+pub fn comparison_tests() {
+    // Signed
+    assert_eq!(c8::from(0.5) > c8::from(0.25), true);
+    assert_eq!(c8::from(1.5) > c8::from(-1.5), true);
+    assert_eq!(c8::from(0.5) >= c8::from(0.25), true);
+    assert_eq!(c8::from(1.5) >= c8::from(-1.5), true);
+    assert_eq!(c8::from(0.25) < c8::from(0.5), true);
+    assert_eq!(c8::from(-1.5) < c8::from(1.5), true);
+    assert_eq!(c8::from(0.25) <= c8::from(0.5), true);
+    assert_eq!(c8::from(-1.5) <= c8::from(1.5), true);
+
+    assert_eq!(c16::from(0.5) > c16::from(0.25), true);
+    assert_eq!(c16::from(1.5) > c16::from(-1.5), true);
+    assert_eq!(c16::from(0.5) >= c16::from(0.25), true);
+    assert_eq!(c16::from(1.5) >= c16::from(-1.5), true);
+    assert_eq!(c16::from(0.25) < c16::from(0.5), true);
+    assert_eq!(c16::from(-1.5) < c16::from(1.5), true);
+    assert_eq!(c16::from(0.25) <= c16::from(0.5), true);
+    assert_eq!(c16::from(-1.5) <= c16::from(1.5), true);
+
+    assert_eq!(c32::from(0.5) > c32::from(0.25), true);
+    assert_eq!(c32::from(1.5) > c32::from(-1.5), true);
+    assert_eq!(c32::from(0.5) >= c32::from(0.25), true);
+    assert_eq!(c32::from(1.5) >= c32::from(-1.5), true);
+    assert_eq!(c32::from(0.25) < c32::from(0.5), true);
+    assert_eq!(c32::from(-1.5) < c32::from(1.5), true);
+    assert_eq!(c32::from(0.25) <= c32::from(0.5), true);
+    assert_eq!(c32::from(-1.5) <= c32::from(1.5), true);
+
+    assert_eq!(c64::from(0.5) > c64::from(0.25), true);
+    assert_eq!(c64::from(1.5) > c64::from(-1.5), true);
+    assert_eq!(c64::from(0.5) >= c64::from(0.25), true);
+    assert_eq!(c64::from(1.5) >= c64::from(-1.5), true);
+    assert_eq!(c64::from(0.25) < c64::from(0.5), true);
+    assert_eq!(c64::from(-1.5) < c64::from(1.5), true);
+    assert_eq!(c64::from(0.25) <= c64::from(0.5), true);
+    assert_eq!(c64::from(-1.5) <= c64::from(1.5), true);
+
+    assert_eq!(c128::from(0.5) > c128::from(0.25), true);
+    assert_eq!(c128::from(1.5) > c128::from(-1.5), true);
+    assert_eq!(c128::from(0.5) >= c128::from(0.25), true);
+    assert_eq!(c128::from(1.5) >= c128::from(-1.5), true);
+    assert_eq!(c128::from(0.25) < c128::from(0.5), true);
+    assert_eq!(c128::from(-1.5) < c128::from(1.5), true);
+    assert_eq!(c128::from(0.25) <= c128::from(0.5), true);
+    assert_eq!(c128::from(-1.5) <= c128::from(1.5), true);
+
+    // Unsigned
+    assert_eq!(uc8::from(0.5) > uc8::from(0.25), true);
+    assert_eq!(uc8::from(0.5) >= uc8::from(0.25), true);
+    assert_eq!(uc8::from(0.25) < uc8::from(0.5), true);
+    assert_eq!(uc8::from(0.25) <= uc8::from(0.5), true);
+
+    assert_eq!(uc16::from(0.5) > uc16::from(0.25), true);
+    assert_eq!(uc16::from(0.5) >= uc16::from(0.25), true);
+    assert_eq!(uc16::from(0.25) < uc16::from(0.5), true);
+    assert_eq!(uc16::from(0.25) <= uc16::from(0.5), true);
+
+    assert_eq!(uc32::from(0.5) > uc32::from(0.25), true);
+    assert_eq!(uc32::from(0.5) >= uc32::from(0.25), true);
+    assert_eq!(uc32::from(0.25) < uc32::from(0.5), true);
+    assert_eq!(uc32::from(0.25) <= uc32::from(0.5), true);
+
+    assert_eq!(uc64::from(0.5) > uc64::from(0.25), true);
+    assert_eq!(uc64::from(0.5) >= uc64::from(0.25), true);
+    assert_eq!(uc64::from(0.25) < uc64::from(0.5), true);
+    assert_eq!(uc64::from(0.25) <= uc64::from(0.5), true);
+
+    assert_eq!(uc128::from(0.5) > uc128::from(0.25), true);
+    assert_eq!(uc128::from(0.5) >= uc128::from(0.25), true);
+    assert_eq!(uc128::from(0.25) < uc128::from(0.5), true);
+    assert_eq!(uc128::from(0.25) <= uc128::from(0.5), true);
+}
