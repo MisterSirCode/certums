@@ -29,7 +29,7 @@ impl c128 {
     pub const MAXF: f64 = 32f64;
     /// Grain - Smallest possible absolute quantity of this type
     pub const GRN: Self = Self { bits: 0b1 };
-    /// Archimede's Constant - π
+    /// Archimedes' Constant - π
     /// 
     /// Decimal: 3.14159265358979323846264338327950288418353141478922216077851131738713791456774700357190699406828571227379143238067626953125
     /// Exact:   3.1415926535897932384626433832795028841

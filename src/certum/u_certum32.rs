@@ -25,7 +25,7 @@ impl uc32 {
     pub const MAXF: f64 = 15.99999999627471f64;
     /// Grain - Smallest possible absolute quantity of this type
     pub const GRN: Self = Self { bits: 0b1 };
-    /// Archimede's Constant - π
+    /// Archimedes' Constant - π
     /// 
     /// Decimal: 3.1415926516056060791015625
     /// Exact:   3.14159265
