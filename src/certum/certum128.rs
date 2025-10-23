@@ -88,6 +88,11 @@ impl c128 {
         val
     }
 
+    /// Extract the bits as its signed counterpart
+    pub fn as_signed_bits(&self) -> i128 {
+        self.bits as i128
+    }
+
     /// Print line to console with a name and bits
     pub fn log_bits(&self) {
         println!("0b{:0128b}", self.bits);

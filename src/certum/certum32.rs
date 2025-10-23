@@ -90,6 +90,11 @@ impl c32 {
         ((val + 0x80000000) >> 32) as u32
     }
 
+    /// Extract the bits as its signed counterpart
+    pub fn as_signed_bits(&self) -> i32 {
+        self.bits as i32
+    }
+
     /// Print line to console with a name and bits
     pub fn log_bits(&self) {
         println!("0b{:032b}", self.bits);

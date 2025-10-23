@@ -12,7 +12,7 @@ pub mod u_certum64;
 pub mod u_certum128;
 
 use {
-    std::cmp::{Eq},
+    std::cmp::{Eq, PartialEq, Ord, PartialOrd},
     std::ops::{Add, Sub, Neg},
     crate::{
         negate, 
@@ -21,7 +21,10 @@ use {
         from_right_shift, 
         from_left_shift_signed, 
         from_left_shift, 
+        comparison_solo_signed,
+        comparison_solo_unsigned,
         equivalent_solo, 
+        equivalent_other,
         add_same, 
         sub_same,
         float_casts,
@@ -130,13 +133,26 @@ from_right_shift!(uc32,  uc16, u16, 16, 1);
 from_right_shift!(uc32,  uc8,  u8,  8, 2);
 from_right_shift!(uc16,  uc8,  u8,  8, 1);
 
-// Checks
+// Checks and Comparisons
+
+comparison_solo_signed!(c8,   i8);
+comparison_solo_signed!(c16,  i16);
+comparison_solo_signed!(c32,  i32);
+comparison_solo_signed!(c64,  i64);
+comparison_solo_signed!(c128, i128);
+
+comparison_solo_unsigned!(uc8);
+comparison_solo_unsigned!(uc16);
+comparison_solo_unsigned!(uc32);
+comparison_solo_unsigned!(uc64);
+comparison_solo_unsigned!(uc128);
 
 equivalent_solo!(c8);
 equivalent_solo!(c16);
 equivalent_solo!(c32);
 equivalent_solo!(c64);
 equivalent_solo!(c128);
+
 equivalent_solo!(uc8);
 equivalent_solo!(uc16);
 equivalent_solo!(uc32);

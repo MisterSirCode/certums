@@ -1,5 +1,7 @@
 #![allow(dead_code)]
 
+use std::process::Output;
+
 #[derive(Copy, Clone, Debug)]
 #[expect(non_camel_case_types)]
 /// Define a generic 8-bit Signed Certum
@@ -75,6 +77,11 @@ impl c8 {
     /// Right-shift MSB to (64 - 9), carry case with + 1, right-shift MSB to make 8 bits. Clamp to u8
     pub fn u64_round(val: u64) -> u8 {
         ((val + 0x80000000000000) >> 56) as u8
+    }
+
+    /// Extract the bits as its signed counterpart
+    pub fn as_signed_bits(&self) -> i8 {
+        self.bits as i8
     }
 
     /// Print line to console with a name and bits

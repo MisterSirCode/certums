@@ -88,13 +88,50 @@ macro_rules! from_right_shift_signed {
 }
 
 #[macro_export]
+/// Greater-Than / Less-Than / Equal-To Checks
+macro_rules! comparison_solo_signed {
+    ($target:ident, $sint:ident) => {
+        impl Ord for $target {
+            fn cmp(&self, other: &Self) -> Ordering {
+                let self_signed = self.as_signed_bits();
+                let other_signed = other.as_signed_bits();
+                self_signed.cmp(&other_signed)
+            }
+        }
+
+        impl PartialOrd for $target {
+            fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+                Some(self.cmp(other))
+            }
+        }
+    }
+}
+
+#[macro_export]
+/// Greater-Than / Less-Than / Equal-To Checks
+macro_rules! comparison_solo_unsigned {
+    ($target:ident) => {
+        impl Ord for $target {
+            fn cmp(&self, other: &Self) -> Ordering {
+                self.bits.cmp((&other).bits)
+            }
+        }
+
+        impl PartialOrd for $target {
+            fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+                Some(self.cmp(other))
+            }
+        }
+    }
+}
+
+#[macro_export]
 /// Equivalency Checks
 macro_rules! equivalent_solo {
     ($target:ident) => {
         impl PartialEq for $target {
             fn eq(&self, other: &Self) -> bool {
-                if self.bits == other.bits { true }
-                else { false } 
+                self.bits == other.bits
             }
         }
 
@@ -108,8 +145,7 @@ macro_rules! equivalent_other {
     ($target:ident, $other:ident) => {
         impl PartialEq<$other> for $target {
             fn eq(&self, other: &Self) -> bool {
-                if self.bits == other.bits { true }
-                else { false } 
+                self.bits == ($target::from(other)).bits
             }
         }
     }

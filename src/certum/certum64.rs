@@ -88,6 +88,11 @@ impl c64 {
         val
     }
 
+    /// Extract the bits as its signed counterpart
+    pub fn as_signed_bits(&self) -> i64 {
+        self.bits as i64
+    }
+
     /// Print line to console with a name and bits
     pub fn log_bits(&self) {
         println!("0b{:064b}", self.bits);

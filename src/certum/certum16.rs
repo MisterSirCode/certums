@@ -90,6 +90,11 @@ impl c16 {
         ((val + 0x800000000000) >> 48) as u16
     }
 
+    /// Extract the bits as its signed counterpart
+    pub fn as_signed_bits(&self) -> i16 {
+        self.bits as i16
+    }
+
     /// Print line to console with a name and bits
     pub fn log_bits(&self) {
         println!("0b{:016b}", self.bits);
