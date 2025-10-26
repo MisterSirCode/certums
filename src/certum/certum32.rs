@@ -54,6 +54,11 @@ impl c32 {
     /// 
     pub const E: Self = Self { bits: 0x2B7E1516 };
 
+    /// Get a new certum from raw bits
+    pub fn of(bits: u32) -> Self {
+        Self { bits }
+    }
+    
     /// Get the sign bit of the current certum in the proper location
     /// 
     /// 1 = negative, 0 = zero or positive

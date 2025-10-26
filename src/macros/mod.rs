@@ -186,7 +186,16 @@ macro_rules! mul_same {
         impl Mul for $target {
             type Output = $target;
             fn mul(self, rhs: Self) -> Self {
-                let bits = <$sint>::saturating_mul(self.bits as $sint, rhs.bits as $sint) >> ($target::DEC);
+                // let bits = <$sint>::saturating_mul(self.bits as $sint, rhs.bits as $sint) >> ($target::DEC);
+                // $target { bits: bits as $uint }
+                let signed_self = self.bits as $sint;
+                let signed_rhs = rhs.bits as $sint;
+                let self_int = signed_self >> $target::FRC;
+                let self_frc = signed_self << $target::DEC;
+                let rhs_int = signed_rhs >> $target::FRC;
+                let rhs_frc = signed_rhs << $target::DEC;
+                let bits = <$sint>::saturating_mul(self_int, rhs_int);
+                bits.log_bits();
                 $target { bits: bits as $uint }
             }
         }
@@ -221,14 +230,14 @@ macro_rules! float_casts {
         impl From<$uint> for $target {
             /// Convert from a UInt
             fn from(bits: $uint) -> Self {
-                $target { bits }
+                $target::from(bits as f64)
             }
         }
 
         impl From<&$uint> for $target {
             /// Convert from a UInt
             fn from(val: &$uint) -> Self {
-                $target::from(*val)
+                $target::from(*val as f64)
             }
         }
 
@@ -238,6 +247,24 @@ macro_rules! float_casts {
                 if val == f32::INFINITY { return $target::MAX }
                 if val == f32::NEG_INFINITY { return $target::MIN }
                 $target::from(val as f64)
+            }
+        }
+    }
+}
+
+macro_rules! bit_casts {
+    ($target:ident, $uint:ty) => {
+        impl From<$uint> for $target {
+            /// Convert from a UInt
+            fn from(bits: $uint) -> Self {
+                $target::from(bits as f64)
+            }
+        }
+
+        impl From<&$uint> for $target {
+            /// Convert from a UInt
+            fn from(val: &$uint) -> Self {
+                $target::from(*val as f64)
             }
         }
     }

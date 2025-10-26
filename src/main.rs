@@ -5,17 +5,17 @@ use {
 };
 
 fn main() {
-    display_certums(f32::consts::PI);
-    (c64::from(0.5) + c64::from(0.25)).log_value();
-    (c64::from(2) * c64::from(0.5)).log_value();
-    print!("\n");
-    c64::from(2).log_bits();
-    c64::from(0.25).log_bits();
-    (c64::from(16) * c64::from(0.25)).log_value();
-    (c64::from(2) * c64::from(0.25)).log_bits();
-    print!("\n");
-    c64::from(2).log_bits();
-    c64::from(3).log_bits();
-    (c64::from(2.0) * c64::from(3.0)).log_value();
-    (c64::from(0.5) * c64::from(0.15)).log_value();
+    // display_certums(f32::consts::PI);
+    // (c64::from(0.5) + c64::from(0.25)).log_value();
+    // (c64::from(2) * c64::from(0.5)).log_value();
+    // print!("\n");
+    // c64::from(2).log_bits();
+    // c64::from(0.25).log_bits();
+    // (c64::from(16) * c64::from(0.25)).log_value();
+    // (c64::from(2) * c64::from(0.25)).log_bits();
+    // print!("\n");
+    // c64::from(2).log_bits();
+    // c64::from(3).log_bits();
+    // (c64::from(2.0) * c64::from(3.0)).log_value();
+    (c64::from(2.5) * c64::from(3.15)).log_value();
 }

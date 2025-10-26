@@ -54,6 +54,11 @@ impl c128 {
     /// 
     pub const E: Self = Self { bits: 0xADF85458A2BB4A9AAFDC5620273D3CF };
 
+    /// Get a new certum from raw bits
+    pub fn of(bits: u128) -> Self {
+        Self { bits }
+    }
+    
     /// Get the sign bit of the current certum in the proper location
     /// 
     /// 1 = negative, 0 = zero or positive

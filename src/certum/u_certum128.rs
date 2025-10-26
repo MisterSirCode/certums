@@ -50,6 +50,11 @@ impl uc128 {
     /// 
     pub const E: Self = Self { bits: 0xADF85458A2BB4A9AAFDC5620273D3CF };
 
+    /// Get a new certum from raw bits
+    pub fn of(bits: u128) -> Self {
+        Self { bits }
+    }
+    
     /// Return the binary components of the current certum
     /// 
     /// (Integer Component, Fraction Component)

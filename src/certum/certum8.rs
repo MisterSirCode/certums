@@ -38,6 +38,11 @@ impl c8 {
     /// One - The certum equivalent of integer 1
     pub const ONE: u8 = 65;
 
+    /// Get a new certum from raw bits
+    pub fn of(bits: u8) -> Self {
+        Self { bits }
+    }
+
     /// Get the sign bit of the current certum in the proper location
     /// 
     /// 1 = negative, 0 = zero or positive

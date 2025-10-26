@@ -50,6 +50,11 @@ impl uc8 {
     /// 
     pub const E: Self = Self { bits: 0xAE };
 
+    /// Get a new certum from raw bits
+    pub fn of(bits: u8) -> Self {
+        Self { bits }
+    }
+    
     /// Return the binary components of the current certum
     /// 
     /// (Integer Component, Fraction Component)

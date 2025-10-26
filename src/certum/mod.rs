@@ -1,3 +1,5 @@
+#![allow(unused_imports)]
+
 // Signed Certums
 pub mod certum8;
 pub mod certum16;

@@ -50,6 +50,11 @@ impl uc32 {
     /// 
     pub const E: Self = Self { bits: 0x2B7E1516 };
 
+    /// Get a new certum from raw bits
+    pub fn of(bits: u32) -> Self {
+        Self { bits }
+    }
+    
     /// Return the binary components of the current certum
     /// 
     /// (Integer Component, Fraction Component)
