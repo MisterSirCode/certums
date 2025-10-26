@@ -12,7 +12,11 @@ pub struct c8 {
 
 impl c8 {
     /// Bits before the decimal point
-    pub const DEC: u16 = 2;
+    pub const DEC: u8 = 2;
+    /// Bits after the decimal point
+    pub const FRC: u8 = 6;
+    /// Literal bits after the decimal point. 2 ^ FRC
+    pub const FRCPOW: u8 = 64;
     /// Minimum value in bits
     pub const MINB: u8 = 0x80;
     /// Maximum value in bits
@@ -31,6 +35,8 @@ impl c8 {
     pub const MAXF: f64 = 1.984375f64;
     /// Grain - Smallest possible absolute quantity of this type
     pub const GRN: Self = Self { bits: 0b1 };
+    /// One - The certum equivalent of integer 1
+    pub const ONE: u8 = 65;
 
     /// Get the sign bit of the current certum in the proper location
     /// 

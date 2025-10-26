@@ -13,6 +13,10 @@ pub struct c16 {
 impl c16 {
     /// Bits before the decimal point
     pub const DEC: u16 = 3;
+    /// Bits after the decimal point
+    pub const FRC: u16 = 13;
+    /// Literal bits after the decimal point. 2 ^ FRC
+    pub const FRCPOW: u16 = 8192;
     /// Minimum value in bits
     pub const MINB: u16 = 0x8000;
     /// Maximum value in bits
@@ -31,6 +35,8 @@ impl c16 {
     pub const MAXF: f64 = 3.9998779296875f64;
     /// Grain - Smallest possible absolute quantity of this type
     pub const GRN: Self = Self { bits: 0b1 };
+    /// One - The certum equivalent of integer 1
+    pub const ONE: u16 = 8193;
     /// Archimedes' Constant - π
     /// 
     /// Decimal: 3.1414794921875

@@ -11,6 +11,12 @@ pub struct uc8 {
 }
 
 impl uc8 {
+    /// Bits before the decimal point
+    pub const DEC: u8 = 3;
+    /// Bits after the decimal point
+    pub const FRC: u8 = 6;
+    /// Literal bits after the decimal point. 2 ^ FRC
+    pub const FRCPOW: u8 = 64;
     /// Minimum value for an 8-bit Unsigned Certum.
     /// 
     /// Decimal: 0
@@ -25,6 +31,8 @@ impl uc8 {
     pub const MAXF: f64 = 3.984375f64;
     /// Grain - Smallest possible absolute quantity of this type
     pub const GRN: Self = Self { bits: 0b1 };
+    /// One - The certum equivalent of integer 1
+    pub const ONE: u8 = 65;
     /// Archimedes' Constant - π
     /// 
     /// Decimal: 3.140625

@@ -34,7 +34,7 @@ use {
         lossy_float,
     },
     super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64, c128, uc128},
-    super::utils::{f64_split}
+    super::utils::{f64_split, QuickLog},
 };
 
 // Float Casting

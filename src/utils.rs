@@ -121,32 +121,62 @@ pub trait QuickLog {
 
 // Development Loggers
 
-// impl QuickLog for u8 {
-//     fn log_bits(&self) {
-//         println!("0b{:08b}", self);
-//     }
-// }
+impl QuickLog for u8 {
+    fn log_bits(&self) {
+        println!("0b{:08b}", self);
+    }
+}
 
-// impl QuickLog for u16 {
-//     fn log_bits(&self) {
-//         println!("0b{:016b}", self);
-//     }
-// }
+impl QuickLog for u16 {
+    fn log_bits(&self) {
+        println!("0b{:016b}", self);
+    }
+}
 
-// impl QuickLog for u32 {
-//     fn log_bits(&self) {
-//         println!("0b{:032b}", self);
-//     }
-// }
+impl QuickLog for u32 {
+    fn log_bits(&self) {
+        println!("0b{:032b}", self);
+    }
+}
 
-// impl QuickLog for u64 {
-//     fn log_bits(&self) {
-//         println!("0b{:064b}", self);
-//     }
-// }
+impl QuickLog for u64 {
+    fn log_bits(&self) {
+        println!("0b{:064b}", self);
+    }
+}
 
-// impl QuickLog for u128 {
-//     fn log_bits(&self) {
-//         println!("0b{:0128b}", self);
-//     }
-// }
+impl QuickLog for u128 {
+    fn log_bits(&self) {
+        println!("0b{:0128b}", self);
+    }
+}
+
+impl QuickLog for i8 {
+    fn log_bits(&self) {
+        println!("0b{:08b}", self);
+    }
+}
+
+impl QuickLog for i16 {
+    fn log_bits(&self) {
+        println!("0b{:016b}", self);
+    }
+}
+
+impl QuickLog for i32 {
+    fn log_bits(&self) {
+        println!("0b{:032b}", self);
+    }
+}
+
+impl QuickLog for i64 {
+    fn log_bits(&self) {
+        println!("0b{:064b}", self);
+    }
+}
+
+impl QuickLog for i128 {
+    fn log_bits(&self) {
+        println!("0b{:0128b}", self);
+    }
+}

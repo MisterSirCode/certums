@@ -186,7 +186,7 @@ macro_rules! mul_same {
         impl Mul for $target {
             type Output = $target;
             fn mul(self, rhs: Self) -> Self {
-                let bits = <$sint>::saturating_mul(self.bits as $sint, rhs.bits as $sint);
+                let bits = <$sint>::saturating_mul(self.bits as $sint, rhs.bits as $sint) >> ($target::DEC);
                 $target { bits: bits as $uint }
             }
         }

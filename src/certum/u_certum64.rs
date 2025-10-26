@@ -11,6 +11,12 @@ pub struct uc64 {
 }
 
 impl uc64 {
+    /// Bits before the decimal point
+    pub const DEC: u64 = 6;
+    /// Bits after the decimal point
+    pub const FRC: u64 = 59;
+    /// Literal bits after the decimal point. 2 ^ FRC
+    pub const FRCPOW: u64 = 576460752303423488;
     /// Minimum value for a 64-bit Unsigned Certum.
     /// 
     /// Decimal: 0
@@ -25,6 +31,8 @@ impl uc64 {
     pub const MAXF: f64 = 32f64;
     /// Grain - Smallest possible absolute quantity of this type
     pub const GRN: Self = Self { bits: 0b1 };
+    /// One - The certum equivalent of integer 1
+    pub const ONE: u64 = 576460752303423489;
     /// Archimedes' Constant - π
     /// 
     /// Decimal: 3.1415926535897932374286067869206817704252898693084716796875

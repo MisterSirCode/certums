@@ -13,6 +13,10 @@ pub struct c64 {
 impl c64 {
     /// Bits before the decimal point
     pub const DEC: u64 = 5;
+    /// Bits after the decimal point
+    pub const FRC: u64 = 59;
+    /// Literal bits after the decimal point. 2 ^ FRC
+    pub const FRCPOW: u64 = 576460752303423488;
     /// Minimum value in bits
     pub const MINB: u64 = 0x8000000000000000;
     /// Maximum value in bits
@@ -31,6 +35,8 @@ impl c64 {
     pub const MAXF: f64 = 16f64;
     /// Grain - Smallest possible absolute quantity of this type
     pub const GRN: Self = Self { bits: 0b1 };
+    /// One - The certum equivalent of integer 1
+    pub const ONE: u64 = 576460752303423489;
     /// Archimedes' Constant - π
     /// 
     /// Decimal: 3.1415926535897932374286067869206817704252898693084716796875

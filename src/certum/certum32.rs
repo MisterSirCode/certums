@@ -13,6 +13,10 @@ pub struct c32 {
 impl c32 {
     /// Bits before the decimal point
     pub const DEC: u32 = 4;
+    /// Bits after the decimal point
+    pub const FRC: u32 = 28;
+    /// Literal bits after the decimal point. 2 ^ FRC
+    pub const FRCPOW: u32 = 268435456;
     /// Minimum value in bits
     pub const MINB: u32 = 0x80000000;
     /// Maximum value in bits
@@ -31,6 +35,8 @@ impl c32 {
     pub const MAXF: f64 = 7.99999999627471f64;
     /// Grain - Smallest possible absolute quantity of this type
     pub const GRN: Self = Self { bits: 0b1 };
+    /// One - The certum equivalent of integer 1
+    pub const ONE: u32 = 268435457;
     /// Archimedes' Constant - π
     /// 
     /// Decimal: 3.1415926516056060791015625

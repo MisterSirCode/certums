@@ -11,6 +11,12 @@ pub struct uc128 {
 }
 
 impl uc128 {
+    /// Bits before the decimal point
+    pub const DEC: u128 = 7;
+    /// Bits after the decimal point
+    pub const FRC: u128 = 122;
+    /// Literal bits after the decimal point. 2 ^ FRC
+    pub const FRCPOW: u128 = 5316911983139663491615228241121378304;
     /// Minimum value for a 128-bit Unsigned Certum.
     /// 
     /// Decimal: 0
@@ -25,6 +31,8 @@ impl uc128 {
     pub const MAXF: f64 = 64f64;
     /// Grain - Smallest possible absolute quantity of this type
     pub const GRN: Self = Self { bits: 0b1 };
+    /// One - The certum equivalent of integer 1
+    pub const ONE: u128 = 5316911983139663491615228241121378304;
     /// Archimedes' Constant - π
     /// 
     /// Decimal: 3.14159265358979323846264338327950288418353141478922216077851131738713791456774700357190699406828571227379143238067626953125
