@@ -11,6 +11,8 @@ pub struct c8 {
 }
 
 impl c8 {
+    /// Bits before the decimal point
+    pub const DEC: u16 = 2;
     /// Minimum value in bits
     pub const MINB: u8 = 0x80;
     /// Maximum value in bits

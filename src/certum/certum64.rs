@@ -11,6 +11,8 @@ pub struct c64 {
 }
 
 impl c64 {
+    /// Bits before the decimal point
+    pub const DEC: u64 = 5;
     /// Minimum value in bits
     pub const MINB: u64 = 0x8000000000000000;
     /// Maximum value in bits

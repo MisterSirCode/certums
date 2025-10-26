@@ -11,6 +11,8 @@ pub struct c32 {
 }
 
 impl c32 {
+    /// Bits before the decimal point
+    pub const DEC: u32 = 4;
     /// Minimum value in bits
     pub const MINB: u32 = 0x80000000;
     /// Maximum value in bits

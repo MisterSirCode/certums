@@ -182,11 +182,11 @@ macro_rules! sub_same {
 #[macro_export]
 /// Addition for types
 macro_rules! mul_same {
-    ($target:ident, $uint:ty, $sint:ty) => {
-        impl Add for $target {
+    ($target:ident, $next:ident, $uint:ty, $duint:ty, $sint:ty, $dsint:ty) => {
+        impl Mul for $target {
             type Output = $target;
-            fn add(self, rhs: Self) -> Self {
-                let bits = <$sint>::saturating_add(self.bits as $sint, rhs.bits as $sint);
+            fn mul(self, rhs: Self) -> Self {
+                let bits = <$sint>::saturating_mul(self.bits as $sint, rhs.bits as $sint);
                 $target { bits: bits as $uint }
             }
         }
