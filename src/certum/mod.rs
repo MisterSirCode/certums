@@ -27,6 +27,7 @@ use {
         comparison_solo_signed,
         comparison_solo_unsigned,
         equivalent_solo, 
+        equivalent_bits,
         sub_same,
         add_same, 
         mul_same,
@@ -161,6 +162,18 @@ equivalent_solo!(uc16);
 equivalent_solo!(uc32);
 equivalent_solo!(uc64);
 equivalent_solo!(uc128);
+
+equivalent_bits!(c8, u8);
+equivalent_bits!(c16, u16);
+equivalent_bits!(c32, u32);
+equivalent_bits!(c64, u64);
+equivalent_bits!(c128, u128);
+
+equivalent_bits!(uc8, u8);
+equivalent_bits!(uc16, u16);
+equivalent_bits!(uc32, u32);
+equivalent_bits!(uc64, u64);
+equivalent_bits!(uc128, u128);
 
 // Algebra
 
