@@ -158,21 +158,16 @@ macro_rules! equivalent_other {
 macro_rules! equivalent_bits {
     ($target:ident, $uint:ident) => {
         impl PartialEq<$uint> for $target {
-            fn eq(&self, uint: &Self) -> bool {
-                self.bits == uint
+            fn eq(&self, uint: &$uint) -> bool {
+                self.bits == *uint
             }
         }
-
-        impl Eq<$uint> for $target { }
-
 
         impl PartialEq<$target> for $uint {
-            fn eq(&self, target: &Self) -> bool {
-                self == target
+            fn eq(&self, target: &$target) -> bool {
+                *self == (*target).bits
             }
         }
-
-        impl Eq<$target> for $uint { }
     }
 }
 
