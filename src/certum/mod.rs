@@ -16,7 +16,7 @@ pub mod u_certum128;
 
 use {
     std::cmp::{Eq, PartialEq, Ordering},
-    std::ops::{Add, Sub, Mul, Neg},
+    std::ops::{Add, AddAssign, Sub, SubAssign, Mul, MulAssign, Neg},
     crate::{
         negate, 
         from_direct, 
@@ -30,7 +30,8 @@ use {
         equivalent_bits,
         sub_same,
         add_same, 
-        mul_same,
+        mul_same_signed,
+        mul_same_unsigned,
         float_casts,
         float_convert_sc, 
         float_convert_uc,
@@ -199,13 +200,13 @@ sub_same!(uc32,  u32,  u32);
 sub_same!(uc64,  u64,  u64);
 sub_same!(uc128, u128, u128);
 
-mul_same!(c8, c16, u8, u16, i8, i16);
-mul_same!(c16, c32, u16, u32, i16, i32);
-mul_same!(c32, c64, u32, u64, i32, i64);
-mul_same!(c64, c128, u64, u128, i64, i128);
+mul_same_signed!(c8, u8, u16);
+mul_same_signed!(c16, u16, u32);
+mul_same_signed!(c32, u32, u64);
+mul_same_signed!(c64, u64, u128);
 // mul_same!(c128, c128, u128, u128, i128, i128);
-// mul_same!(uc8, u8, u8);
-// mul_same!(uc16, u16, u16);
-// mul_same!(uc32, u32, u32);
-// mul_same!(uc64, u64, u64);
+mul_same_unsigned!(uc8, u8, u16);
+mul_same_unsigned!(uc16, u16, u32);
+mul_same_unsigned!(uc32, u32, u64);
+mul_same_unsigned!(uc64, u64, u128);
 // mul_same!(uc128, u128, u128);

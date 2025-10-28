@@ -17,5 +17,7 @@ fn main() {
     // c64::from(2).log_bits();
     // c64::from(3).log_bits();
     // (c64::from(2.0) * c64::from(3.0)).log_value();
-    (c64::from(2.5) * c64::from(3.15)).log_value();
+    (c64::from(2.5) * c64::from(-3.15)).log_value();
+    (uc64::from(2.5) * uc64::from(3.15)).log_value();
+    println!("{:.32}", 7.875);
 }

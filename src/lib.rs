@@ -2,6 +2,7 @@
 pub mod utils;
 pub mod certum;
 pub mod macros;
+pub mod quires;
 
 #[cfg(test)]
 pub mod tests;

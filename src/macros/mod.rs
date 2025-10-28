@@ -182,11 +182,17 @@ macro_rules! add_same {
                 $target { bits: bits as $uint }
             }
         }
+
+        impl AddAssign for $target {
+            fn add_assign(&mut self, rhs: Self) {
+                *self = *self + rhs
+            }
+        }
     }
 }
 
 #[macro_export]
-/// Addition for types
+/// Subtraction for types
 macro_rules! sub_same {
     ($target:ident, $uint:ty, $sint:ty) => {
         impl Sub for $target {
@@ -196,27 +202,70 @@ macro_rules! sub_same {
                 $target { bits: bits as $uint }
             }
         }
+
+        impl SubAssign for $target {
+            fn sub_assign(&mut self, rhs: Self) {
+                *self = *self - rhs
+            }
+        }
     }
 }
 
 #[macro_export]
-/// Addition for types
-macro_rules! mul_same {
-    ($target:ident, $next:ident, $uint:ty, $duint:ty, $sint:ty, $dsint:ty) => {
+/// Multiplication for signed types
+macro_rules! mul_same_signed {
+    ($target:ident, $uint:ty, $duint:ty) => {
         impl Mul for $target {
             type Output = $target;
             fn mul(self, rhs: Self) -> Self {
-                // let bits = <$sint>::saturating_mul(self.bits as $sint, rhs.bits as $sint) >> ($target::DEC);
-                // $target { bits: bits as $uint }
-                let signed_self = self.bits as $sint;
-                let signed_rhs = rhs.bits as $sint;
-                let self_int = signed_self >> $target::FRC;
-                let self_frc = signed_self << $target::DEC;
-                let rhs_int = signed_rhs >> $target::FRC;
-                let rhs_frc = signed_rhs << $target::DEC;
-                let bits = <$sint>::saturating_mul(self_int, rhs_int);
-                bits.log_bits();
-                $target { bits: bits as $uint }
+                let self_sign = self.bin_sign(); 
+                let rhs_sign = rhs.bin_sign(); 
+                let signed_self;
+                let signed_rhs;
+                if self_sign == 1 {
+                    signed_self = (-self).bits as $duint;
+                } else {
+                    signed_self = self.bits as $duint;
+                }
+                if rhs_sign == 1 {
+                    signed_rhs = (-rhs).bits as $duint;
+                } else {
+                    signed_rhs = rhs.bits as $duint;
+                }
+                let bits = <$duint>::saturating_mul(signed_self, signed_rhs) >> $target::FRC;
+                if ((self_sign == 1) & (rhs_sign == 0)) | ((self_sign == 0) & (rhs_sign == 1)) {
+                    -$target { bits: (bits as $uint) }
+                } else {
+                    $target { bits: (bits as $uint) }
+                }
+            }
+        }
+
+        impl MulAssign for $target {
+            fn mul_assign(&mut self, rhs: Self) {
+                *self = *self * rhs
+            }
+        }
+    }
+}
+
+#[macro_export]
+/// Multiplication for unsigned types
+macro_rules! mul_same_unsigned {
+    ($target:ident, $uint:ty, $duint:ty) => {
+        impl Mul for $target {
+            type Output = $target;
+            fn mul(self, rhs: Self) -> Self {
+                let signed_self = self.bits as $duint;
+                let signed_rhs = rhs.bits as $duint;
+                let bits = <$duint>::saturating_mul(signed_self, signed_rhs) >> $target::FRC;
+                $target { bits: (bits as $uint) }
+            }
+        }
+
+        impl MulAssign for $target {
+            fn mul_assign(&mut self, rhs: Self) {
+                *self = *self * rhs
             }
         }
     }

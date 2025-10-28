@@ -3,6 +3,8 @@
 This is a simple numeric extension in rust that implements low-level fixed-sized fixed-point numbers
 as well as extensions and utilities for them in many different forms.
 
+Im building this crate as purely a learning experience- Things will change, things might break. Dont use this for anything important quite yet.
+
 Certums and their variants are fixed-point values with whole number and fractional components.
 Acutes are fractional numbers with no whole number components.
 
