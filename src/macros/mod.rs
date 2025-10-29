@@ -332,6 +332,21 @@ macro_rules! mul_same_unsigned_128 {
 }
 
 #[macro_export]
+/// Convert quire to 128-bit types
+macro_rules! from_u256 {
+    ($target:ident) => {
+        impl From<u256> for $target {
+            /// Convert from a quire to a 128-bit type.
+            /// 
+            /// Equivalent to using `as` to cast from bigger int to a smaller int
+            fn from(val: u256) -> Self {
+                $target::from(val.bits.1)
+            }
+        }
+    }
+}
+
+#[macro_export]
 /// General float casts
 macro_rules! float_casts {
     ($target:ident, $uint:ty) => {

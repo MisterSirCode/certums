@@ -64,7 +64,19 @@ impl Shr<u128> for u256 {
     }
 }
 
+impl From<u256> for u128 {
+    /// Convert a u256 to a u128. 
+    /// 
+    /// Equivalent to using `as` to cast from a bigger int to a smaller int
+    fn from(value: u256) -> Self {
+        value.bits.1
+    }
+}
+
 impl From<u128> for u256 {
+    /// Convert a u128 to a u256. 
+    /// 
+    /// Equivalent to using `as` to cast from a smaller int to a bigger int
     fn from(value: u128) -> Self {
         Self {
             bits: (0u128, value)

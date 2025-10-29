@@ -208,6 +208,7 @@ mul_same_signed!(c8, u8, u16);
 mul_same_signed!(c16, u16, u32);
 mul_same_signed!(c32, u32, u64);
 mul_same_signed!(c64, u64, u128);
+
 mul_same_signed_128!(c128, u128, u256);
 mul_same_unsigned!(uc8, u8, u16);
 mul_same_unsigned!(uc16, u16, u32);
