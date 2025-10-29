@@ -55,14 +55,9 @@ impl SubAssign for u256 {
 impl Mul for u256 {
     type Output = Self;
     fn mul(self, rhs: Self) -> Self {
-        let (ov_lo, carry_lo) = u128::overflowing_mul(self.bits.0, rhs.bits.0);
-        let (ov_hi, carry_hi) = u128::overflowing_mul(self.bits.1, rhs.bits.1);
-        let (ov_carry, carry) = u128::overflowing_mul(ov_hi, carry_lo as u128);
-        if carry_hi || carry {
-            Self::MAX
-        } else {
-            Self { bits: (ov_lo, ov_carry) }
-        }
+        let left = self.bits.0 * rhs.bits.0;
+        let right = self.bits.1 * rhs.bits.1;
+        Self { bits: (left, right) }
     }
 }
 
