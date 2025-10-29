@@ -31,13 +31,15 @@ use {
         sub_same,
         add_same, 
         mul_same_signed,
+        mul_same_signed_128,
         mul_same_unsigned,
+        mul_same_unsigned_128,
         float_casts,
         float_convert_sc, 
         float_convert_uc,
         lossy_float,
     },
-    super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64, c128, uc128},
+    super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64, c128, uc128, u256},
     super::utils::{f64_split, QuickLog},
 };
 
@@ -200,13 +202,14 @@ sub_same!(uc32,  u32,  u32);
 sub_same!(uc64,  u64,  u64);
 sub_same!(uc128, u128, u128);
 
+// Multiplication for u128 types is handled manually- Tuple quire needed
+
 mul_same_signed!(c8, u8, u16);
 mul_same_signed!(c16, u16, u32);
 mul_same_signed!(c32, u32, u64);
 mul_same_signed!(c64, u64, u128);
-// mul_same!(c128, c128, u128, u128, i128, i128);
+mul_same_signed_128!(c128, u128, u256);
 mul_same_unsigned!(uc8, u8, u16);
 mul_same_unsigned!(uc16, u16, u32);
 mul_same_unsigned!(uc32, u32, u64);
 mul_same_unsigned!(uc64, u64, u128);
-// mul_same!(uc128, u128, u128);

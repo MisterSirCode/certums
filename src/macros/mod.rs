@@ -250,6 +250,44 @@ macro_rules! mul_same_signed {
 }
 
 #[macro_export]
+/// Multiplication for signed 128-bit types
+macro_rules! mul_same_signed_128 {
+    ($target:ident, $uint:ty, $duint:ty) => {
+        impl Mul for $target {
+            type Output = $target;
+            fn mul(self, rhs: Self) -> Self {
+                let self_sign = self.bin_sign(); 
+                let rhs_sign = rhs.bin_sign(); 
+                let signed_self;
+                let signed_rhs;
+                if self_sign == 1 {
+                    signed_self = $duint::from((-self).bits);
+                } else {
+                    signed_self = $duint::from(self.bits);
+                }
+                if rhs_sign == 1 {
+                    signed_rhs = $duint::from((-rhs).bits);
+                } else {
+                    signed_rhs = $duint::from(rhs.bits);
+                }
+                let bits = <$duint>::saturating_mul(signed_self, signed_rhs) >> $target::FRC;
+                if ((self_sign == 1) & (rhs_sign == 0)) | ((self_sign == 0) & (rhs_sign == 1)) {
+                    -$target { bits: (bits as $uint) }
+                } else {
+                    $target { bits: (bits as $uint) }
+                }
+            }
+        }
+
+        impl MulAssign for $target {
+            fn mul_assign(&mut self, rhs: Self) {
+                *self = *self * rhs
+            }
+        }
+    }
+}
+
+#[macro_export]
 /// Multiplication for unsigned types
 macro_rules! mul_same_unsigned {
     ($target:ident, $uint:ty, $duint:ty) => {
@@ -258,6 +296,28 @@ macro_rules! mul_same_unsigned {
             fn mul(self, rhs: Self) -> Self {
                 let signed_self = self.bits as $duint;
                 let signed_rhs = rhs.bits as $duint;
+                let bits = <$duint>::saturating_mul(signed_self, signed_rhs) >> $target::FRC;
+                $target { bits: (bits as $uint) }
+            }
+        }
+
+        impl MulAssign for $target {
+            fn mul_assign(&mut self, rhs: Self) {
+                *self = *self * rhs
+            }
+        }
+    }
+}
+
+#[macro_export]
+/// Multiplication for unsigned 128-bit types
+macro_rules! mul_same_unsigned_128 {
+    ($target:ident, $uint:ty, $duint:ty) => {
+        impl Mul for $target {
+            type Output = $target;
+            fn mul(self, rhs: Self) -> Self {
+                let signed_self = $duint::from(self.bits);
+                let signed_rhs = $duint(rhs.bits);
                 let bits = <$duint>::saturating_mul(signed_self, signed_rhs) >> $target::FRC;
                 $target { bits: (bits as $uint) }
             }

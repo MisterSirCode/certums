@@ -2,13 +2,15 @@
 pub mod utils;
 pub mod certum;
 pub mod macros;
-pub mod quires;
+pub mod quire;
 
 #[cfg(test)]
 pub mod tests;
 // pub mod dimid;
 // pub mod quarta;
 // pub mod acute;
+// Expose u256 to top-level crate
+pub use quire::quire256::u256;
 // Expose c8-c128 to top-level crate
 pub use certum::certum8::c8;
 pub use certum::certum16::c16;

@@ -170,7 +170,7 @@ pub fn addition_tests() {
     assert_eq!(c64::from(0.5) + c64::from(0.25), c64::from(0.75));
     assert_eq!(c64::from(0.25) + c64::from(-0.5), c64::from(-0.25));
     assert_eq!(c64::from(0.25) + c64::from(0.5), c64::from(0.75));
-    assert_eq!((c128::from(0.5) + c128::from(-0.25)).bits, c128::from(0.25).bits);
+    assert_eq!(c128::from(0.5) + c128::from(-0.25), c128::from(0.25));
     assert_eq!(c128::from(0.5) + c128::from(0.25), c128::from(0.75));
     assert_eq!(c128::from(0.25) + c128::from(-0.5), c128::from(-0.25));
     assert_eq!(c128::from(0.25) + c128::from(0.5), c128::from(0.75));
