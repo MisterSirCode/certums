@@ -86,4 +86,8 @@ impl From<u128> for u256 {
 
 impl u256 {
     pub const MAX: u256 = Self { bits: (u128::MAX, u128::MAX) };
+
+    pub fn saturating_mul(self, other: Self) -> Self {
+        Self::MAX
+    }
 }

@@ -252,7 +252,7 @@ macro_rules! mul_same_signed {
 #[macro_export]
 /// Multiplication for signed 128-bit types
 macro_rules! mul_same_signed_128 {
-    ($target:ident, $uint:ty, $duint:ty) => {
+    ($target:ident, $uint:ident, $duint:ident) => {
         impl Mul for $target {
             type Output = $target;
             fn mul(self, rhs: Self) -> Self {
@@ -272,9 +272,9 @@ macro_rules! mul_same_signed_128 {
                 }
                 let bits = <$duint>::saturating_mul(signed_self, signed_rhs) >> $target::FRC;
                 if ((self_sign == 1) & (rhs_sign == 0)) | ((self_sign == 0) & (rhs_sign == 1)) {
-                    -$target { bits: (bits as $uint) }
+                    -$target { bits: ($uint::from(bits)) }
                 } else {
-                    $target { bits: (bits as $uint) }
+                    $target { bits: ($uint::from(bits)) }
                 }
             }
         }
@@ -312,14 +312,14 @@ macro_rules! mul_same_unsigned {
 #[macro_export]
 /// Multiplication for unsigned 128-bit types
 macro_rules! mul_same_unsigned_128 {
-    ($target:ident, $uint:ty, $duint:ty) => {
+    ($target:ident, $uint:ident, $duint:ident) => {
         impl Mul for $target {
             type Output = $target;
             fn mul(self, rhs: Self) -> Self {
                 let signed_self = $duint::from(self.bits);
-                let signed_rhs = $duint(rhs.bits);
+                let signed_rhs = $duint::from(rhs.bits);
                 let bits = <$duint>::saturating_mul(signed_self, signed_rhs) >> $target::FRC;
-                $target { bits: (bits as $uint) }
+                $target { bits: ($uint::from(bits)) }
             }
         }
 
@@ -396,23 +396,23 @@ macro_rules! float_casts {
     }
 }
 
-macro_rules! bit_casts {
-    ($target:ident, $uint:ty) => {
-        impl From<$uint> for $target {
-            /// Convert from a UInt
-            fn from(bits: $uint) -> Self {
-                $target::from(bits as f64)
-            }
-        }
+// macro_rules! bit_casts {
+//     ($target:ident, $uint:ty) => {
+//         impl From<$uint> for $target {
+//             /// Convert from a UInt
+//             fn from(bits: $uint) -> Self {
+//                 $target::from(bits as f64)
+//             }
+//         }
 
-        impl From<&$uint> for $target {
-            /// Convert from a UInt
-            fn from(val: &$uint) -> Self {
-                $target::from(*val as f64)
-            }
-        }
-    }
-}
+//         impl From<&$uint> for $target {
+//             /// Convert from a UInt
+//             fn from(val: &$uint) -> Self {
+//                 $target::from(*val as f64)
+//             }
+//         }
+//     }
+// }
 
 #[macro_export]
 /// Float conversion for signed certums
