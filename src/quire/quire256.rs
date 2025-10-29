@@ -186,8 +186,14 @@ impl u256 {
     /// Decimal Equivalent: 0
     pub const MIN: u256 = Self { bits: (0, 0) };
 
+    /// Multiply two u128's and return a u256
+    pub fn mul_u128s(lhs: u128, rhs: u128) {
+        
+    }
+
     /// Multiply two u256's and clamp within the MIN and MAX numeric range
     pub fn saturating_mul(self, other: Self) -> Self {
+
         Self::MAX
     }
 }
