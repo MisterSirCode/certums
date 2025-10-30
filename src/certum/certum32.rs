@@ -45,7 +45,7 @@ impl c32 {
     /// Digits of Accuracy: 9
     /// 
     pub const PI: Self = Self { bits: 0x3243F6A8 };
-    /// Eulers's Number - e
+    /// Eulers' Number - e
     /// 
     /// Decimal: 2.718281827867031097412109375
     /// Exact:   2.71828182

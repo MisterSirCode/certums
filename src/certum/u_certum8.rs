@@ -41,7 +41,7 @@ impl uc8 {
     /// Digits of Accuracy: 3
     /// 
     pub const PI: Self = Self { bits: 0xC9 };
-    /// Eulers's Number - e
+    /// Eulers' Number - e
     /// 
     /// Decimal: 2.71875
     /// Exact:   2.718

@@ -55,9 +55,7 @@ impl SubAssign for u256 {
 impl Mul for u256 {
     type Output = Self;
     fn mul(self, rhs: Self) -> Self {
-        let left = self.bits.0 * rhs.bits.0;
-        let right = self.bits.1 * rhs.bits.1;
-        Self { bits: (left, right) }
+        Self { bits: (0, 0) }
     }
 }
 
@@ -187,13 +185,12 @@ impl u256 {
     pub const MIN: u256 = Self { bits: (0, 0) };
 
     /// Multiply two u128's and return a u256
-    pub fn mul_u128s(lhs: u128, rhs: u128) {
-        
+    pub fn mul_u128s(lhs: u128, rhs: u128) -> Self {
+        Self::MAX
     }
 
     /// Multiply two u256's and clamp within the MIN and MAX numeric range
     pub fn saturating_mul(self, other: Self) -> Self {
-
         Self::MAX
     }
 }
