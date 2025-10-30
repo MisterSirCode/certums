@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 
 use {
-    certums::{c128, c16, c32, c64, c8, from_direct, from_left_shift, from_right_shift, uc128, uc16, uc32, uc64, uc8, u256, utils::display_certums}, core::{f32, f64}
+    certums::{c8, c16, c32, c64, c128, from_direct, from_left_shift, from_right_shift, u256, uc8, uc16, uc32, uc64, uc128, utils::{QuickLog, display_certums}}, core::{f32, f64}
 };
 
 fn main() {
@@ -20,9 +20,11 @@ fn main() {
     
     // let ut = u256::MAX;
     let ut2 = u256::from(u128::MAX);
-    let ut3 = u256::from(8);
-    let ut4 = ut2 * ut3;
-    println!("{:0128b}{:0128b}\n", ut2.bits.0, ut2.bits.1);
-    println!("{:0128b}{:0128b}\n", ut3.bits.0, ut3.bits.1);
-    println!("{:0128b}{:0128b}", ut4.bits.0, ut4.bits.1);
+    let ut3 = u256::from(u128::MAX) << 128;
+    let ut4 = ut2 + ut3;
+    let ut5 = ut4 + u256::from(10);
+    ut2.log_bits();
+    ut3.log_bits();
+    ut4.log_bits();
+    ut5.log_bits();
 }

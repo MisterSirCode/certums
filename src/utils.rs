@@ -76,8 +76,7 @@ pub fn u32_to_u16_round(val: u32) -> u16 {
 }
 
 use {
-    core::{f32, f64},
-    super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64, c128, uc128}
+    super::{c8, c16, c32, c64, c128, uc8, uc16, uc32, uc64, uc128}, crate::u256, core::{f32, f64}
 };
 
 pub fn display_certums(value: f32) {
@@ -148,6 +147,12 @@ impl QuickLog for u64 {
 impl QuickLog for u128 {
     fn log_bits(&self) {
         println!("0b{:0128b}", self);
+    }
+}
+
+impl QuickLog for u256 {
+    fn log_bits(&self) {
+        println!("0b{:0128b}{:0128b}", self.bits.0, self.bits.1);
     }
 }
 

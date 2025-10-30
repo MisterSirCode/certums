@@ -2,6 +2,8 @@
 
 use std::ops::{Add, AddAssign, BitAnd, BitAndAssign, BitOr, BitOrAssign, BitXor, BitXorAssign, Mul, MulAssign, Shl, ShlAssign, Shr, ShrAssign, Sub, SubAssign};
 
+use crate::utils::QuickLog;
+
 #[derive(Copy, Clone, Debug)]
 #[expect(non_camel_case_types)]
 /// A Quire-like object (Relevant to Posit math operations). 
@@ -14,14 +16,15 @@ pub struct u256 {
 
 impl Add for u256 {
     type Output = Self;
+    /// Add two u256s together. Behaves like saturating_add
     fn add(self, rhs: Self) -> Self {
-        let (ov_left, c1) = u128::overflowing_add(self.bits.1, rhs.bits.1);
-        let (ov_right, c2) = u128::overflowing_add(self.bits.0, rhs.bits.0);
-        let (ov_carry, c3) = u128::overflowing_add(ov_right, c1 as u128);
+        let (ov_right, c1) = u128::overflowing_add(self.bits.1, rhs.bits.1);
+        let (ov_left, c2) = u128::overflowing_add(self.bits.0, rhs.bits.0);
+        let (ov_carry, c3) = u128::overflowing_add(ov_left, c1 as u128);
         if c2 || c3 {
             Self::MAX
         } else {
-            Self { bits: (ov_left, ov_carry) }
+            Self { bits: (ov_carry, ov_right) }
         }
     }
 }
@@ -34,6 +37,7 @@ impl AddAssign for u256 {
 
 impl Sub for u256 {
     type Output = Self;
+    /// Add two u256s together. Behaves like saturating_sub
     fn sub(self, rhs: Self) -> Self {
         let (ov_left, c1) = u128::overflowing_sub(self.bits.0, rhs.bits.0);
         let (ov_right, c2) = u128::overflowing_sub(self.bits.1, rhs.bits.1);
