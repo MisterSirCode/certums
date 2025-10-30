@@ -133,6 +133,10 @@ macro_rules! equivalent_solo {
             fn eq(&self, other: &Self) -> bool {
                 self.bits == other.bits
             }
+
+            fn ne(&self, other: &Self) -> bool {
+                self.bits != other.bits
+            }
         }
 
         impl Eq for $target { }
@@ -146,6 +150,10 @@ macro_rules! equivalent_other {
         impl PartialEq<$other> for $target {
             fn eq(&self, other: &Self) -> bool {
                 self.bits == ($target::from(other)).bits
+            }
+
+            fn ne(&self, other: &Self) -> bool {
+                self.bits != ($target::from(other)).bits
             }
         }
 

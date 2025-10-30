@@ -1,8 +1,7 @@
 #![allow(dead_code)]
 
 use std::ops::{Add, AddAssign, BitAnd, BitAndAssign, BitOr, BitOrAssign, BitXor, BitXorAssign, Mul, MulAssign, Shl, ShlAssign, Shr, ShrAssign, Sub, SubAssign};
-
-use crate::utils::QuickLog;
+use std::cmp::{Eq, PartialEq, Ordering};
 
 #[derive(Copy, Clone, Debug)]
 #[expect(non_camel_case_types)]
@@ -13,6 +12,30 @@ use crate::utils::QuickLog;
 pub struct u256 {
     pub bits: (u128, u128)
 }
+
+impl Ord for u256 {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.bits.cmp(&other.bits)
+    }
+}
+
+impl PartialOrd for u256 {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl PartialEq for u256 {
+    fn eq(&self, other: &Self) -> bool {
+        self.bits == other.bits
+    }
+
+    fn ne(&self, other: &Self) -> bool {
+        self.bits != other.bits
+    }
+}
+
+impl Eq for u256 { }
 
 impl Add for u256 {
     type Output = Self;
@@ -39,6 +62,7 @@ impl Sub for u256 {
     type Output = Self;
     /// Add two u256s together. Behaves like saturating_sub
     fn sub(self, rhs: Self) -> Self {
+        if rhs >= self { return Self::MIN }
         let (ov_left, c1) = u128::overflowing_sub(self.bits.0, rhs.bits.0);
         let (ov_right, c2) = u128::overflowing_sub(self.bits.1, rhs.bits.1);
         let (ov_carry, c3) = u128::overflowing_sub(ov_right, c1 as u128);
