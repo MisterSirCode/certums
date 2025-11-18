@@ -19,6 +19,8 @@ impl Ord for u256 {
     }
 }
 
+impl Eq for u256 { }
+
 impl PartialOrd for u256 {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         Some(self.cmp(other))
@@ -35,7 +37,21 @@ impl PartialEq for u256 {
     }
 }
 
-impl Eq for u256 { }
+impl PartialOrd<u128> for u256 {
+    fn partial_cmp(&self, other: &u128) -> Option<Ordering> {
+        Some(self.cmp(&u256::from(*other)))
+    }
+}
+
+impl PartialEq<u128> for u256 {
+    fn eq(&self, other: &u128) -> bool {
+        self.bits == u256::from(*other).bits
+    }
+
+    fn ne(&self, other: &u128) -> bool {
+        self.bits != u256::from(*other).bits
+    }
+}
 
 impl Add for u256 {
     type Output = Self;
@@ -52,6 +68,12 @@ impl Add for u256 {
     }
 }
 
+impl AddAssign for u256 {
+    fn add_assign(&mut self, rhs: Self) {
+        *self = *self + rhs
+    }
+}
+
 impl Add<u128> for u256 {
     type Output = Self;
     /// Add a u128 to a u256. Behaves like saturating_add
@@ -60,8 +82,8 @@ impl Add<u128> for u256 {
     }
 }
 
-impl AddAssign for u256 {
-    fn add_assign(&mut self, rhs: Self) {
+impl AddAssign<u128> for u256 {
+    fn add_assign(&mut self, rhs: u128) {
         *self = *self + rhs
     }
 }
@@ -93,6 +115,12 @@ impl Sub<u128> for u256 {
     /// Subtract a u128 from a u256. Behaves like saturating_sub
     fn sub(self, rhs: u128) -> Self {
         self - Self::from(rhs)
+    }
+}
+
+impl SubAssign<u128> for u256 {
+    fn sub_assign(&mut self, rhs: u128) {
+        *self = *self - rhs
     }
 }
 

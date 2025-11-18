@@ -297,13 +297,11 @@ pub fn u256_tests() {
 
     // Addition Edge Cases
     assert_eq!((u256::MAX << 128) + ((u256::MAX >> 128) - 1), u256::raw([u128::MAX, u128::MAX - 1]));
-    assert_eq!((u256::MAX >> 128) + 1, u256 { bits: [1, u128::MAX] });
+    assert_eq!((u256::MAX >> 128) + 1, u256 { bits: [1, 0] });
     assert_eq!(u256::MAX + 1, u256::MAX);
 
     // Subtraction Edge Cases
-    assert_eq!((u256::MAX << 128) - ((u256::MAX >> 128) - 1), 1);
-    assert_eq!((u256::MAX >> 128) + 1, u256 { bits: [1, u128::MAX] });
-    assert_eq!(u256::MAX + 1, u256::MAX);
-    assert_eq!((u256::MAX << 128) - 1 + (u256::MAX >> 128), u256::MAX - 1);
-    assert_eq!((u256::MAX << 128) - (u256::MAX >> 128), ((u256::MAX - 1) << 128) + 1);
+    assert_eq!((u256::MAX << 128) - ((u256::MAX << 127)), 0);
+    assert_eq!((u256::MAX >> 128) - 1, u256 { bits: [0, u128::MAX - 1] });
+    assert_eq!(u256::MIN - 1, u256::MIN);
 }

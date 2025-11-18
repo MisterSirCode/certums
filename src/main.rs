@@ -20,7 +20,7 @@ fn main() {
     
     // let ut = u256::MAX;
     let ut2 = u256::MAX << 128;
-    let ut3 = u256::MAX >> 128;
+    let ut3 = u256::MAX << 127;
     let ut4 = ut2 - ut3;
     let ut5 = ut4 - u256::from(10);
     ut2.log_bits();
