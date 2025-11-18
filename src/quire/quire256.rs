@@ -60,13 +60,13 @@ impl AddAssign for u256 {
 
 impl Sub for u256 {
     type Output = Self;
-    /// Add two u256s together. Behaves like saturating_sub
+    /// Subtract two u256s. Behaves like saturating_sub
     fn sub(self, rhs: Self) -> Self {
         if rhs >= self { return Self::MIN }
         let (ov_left, c1) = u128::overflowing_sub(self.bits.0, rhs.bits.0);
         let (ov_right, c2) = u128::overflowing_sub(self.bits.1, rhs.bits.1);
-        let (ov_carry, c3) = u128::overflowing_sub(ov_right, c1 as u128);
-        if c2 || c3 {
+        let (ov_carry, c3) = u128::overflowing_sub(ov_right, c2 as u128);
+        if c1 || c3 {
             Self::MIN
         } else {
             Self { bits: (ov_left, ov_carry) }

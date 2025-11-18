@@ -19,12 +19,12 @@ fn main() {
     // (c64::from(2.0) * c64::from(3.0)).log_value();
     
     // let ut = u256::MAX;
-    let ut2 = u256::from(u128::MAX) << 128;
-    let ut3 = u256::from(u128::MAX);
-    let ut4 = ut3 - ut2;
+    let ut2 = u256::from(u128::MAX) << 127;
+    let ut3 = u256::from(u128::MAX) << 2;
+    let ut4 = ut2 - ut3;
     let ut5 = ut4 - u256::from(10);
     ut2.log_bits();
     ut3.log_bits();
     ut4.log_bits();
-    ut5.log_bits();
+    // ut5.log_bits();
 }
