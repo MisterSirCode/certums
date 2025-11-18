@@ -1,9 +1,7 @@
 #![allow(unused_imports)]
 
 use {
-    core::{f32, f64},
-    super::{c8, uc8, c16, uc16, c32, uc32, c64, uc64, c128, uc128},
-    crate::{from_direct, from_right_shift, from_left_shift}
+    super::{c8, c16, c32, c64, c128, u256, uc8, uc16, uc32, uc64, uc128}, crate::{from_direct, from_left_shift, from_right_shift, utils::QuickLog}, core::{f32, f64}
 };
 
 #[test]
@@ -177,7 +175,7 @@ pub fn addition_tests() {
 }
 
 #[test]
-// Run all unit tests for subtraction of types
+/// Run all unit tests for subtraction of types
 pub fn subtraction_tests() {
     // upper - -lower
     // upper - lower
@@ -205,6 +203,8 @@ pub fn subtraction_tests() {
     assert_eq!(c128::from(0.25) - c128::from(0.5), c128::from(-0.25));
 }
 
+#[test]
+/// Comparison checks
 pub fn comparison_tests() {
     // Signed
     assert_eq!(c8::from(0.5) > c8::from(0.25), true);
@@ -277,4 +277,33 @@ pub fn comparison_tests() {
     assert_eq!(uc128::from(0.5) >= uc128::from(0.25), true);
     assert_eq!(uc128::from(0.25) < uc128::from(0.5), true);
     assert_eq!(uc128::from(0.25) <= uc128::from(0.5), true);
+}
+
+#[test]
+/// Run tests for experimental u256 type
+pub fn u256_tests() {
+    // General type tests
+    assert_eq!(u256::from(u128::MAX), u256 { bits: [0, u128::MAX] });
+    assert_eq!(u256::from(u128::MAX) << 128, u256 { bits: [u128::MAX, 0] });
+    assert_eq!((u256::from(u128::MAX) << 128) >> 128, u256 { bits: [0, u128::MAX] });
+    assert_eq!(u256::from(u128::MAX) | (u256::from(1) << 194), u256 { bits: [73786976294838206464, u128::MAX] });
+    assert_eq!(u256::from(u128::MAX) | (u256::from(1) << 64), u256 { bits: [0, u128::MAX] });
+    assert_eq!(u256::from(u128::MAX) ^ (u256::from(1) << 194), u256 { bits: [73786976294838206464, u128::MAX] });
+    assert_eq!(u256::from(u128::MAX) ^ (u256::from(1) << 64), u256 { bits: [0, 340282366920938463444927863358058659839] });
+    assert_eq!(u256::from(u128::MAX) & (u256::from(1) << 194), u256 { bits: [0, 0] });
+    assert_eq!(u256::from(u128::MAX) & (u256::from(1) << 64), u256 { bits: [0, 18446744073709551616] });
+
+    // Basic algebra
+
+    // Addition Edge Cases
+    assert_eq!((u256::MAX << 128) + ((u256::MAX >> 128) - 1), u256::raw([u128::MAX, u128::MAX - 1]));
+    assert_eq!((u256::MAX >> 128) + 1, u256 { bits: [1, u128::MAX] });
+    assert_eq!(u256::MAX + 1, u256::MAX);
+
+    // Subtraction Edge Cases
+    assert_eq!((u256::MAX << 128) - ((u256::MAX >> 128) - 1), 1);
+    assert_eq!((u256::MAX >> 128) + 1, u256 { bits: [1, u128::MAX] });
+    assert_eq!(u256::MAX + 1, u256::MAX);
+    assert_eq!((u256::MAX << 128) - 1 + (u256::MAX >> 128), u256::MAX - 1);
+    assert_eq!((u256::MAX << 128) - (u256::MAX >> 128), ((u256::MAX - 1) << 128) + 1);
 }

@@ -348,7 +348,7 @@ macro_rules! from_u256 {
             /// 
             /// Equivalent to using `as` to cast from bigger int to a smaller int
             fn from(val: u256) -> Self {
-                $target::from(val.bits.1)
+                $target::from(val.bits[1])
             }
         }
     }

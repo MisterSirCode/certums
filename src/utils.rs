@@ -152,7 +152,7 @@ impl QuickLog for u128 {
 
 impl QuickLog for u256 {
     fn log_bits(&self) {
-        println!("0b{:0128b}{:0128b}", self.bits.0, self.bits.1);
+        println!("0b{:0128b}{:0128b}", self.bits[0], self.bits[1]);
     }
 }
 

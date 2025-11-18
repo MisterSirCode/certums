@@ -10,7 +10,7 @@ use std::cmp::{Eq, PartialEq, Ordering};
 /// 
 /// Used by different types of 128-bit Certums to multiply without losing precision
 pub struct u256 {
-    pub bits: (u128, u128)
+    pub bits: [u128; 2]
 }
 
 impl Ord for u256 {
@@ -41,14 +41,22 @@ impl Add for u256 {
     type Output = Self;
     /// Add two u256s together. Behaves like saturating_add
     fn add(self, rhs: Self) -> Self {
-        let (ov_right, c1) = u128::overflowing_add(self.bits.1, rhs.bits.1);
-        let (ov_left, c2) = u128::overflowing_add(self.bits.0, rhs.bits.0);
+        let (ov_right, c1) = u128::overflowing_add(self.bits[1], rhs.bits[1]);
+        let (ov_left, c2) = u128::overflowing_add(self.bits[0], rhs.bits[0]);
         let (ov_carry, c3) = u128::overflowing_add(ov_left, c1 as u128);
         if c2 || c3 {
             Self::MAX
         } else {
-            Self { bits: (ov_carry, ov_right) }
+            Self { bits: [ov_carry, ov_right] }
         }
+    }
+}
+
+impl Add<u128> for u256 {
+    type Output = Self;
+    /// Add a u128 to a u256. Behaves like saturating_add
+    fn add(self, rhs: u128) -> Self {
+        self + Self::from(rhs)
     }
 }
 
@@ -63,13 +71,13 @@ impl Sub for u256 {
     /// Subtract two u256s. Behaves like saturating_sub
     fn sub(self, rhs: Self) -> Self {
         if rhs >= self { return Self::MIN }
-        let (ov_left, c1) = u128::overflowing_sub(self.bits.0, rhs.bits.0);
-        let (ov_right, c2) = u128::overflowing_sub(self.bits.1, rhs.bits.1);
-        let (ov_carry, c3) = u128::overflowing_sub(ov_right, c2 as u128);
-        if c1 || c3 {
+        let (ov_right, c1) = u128::overflowing_sub(self.bits[1], rhs.bits[1]);
+        let (ov_left, c2) = u128::overflowing_sub(self.bits[0], rhs.bits[0]);
+        let (ov_carry, c3) = u128::overflowing_sub(ov_left, c1 as u128);
+        if c2 || c3 {
             Self::MIN
         } else {
-            Self { bits: (ov_left, ov_carry) }
+            Self { bits: [ov_carry, ov_right] }
         }
     }
 }
@@ -80,10 +88,18 @@ impl SubAssign for u256 {
     }
 }
 
+impl Sub<u128> for u256 {
+    type Output = Self;
+    /// Subtract a u128 from a u256. Behaves like saturating_sub
+    fn sub(self, rhs: u128) -> Self {
+        self - Self::from(rhs)
+    }
+}
+
 impl Mul for u256 {
     type Output = Self;
     fn mul(self, rhs: Self) -> Self {
-        Self { bits: (0, 0) }
+        Self { bits: [0, 0] }
     }
 }
 
@@ -100,15 +116,15 @@ impl Shl<u128> for u256 {
         let (res_left, res_right);
         if rhs >= 128 {
             let adj = rhs - 128;
-            res_left = self.bits.1 << adj;
+            res_left = self.bits[1] << adj;
             res_right = 0u128;
         } else {
             let adj = 128 - rhs;
-            let ov_right = self.bits.1 >> adj;
-            res_left = (self.bits.0 << rhs) | ov_right;
-            res_right = self.bits.1 << rhs;
+            let ov_right = self.bits[1] >> adj;
+            res_left = (self.bits[0] << rhs) | ov_right;
+            res_right = self.bits[1] << rhs;
         }
-        Self { bits: (res_left, res_right) }
+        Self { bits: [res_left, res_right] }
     }
 }
 
@@ -125,15 +141,15 @@ impl Shr<u128> for u256 {
         let (res_left, res_right);
         if rhs >= 128 {
             let adj = rhs - 128;
-            res_right = self.bits.0 >> adj;
+            res_right = self.bits[0] >> adj;
             res_left = 0u128;
         } else {
             let adj = 128 - rhs;
-            let ov_left = self.bits.0 << adj;
-            res_right = (self.bits.1 >> rhs) | ov_left;
-            res_left = self.bits.0 >> rhs;
+            let ov_left = self.bits[0] << adj;
+            res_right = (self.bits[1] >> rhs) | ov_left;
+            res_left = self.bits[0] >> rhs;
         }
-        Self { bits: (res_left, res_right) }
+        Self { bits: [res_left, res_right] }
     }
 }
 
@@ -146,7 +162,7 @@ impl ShrAssign<u128> for u256 {
 impl BitAnd for u256 {
     type Output = Self;
     fn bitand(self, rhs: Self) -> Self {
-        Self { bits: (self.bits.0 & rhs.bits.0, self.bits.1 & rhs.bits.1)}
+        Self { bits: [self.bits[0] & rhs.bits[0], self.bits[1] & rhs.bits[1]] }
     }
 }
 
@@ -159,7 +175,7 @@ impl BitAndAssign for u256 {
 impl BitOr for u256 {
     type Output = Self;
     fn bitor(self, rhs: Self) -> Self {
-        Self { bits: (self.bits.0 | rhs.bits.0, self.bits.1 | rhs.bits.1)}
+        Self { bits: [self.bits[0] | rhs.bits[0], self.bits[1] | rhs.bits[1]] }
     }
 }
 
@@ -172,7 +188,7 @@ impl BitOrAssign for u256 {
 impl BitXor for u256 {
     type Output = Self;
     fn bitxor(self, rhs: Self) -> Self {
-        Self { bits: (self.bits.0 ^ rhs.bits.0, self.bits.1 ^ rhs.bits.1)}
+        Self { bits: [self.bits[0] ^ rhs.bits[0], self.bits[1] ^ rhs.bits[1]] }
     }
 }
 
@@ -187,7 +203,7 @@ impl From<u256> for u128 {
     /// 
     /// Equivalent to using `as` to cast from a bigger int to a smaller int
     fn from(value: u256) -> Self {
-        value.bits.1
+        value.bits[1]
     }
 }
 
@@ -197,7 +213,7 @@ impl From<u128> for u256 {
     /// Equivalent to using `as` to cast from a smaller int to a bigger int
     fn from(value: u128) -> Self {
         Self {
-            bits: (0u128, value)
+            bits: [0u128, value]
         }
     }
 }
@@ -206,11 +222,15 @@ impl u256 {
     /// Maximum u256 Integer
     /// 
     /// Decimal Equivalent: 115792089237316195423570985008687907852589419931798687112530834793049593217025
-    pub const MAX: u256 = Self { bits: (u128::MAX, u128::MAX) };
+    pub const MAX: u256 = Self { bits: [u128::MAX, u128::MAX] };
     /// Minimum u256 Interger
     /// 
     /// Decimal Equivalent: 0
-    pub const MIN: u256 = Self { bits: (0, 0) };
+    pub const MIN: u256 = Self { bits: [0, 0] };
+
+    pub fn raw(arr: [u128; 2]) -> Self {
+        Self { bits: arr }
+    }
 
     /// Multiply two u128's and return a u256
     pub fn mul_u128s(lhs: u128, rhs: u128) -> Self {
