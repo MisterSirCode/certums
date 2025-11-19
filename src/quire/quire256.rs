@@ -124,18 +124,25 @@ impl SubAssign<u128> for u256 {
     }
 }
 
-impl Mul for u256 {
-    type Output = Self;
-    fn mul(self, rhs: Self) -> Self {
-        Self { bits: [0, 0] }
-    }
-}
+// impl Mul<u128> for u256 {
+//     type Output = Self;
+//     fn mul(self, rhs: u128) -> Self {
+//         let (ov_right, c1) = u128::overflowing_mul(self.bits[1], rhs);
+//         let (ov_left, c2) = u128::overflowing_mul(self.bits[0], rhs);
+//         let (ov_carry, c3) = u128::overflowing_add(ov_left, c1 as u128);
+//         if c2 || c3 {
+//             Self::MAX
+//         } else {
+//             Self { bits: [ov_carry, ov_right] }
+//         }
+//     }
+// }
 
-impl MulAssign for u256 {
-    fn mul_assign(&mut self, rhs: Self) {
-        *self = *self * rhs
-    }
-}
+// impl MulAssign<u128> for u256 {
+//     fn mul_assign(&mut self, rhs: u128) {
+//         *self = *self * rhs
+//     }
+// }
 
 impl Shl<u128> for u256 {
     type Output = Self;
@@ -256,17 +263,16 @@ impl u256 {
     /// Decimal Equivalent: 0
     pub const MIN: u256 = Self { bits: [0, 0] };
 
-    pub fn raw(arr: [u128; 2]) -> Self {
+    /// Create a new u256 from an array of u128s
+    pub fn from_arr(arr: [u128; 2]) -> Self {
         Self { bits: arr }
     }
 
     /// Multiply two u128's and return a u256
-    pub fn mul_u128s(lhs: u128, rhs: u128) -> Self {
-        Self::MAX
-    }
-
-    /// Multiply two u256's and clamp within the MIN and MAX numeric range
-    pub fn saturating_mul(self, other: Self) -> Self {
-        Self::MAX
+    /// 
+    /// Used for higher-order operations that need extra precision, like 128-bit certum multiplication.
+    pub fn from_mul(lhs: u128, rhs: u128) -> Self {
+        let (rh, lh) = lhs.carrying_mul(rhs, 0);
+        Self { bits: [lh, rh] }
     }
 }

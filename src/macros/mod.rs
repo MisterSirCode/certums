@@ -269,20 +269,20 @@ macro_rules! mul_same_signed_128 {
                 let signed_self;
                 let signed_rhs;
                 if self_sign == 1 {
-                    signed_self = $duint::from((-self).bits);
+                    signed_self = -self;
                 } else {
-                    signed_self = $duint::from(self.bits);
+                    signed_self = self;
                 }
                 if rhs_sign == 1 {
-                    signed_rhs = $duint::from((-rhs).bits);
+                    signed_rhs = -rhs;
                 } else {
-                    signed_rhs = $duint::from(rhs.bits);
+                    signed_rhs = rhs;
                 }
-                let bits = <$duint>::saturating_mul(signed_self, signed_rhs) >> $target::FRC;
+                let bits = <$duint>::from_mul(signed_self.bits, signed_rhs.bits) >> $target::FRC;
                 if ((self_sign == 1) & (rhs_sign == 0)) | ((self_sign == 0) & (rhs_sign == 1)) {
-                    -$target { bits: ($uint::from(bits)) }
+                    -$target { bits: $uint::from(bits) }
                 } else {
-                    $target { bits: ($uint::from(bits)) }
+                    $target { bits: $uint::from(bits) }
                 }
             }
         }
@@ -324,10 +324,8 @@ macro_rules! mul_same_unsigned_128 {
         impl Mul for $target {
             type Output = $target;
             fn mul(self, rhs: Self) -> Self {
-                let signed_self = $duint::from(self.bits);
-                let signed_rhs = $duint::from(rhs.bits);
-                let bits = <$duint>::saturating_mul(signed_self, signed_rhs) >> $target::FRC;
-                $target { bits: ($uint::from(bits)) }
+                let bits = <$duint>::from_mul(self.bits, rhs.bits) >> $target::FRC;
+                $target { bits: $uint::from(bits) }
             }
         }
 

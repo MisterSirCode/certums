@@ -296,7 +296,7 @@ pub fn u256_tests() {
     // Basic algebra
 
     // Addition Edge Cases
-    assert_eq!((u256::MAX << 128) + ((u256::MAX >> 128) - 1), u256::raw([u128::MAX, u128::MAX - 1]));
+    assert_eq!((u256::MAX << 128) + ((u256::MAX >> 128) - 1), u256::from_arr([u128::MAX, u128::MAX - 1]));
     assert_eq!((u256::MAX >> 128) + 1, u256 { bits: [1, 0] });
     assert_eq!(u256::MAX + 1, u256::MAX);
 
@@ -304,4 +304,8 @@ pub fn u256_tests() {
     assert_eq!((u256::MAX << 128) - ((u256::MAX << 127)), 0);
     assert_eq!((u256::MAX >> 128) - 1, u256 { bits: [0, u128::MAX - 1] });
     assert_eq!(u256::MIN - 1, u256::MIN);
+
+    // Carrying-Multiply Edge Cases
+    assert_eq!(u256::from_mul(u128::MAX, u128::MAX), u256::MAX);
+    assert_eq!(u256::from_mul(u128::MAX, u128::MAX - 1), ((u256::MAX - 1) << 128) + 1);
 }
