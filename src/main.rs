@@ -5,7 +5,8 @@ use {
         c8, c16, c32, c64, c128, 
         from_direct, from_left_shift, from_right_shift, 
         u256, uc8, uc16, uc32, uc64, uc128, 
-        utils::{QuickLog, display_certums}
+        utils::{QuickLog, display_certums},
+        ALN
     },
     core::{f32, f64}
 };
@@ -28,13 +29,16 @@ fn main() {
     // let ut2 = u256::from_mul(u128::MAX, u128::MAX);
     // ut2.log_bits();
 
-    let c1 = c16::from(3.14159);
-    let (sign, int, frc) = c1.components();
-    int.log_bits();
-    frc.log_bits();
-    println!("{:}", int);
-    println!("{:}", frc);
-    println!("{:}", c1.bits);
-    c1.log_bits();
-    c1.log_value();
+    // let c1 = c16::from(3.14159);
+    // let (sign, int, frc) = c1.components();
+    // int.log_bits();
+    // frc.log_bits();
+    // println!("{:}", int);
+    // println!("{:}", frc);
+    // println!("{:}", c1.bits);
+    // c1.log_bits();
+    // c1.log_value();
+
+    let aln = ALN::from("123456789");
+
 }

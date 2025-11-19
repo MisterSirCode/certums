@@ -3,13 +3,15 @@ pub mod utils;
 pub mod certum;
 pub mod macros;
 pub mod quire;
-pub mod stringy;
+pub mod allen;
 
 #[cfg(test)]
 pub mod tests;
 // pub mod dimid;
 // pub mod quarta;
 // pub mod acute;
+
+pub use allen::allen::ALN;
 // Expose u256 to top-level crate
 pub use quire::quire256::u256;
 // Expose c8-c128 to top-level crate
