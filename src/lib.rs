@@ -3,6 +3,7 @@ pub mod utils;
 pub mod certum;
 pub mod macros;
 pub mod quire;
+pub mod stringy;
 
 #[cfg(test)]
 pub mod tests;

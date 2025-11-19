@@ -25,6 +25,16 @@ fn main() {
     // (c64::from(2.0) * c64::from(3.0)).log_value();
     
     // let ut = u256::MAX;
-    let ut2 = u256::from_mul(u128::MAX, u128::MAX);
-    ut2.log_bits();
+    // let ut2 = u256::from_mul(u128::MAX, u128::MAX);
+    // ut2.log_bits();
+
+    let c1 = c16::from(3.14159);
+    let (sign, int, frc) = c1.components();
+    int.log_bits();
+    frc.log_bits();
+    println!("{:}", int);
+    println!("{:}", frc);
+    println!("{:}", c1.bits);
+    c1.log_bits();
+    c1.log_value();
 }
