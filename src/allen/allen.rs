@@ -3,8 +3,40 @@
 use std::ops::{Add, AddAssign, BitAnd, BitAndAssign, BitOr, BitOrAssign, BitXor, BitXorAssign, Mul, MulAssign, Shl, ShlAssign, Shr, ShrAssign, Sub, SubAssign};
 use std::cmp::{Eq, PartialEq, Ordering};
 
-pub struct BigInt {
-    pub bits: Vec<u64>
+#[derive(Clone, Debug)]
+pub struct BigInt(Vec<u8>);
+
+impl<'a> Add<&'a Self> for BigInt {
+    type Output = Self;
+    fn add(mut self, rhs: &'a Self) -> Self {
+        let mut carry = false;
+        for i in 0..self.0.len() {
+            (self.0[i], carry) = self.0[i].carrying_add(rhs.0[i], carry);
+        }
+        if carry {
+            self.0.push(1);
+        }
+        self
+    }
+}
+
+impl<'a> Mul<&'a Self> for BigInt {
+    type Output = Self;
+    fn mul(mut self, rhs: &'a Self) -> Self {
+        let mut carries = vec![0];
+        for (l, &r) in self.0.iter_mut().zip(&rhs.0) {
+            let (res, carry) = l.carrying_mul(r, 0);
+            *l = res;
+            carries.push(carry);
+        }
+        self + &Self(carries)
+    }
+}
+
+impl From<u8> for BigInt {
+    fn from(value: u8) -> Self {
+        BigInt(vec![value])
+    }
 }
 
 #[derive(Clone, Debug)]
@@ -12,15 +44,15 @@ pub struct BigInt {
 /// 
 /// This type is slow and only meant for precision conversions and displaying
 pub struct ALN {
-    pub sgn: bool,
-    pub int: Vec<u8>,
-    pub frc: Vec<u8>,
+    sgn: bool,
+    int: BigInt,
+    frc: BigInt,
 }
 
 impl ALN {
     /// Create an empty ALN
     pub fn empty() -> Self {
-        Self { sgn: false, int: Vec::new(), frc: Vec::new() }
+        Self { sgn: false, int: BigInt(vec![0]), frc: BigInt(vec![0]) }
     }
 
     /// Rectify and Validate a string for use with ALN
@@ -41,7 +73,6 @@ impl ALN {
                 valid.push('.');
             } // Reject any other character
         }
-        usize
         while valid.ends_with('0') { // Eliminate trailing zeroes.
             valid.pop();
         }
@@ -64,37 +95,11 @@ impl From<String> for ALN {
             frc = Default::default();
             dec = false;
         }
-        // let digit_count: usize = int.len();
-        let mut int_vec: Vec<u8> = Vec::new();
-        int_vec.push(0);
-        let mut index = 0;
         for (i, c) in int.chars().enumerate() {
             if c.is_ascii_digit() {
                 let digit = c.to_digit(10).unwrap() as u8;
-                let (mut res, mut carry) = int_vec[index].carrying_mul(10, digit);
-                if carry > 0 {
-                    index = index + 1;
-                    if (int_vec.len() - 1) < index {
-                        int_vec.push(0);
-                    }
-                    int_vec[index] = digit;
-                } else {
-                    int_vec[index] = res;
-                }
-                println!("{:} - res: {:} - carry: {:}", digit, res, carry);
-                print!("Vec State: ");
-                let mut bits: u64 = 0; 
-                for item in &int_vec {
-                    print!("{:} ", item);
-                    bits = (bits << 3) + (bits << 1) + (*item as u64);
-                }
-                // println!("");
-                // println!("Raw Bits: {:064b}", bits);
-                // println!("Raw Int: {:}", bits);
-                println!("\n");
             }
         }
-
         Self::empty()
     }
 }
