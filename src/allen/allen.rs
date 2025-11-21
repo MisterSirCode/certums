@@ -4,12 +4,13 @@ use std::{
     fmt::{Binary, Formatter, LowerHex, Result, UpperHex},
     iter,
     ops::{Add, Mul, Shl, Shr},
+    cmp::{Eq, PartialEq, Ordering}
 };
 
 
 type udef = u8;
 
-/// BigInt courtesy of @quelfth on the rust discord
+/// @quelfth on discord
 #[derive(Clone, Debug)]
 pub struct BigInt(Vec<udef>);
 
@@ -107,6 +108,49 @@ impl Shl<udef> for BigInt {
     }
 }
 
+impl Ord for BigInt {
+    fn cmp(&self, other: &Self) -> Ordering {
+        self.cmp(&other)
+    }
+}
+
+impl Eq for BigInt { }
+
+impl PartialOrd for BigInt {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl PartialEq for BigInt {
+    // @morgane0847 on discord
+    fn eq(&self, rhs: &Self) -> bool {
+        let [without_trailing_zero_l, without_trailing_zero_r] =
+            [&self.0, &rhs.0].map(|v| v.iter().rev().skip_while(|&&x| x == 0));
+        without_trailing_zero_l.eq(without_trailing_zero_r)
+    }
+
+    fn ne(&self, rhs: &Self) -> bool {
+        !self.eq(rhs)
+    }
+}
+
+impl PartialOrd<udef> for BigInt {
+    fn partial_cmp(&self, other: &udef) -> Option<Ordering> {
+        Some(self.cmp(&BigInt::from(*other)))
+    }
+}
+
+impl PartialEq<udef> for BigInt {
+    fn eq(&self, other: &udef) -> bool {
+        self == &BigInt::from(*other)
+    }
+
+    fn ne(&self, other: &udef) -> bool {
+        self != &BigInt::from(*other)
+    }
+}
+
 impl LowerHex for BigInt {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
         let mut iter = self.0.iter().rev();
@@ -138,14 +182,17 @@ impl UpperHex for BigInt {
 impl Binary for BigInt {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
         let mut iter = self.0.iter().rev();
+        while iter.clone().next() == Some(&udef::from(0)) {
+            iter.next();
+        }
         if let Some(byte) = iter.next() {
             write!(f, "{byte:b}")?;
+        } else {
+            write!(f, "0")?;
+            return Ok(());
         }
-
         for &byte in iter {
-            if byte > 0 {
-                write!(f, "{byte:0wid$b}", wid = size_of::<udef>() * 8)?;
-            }
+            write!(f, "{byte:0wid$b}", wid = size_of::<udef>() * 8)?;
         }
         Ok(())
     }
@@ -218,17 +265,18 @@ impl From<String> for ALN {
             if let Some(digit) = c.to_digit(10) {
                 aln.int = (aln.int * 10) + &BigInt::from(digit as udef);
             }
-            print!("Vec State: ");
-            for item in &aln.int.0 {
-                if item > &0 {
-                    print!("{:} ", item);
-                }
-            }
-            println!("");
-            println!("00000000{:b} ", aln.int);
-            // println!("{:b} ", (aln.int.clone() >> 3));
-            println!("{:b} ", (aln.int.clone() << 3));
+            // print!("Vec State: ");
+            // for item in &aln.int.0 {
+            //     if item > &0 {
+            //         print!("{:} ", item);
+            //     }
+            // }
+            // println!("");
+            println!("{:b} ", aln.int);
+            // println!("{:b} ", (aln.int.clone() >> 3) << 3);
+            // println!("{:b} ", (aln.int.clone() << 3) >> 3);
         }
+        // println!("{:b} ", aln.int);
         Self::empty()
     }
 }
