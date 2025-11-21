@@ -39,6 +39,6 @@ fn main() {
     // c1.log_bits();
     // c1.log_value();
 
-    let aln = ALN::from("123456789");
+    let aln = ALN::from("12345");
 
 }
