@@ -261,23 +261,21 @@ impl From<String> for ALN {
             frc = Default::default();
             dec = false;
         }
-        for (i, c) in int.chars().enumerate() {
+        for (_i, c) in int.chars().enumerate() {
             if let Some(digit) = c.to_digit(10) {
                 aln.int = (aln.int * 10) + &BigInt::from(digit as udef);
             }
-            // print!("Vec State: ");
-            // for item in &aln.int.0 {
-            //     if item > &0 {
-            //         print!("{:} ", item);
-            //     }
-            // }
-            // println!("");
-            println!("{:b} ", aln.int);
-            // println!("{:b} ", (aln.int.clone() >> 3) << 3);
-            // println!("{:b} ", (aln.int.clone() << 3) >> 3);
         }
-        // println!("{:b} ", aln.int);
-        Self::empty()
+        if dec {
+            for (_i, c) in frc.chars().enumerate() {
+                if let Some(digit) = c.to_digit(10) {
+                    aln.frc = (aln.frc * 10) + &BigInt::from(digit as udef);
+                }
+            }
+            // whole sequence bits / (1 << (total bits - decimal place))
+        }
+        println!("{:b}.{:b}", aln.int, aln.frc);
+        aln
     }
 }
 
